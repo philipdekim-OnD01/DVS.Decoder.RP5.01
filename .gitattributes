@@ -1,0 +1,5 @@
+# Preserve archived bytes and original setfile CRLF endings.
+payload/** -text
+payload/home/philip/bin/Delta_10_2000FPS.txt -whitespace
+drivers/** -text
+metadata/** -text
