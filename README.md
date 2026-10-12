@@ -83,3 +83,11 @@ python3 -m unittest discover -s tests -p 'test_installer.py' -v
 현재 Pi에서 두 드라이버·디코더·오버레이의 소스 빌드, 디코더/표면 렌더링 회귀 검사 및 설치 사전 검사를 수행했습니다. 설치 파일의 스테이징과 백업/복원 검사를 수행했으며, 별도의 새 SD 카드에서 전체 설치 후 부팅 테스트는 수행하지 않았습니다. 실행 중인 장비는 이 패키지 제작 과정에서 재설치하거나 재부팅하지 않았습니다.
 
 자세한 설정과 측정은 [최적화 보고서](payload/home/philip/dvs_raw2_production/OPTIMIZATION_REPORT.md)를 참고하세요.
+
+## 저장된 RAW 원본 재생
+
+프레임을 합치거나 건너뛰지 않는 [RAW 재생기](player/README.md)를 추가했습니다. Python 표준 라이브러리와 브라우저만 사용합니다.
+
+```bash
+python3 player/raw_player.py /파일경로/mipi-raw2-10s.dvsraw.gz
+```
