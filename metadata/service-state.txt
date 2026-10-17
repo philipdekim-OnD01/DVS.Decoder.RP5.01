@@ -1,0 +1,3 @@
+MainPID=20496
+Environment=DVS_RAW2_VIS_CONFIG=/home/philip/dvs_raw2_visual_candidate_20261016/viewer_settings.conf DVS_RAW2_ALIGNMENT_AUDIT=0 DVS_RAW2_BOUNDARY_SHADOW=1 DVS_RAW2_TRACE_SHADOW=1
+ActiveState=active

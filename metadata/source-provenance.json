@@ -1,0 +1,294 @@
+{
+  "captured_at": "2026-10-18T07:45:47+09:00",
+  "running_producer_sha256": "5c2a88249aca8c3e3af0e0c3ec6ad772cad902ef215bc531a635f9c7af16776b",
+  "matching_build": "/home/philip/dvs_raw2_trace_shadow_20261016/build/raw2_producer_trace_shadow",
+  "canonical_source": "/home/philip/dvs_raw2_trace_shadow_20261016/src/raw2_producer_trace_shadow.cpp",
+  "installed_source_was_stale": true,
+  "files": [
+    {
+      "source": "/home/philip/bin/s5krc1s_probe_init.py",
+      "snapshot": "payload/home/philip/bin/s5krc1s_probe_init.py",
+      "sha256": "ac9964b979d12c137efb1806ffa68ebf025e81c09be45c9859badb9620a8ea49"
+    },
+    {
+      "source": "/home/philip/bin/Delta_10_2000FPS.txt",
+      "snapshot": "payload/home/philip/bin/Delta_10_2000FPS.txt",
+      "sha256": "a9fd9d86f0c8d1d7970510cf2abcf334792019055b44190a24441f7f4da62002"
+    },
+    {
+      "source": "/home/philip/dvs_web_app/index.html",
+      "snapshot": "payload/home/philip/dvs_web_app/index.html",
+      "sha256": "a4786052be0e98815a894018e88bfd3047a6090f065ddf76e9d12956451c4663"
+    },
+    {
+      "source": "/home/philip/dvs_web_app/app.js",
+      "snapshot": "payload/home/philip/dvs_web_app/app.js",
+      "sha256": "ca2cffc442aabc75ab4587dfdb6ec0d8101b2d2155df1e4a24d6bde3e56468e7"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_production/raw2_production_start.sh",
+      "snapshot": "payload/home/philip/dvs_raw2_production/raw2_production_start.sh",
+      "sha256": "ac7b6b0340a58fcd28b91c457738e12f9ed7532916906f239a538b503845fc12"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_production/frame_surface.py",
+      "snapshot": "payload/home/philip/dvs_raw2_production/frame_surface.py",
+      "sha256": "6acf8c27d6d6c23d715a10fe5d1b70b4c67a9046d33bbdba239fddcd21af7da1"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_production/app_raw2.js",
+      "snapshot": "payload/home/philip/dvs_raw2_production/app_raw2.js",
+      "sha256": "310ad687426dc8a01500aecc97562392830098d0b160147f95df10b5698d3274"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_production/dvs_renderer.hpp",
+      "snapshot": "payload/home/philip/dvs_raw2_production/dvs_renderer.hpp",
+      "sha256": "70a3c11d61fd4a8911775e60032ec388dcc7ceac3825f4cfb02b403aaf0d291e"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_production/server_production.py",
+      "snapshot": "payload/home/philip/dvs_raw2_production/server_production.py",
+      "sha256": "29b2143f9b69ad2f6c46aeda022e08b78ec88594a5fce1711d612b67d1611b4f"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_production/sensor_hand_profile.py",
+      "snapshot": "payload/home/philip/dvs_raw2_production/sensor_hand_profile.py",
+      "sha256": "ca9e064470ef661d38edfaddbc36cfd45807c8fe31b1dce689202310af78b06e"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_production/dvs_renderer.cpp",
+      "snapshot": "payload/home/philip/dvs_raw2_production/dvs_renderer.cpp",
+      "sha256": "1827df52cd4a594d1b3ecc75b56fb56880c2b8870c42af4db55d78a4f4d84f59"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_production/OPTIMIZATION_REPORT.md",
+      "snapshot": "payload/home/philip/dvs_raw2_production/OPTIMIZATION_REPORT.md",
+      "sha256": "2df2579399504e523f9addf20d8b3cc1ab28efcfa9eb340ccf3f4cc1815c64c1"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_production/raw2_producer",
+      "snapshot": "payload/home/philip/dvs_raw2_production/raw2_producer",
+      "sha256": "5c2a88249aca8c3e3af0e0c3ec6ad772cad902ef215bc531a635f9c7af16776b"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_production/hdmi_controls.py",
+      "snapshot": "payload/home/philip/dvs_raw2_production/hdmi_controls.py",
+      "sha256": "2f95fddb74e2e57a444a54c08cded9b4fbafe1cf28eafb817574255ccac6aeef"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_production/raw2_producer.cpp",
+      "snapshot": "payload/home/philip/dvs_raw2_production/raw2_producer.cpp",
+      "sha256": "00e4bef7e0f9743ebdc09e6e16eae6147206e981f72ccae01a8506b737c6bc91"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_production/backup/sensor_registers_before_key.txt",
+      "snapshot": "payload/home/philip/dvs_raw2_production/backup/sensor_registers_before_key.txt",
+      "sha256": "234bd1c4f99db40ba8cc50290fdb8b8f40e8c352742a7bf5a7a28c8b16f77b02"
+    },
+    {
+      "source": "/boot/firmware/overlays/s5krc1s-cam0.dtbo",
+      "snapshot": "payload/boot/firmware/overlays/s5krc1s-cam0.dtbo",
+      "sha256": "03d0ac9dde5529fcd8194c831eb33c271a24ddd74d7052cbc6cec21bf63699f1"
+    },
+    {
+      "source": "/etc/modprobe.d/s5krc1s_min.conf",
+      "snapshot": "payload/etc/modprobe.d/s5krc1s_min.conf",
+      "sha256": "0a7b6de8f08e62c6c5cae36b08227dfa6ff403866bc72fca0309a186b1a766da"
+    },
+    {
+      "source": "/etc/modprobe.d/dvs-raw2-production-rp1.conf",
+      "snapshot": "payload/etc/modprobe.d/dvs-raw2-production-rp1.conf",
+      "sha256": "e176768321d62458ed9d8e65df2afad0acc81ab951d3c632638aaec536cc2eee"
+    },
+    {
+      "source": "/etc/systemd/system/dvs-raw2-production.service",
+      "snapshot": "payload/etc/systemd/system/dvs-raw2-production.service",
+      "sha256": "036ea1bf3ed2fa7bb4796d86808d1877ef79b097924150aee9a292e81e8f8d67"
+    },
+    {
+      "source": "/lib/modules/6.12.47+rpt-rpi-2712/updates/rp1-cfe.ko",
+      "snapshot": "payload/lib/modules/6.12.47+rpt-rpi-2712/updates/rp1-cfe.ko",
+      "sha256": "0d09dbeaee5fda45bc3e24407254d19dd454c2f4fbb2a26c356b93bf47bfa3dd"
+    },
+    {
+      "source": "/lib/modules/6.12.47+rpt-rpi-2712/extra/s5krc1s_min.ko",
+      "snapshot": "payload/lib/modules/6.12.47+rpt-rpi-2712/extra/s5krc1s_min.ko",
+      "sha256": "474d02b06165804310e91ee16dca70de691664f1b806783e3f4eda2dd6584153"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_production/raw2_producer.cpp",
+      "snapshot": "metadata/installed-stale-producer.cpp",
+      "sha256": "00e4bef7e0f9743ebdc09e6e16eae6147206e981f72ccae01a8506b737c6bc91"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_trace_shadow_20261016/src/raw2_producer_trace_shadow.cpp",
+      "snapshot": "payload/home/philip/dvs_raw2_production/raw2_producer.cpp",
+      "sha256": "6f9360d9114df6f20530afec979074470c65cd091e7a9cd6b007ee20e5b71c70"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_trace_shadow_20261016/src/raw2_alignment_audit.hpp",
+      "snapshot": "payload/home/philip/dvs_raw2_production/raw2_alignment_audit.hpp",
+      "sha256": "2abbff2dff0282194bb6009b8289fd0c5a9f23ff28f0f2d0fee5f41cc6a5599e"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_trace_shadow_20261016/src/visual_presentation.hpp",
+      "snapshot": "payload/home/philip/dvs_raw2_production/visual_presentation.hpp",
+      "sha256": "9103e321c71c5aace1e1cb7f39e506842d5dc38a60f4fc43fe070331ace08d61"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_trace_shadow_20261016/src/boundary_live_shadow.hpp",
+      "snapshot": "payload/home/philip/dvs_raw2_production/boundary_live_shadow.hpp",
+      "sha256": "8665a987aba11e777842687d2354d7210088c42f9e6122e1e5d20e3e5901f13a"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_trace_shadow_20261016/tests/test_live_shadow.cpp",
+      "snapshot": "tests/test_live_shadow.cpp",
+      "sha256": "736e9017932d3b0d6063d0139e42606dd3cd3b1adb5fbfecf9928da195986167"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_trace_shadow_20261016/tests/test_trace.cpp",
+      "snapshot": "tests/test_trace.cpp",
+      "sha256": "e478ffd0e5a2598cdeb55e595aa9a0466961ce39cc31295f747e3bc14d9d2689"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_trace_shadow_20261016/tests/test_json_metrics.cpp",
+      "snapshot": "tests/test_json_metrics.cpp",
+      "sha256": "d84960530bcc11115d26d238da4e69acebbb3390b0d2757ecacf99f56bec24d8"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_visual_candidate_20261016/tests/test_visual.cpp",
+      "snapshot": "tests/test_visual.cpp",
+      "sha256": "3ad60a0a77a82effa0672203a91529e2adaa4ae04489a9fd28f4596278963ad2"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_visual_candidate_20261016/tests/test_alignment.cpp",
+      "snapshot": "tests/test_alignment.cpp",
+      "sha256": "e8642bdd10b48268c94ffcf1771bad82a7d1e40675a236488397bbc8ef1c54b4"
+    },
+    {
+      "source": "/etc/systemd/system/dvs-raw2-production.service.d/50-visual-ab.conf",
+      "snapshot": "payload/etc/systemd/system/dvs-raw2-production.service.d/50-visual-ab.conf",
+      "sha256": "4a191abd0e0390e29753e41bc2e5e43516648fa7ea4c491e4627bfb0eff346a0"
+    },
+    {
+      "source": "/etc/systemd/system/dvs-raw2-production.service.d/60-boundary-shadow.conf",
+      "snapshot": "payload/etc/systemd/system/dvs-raw2-production.service.d/60-boundary-shadow.conf",
+      "sha256": "915e7a3f381af5f729bbafc24ea2b7c276737e42d7fe1afaf360e5e7e9c5e813"
+    },
+    {
+      "source": "/etc/systemd/system/dvs-raw2-production.service.d/80-boundary-trace.conf",
+      "snapshot": "payload/etc/systemd/system/dvs-raw2-production.service.d/80-boundary-trace.conf",
+      "sha256": "e78dbeeb9a038aa2f26a6cf59301a681d57984c0b70032df282a18957d2c9d5e"
+    },
+    {
+      "source": "/etc/systemd/system/dvs-raw2-production.service.d/70-boundary-hist.conf",
+      "snapshot": "payload/etc/systemd/system/dvs-raw2-production.service.d/70-boundary-hist.conf",
+      "sha256": "915e7a3f381af5f729bbafc24ea2b7c276737e42d7fe1afaf360e5e7e9c5e813"
+    },
+    {
+      "source": "/home/philip/dvs_raw2_visual_candidate_20261016/viewer_settings.conf",
+      "snapshot": "payload/home/philip/dvs_raw2_visual_candidate_20261016/viewer_settings.conf",
+      "sha256": "d6e56e29fe6ed317c9803a76627e01840110e2a9171fad607dc078fb9909a796"
+    },
+    {
+      "source": "/home/philip/dvs_debug/pack_bytes_build/rp1_cfe/pisp_statistics.h",
+      "snapshot": "drivers/rp1_cfe/pisp_statistics.h",
+      "sha256": "fdbe3e3b474d1304f4cf2712e603c6b0a7e94db88715c218c6417f86f30ae431"
+    },
+    {
+      "source": "/home/philip/dvs_debug/pack_bytes_build/rp1_cfe/Makefile",
+      "snapshot": "drivers/rp1_cfe/Makefile",
+      "sha256": "e3b61acd675073f33cc2e6103bfe6c679c25f9333f7d4da9f43e80737897a926"
+    },
+    {
+      "source": "/home/philip/dvs_debug/pack_bytes_build/rp1_cfe/cfe.c",
+      "snapshot": "drivers/rp1_cfe/cfe.c",
+      "sha256": "184820042bb272cc9b6eb02bd66c318fa8dac0b3b3e45e4488863b1114600e66"
+    },
+    {
+      "source": "/home/philip/dvs_debug/pack_bytes_build/rp1_cfe/csi2.c",
+      "snapshot": "drivers/rp1_cfe/csi2.c",
+      "sha256": "d48bfc6cc4b2a42623af4b0a29501a13e5cfb511dc191aaa0eb5598f5cc8552d"
+    },
+    {
+      "source": "/home/philip/dvs_debug/pack_bytes_build/rp1_cfe/pisp_fe.c",
+      "snapshot": "drivers/rp1_cfe/pisp_fe.c",
+      "sha256": "18800358b8c7230bbadd8de1f98da0b477986c40a802a59710405137e7c9e06d"
+    },
+    {
+      "source": "/home/philip/dvs_debug/pack_bytes_build/rp1_cfe/cfe_fmts.h",
+      "snapshot": "drivers/rp1_cfe/cfe_fmts.h",
+      "sha256": "b5aa1549efb5feca7bb873a7c35391763db8f5cbd6245d9e698fd6920c31cac6"
+    },
+    {
+      "source": "/home/philip/dvs_debug/pack_bytes_build/rp1_cfe/dphy.c",
+      "snapshot": "drivers/rp1_cfe/dphy.c",
+      "sha256": "0e36b7f3b00fe0500c6e44513c0dccf5a8dc5cb1f64706dce821ee71c0c29c2b"
+    },
+    {
+      "source": "/home/philip/dvs_debug/pack_bytes_build/rp1_cfe/csi2.h",
+      "snapshot": "drivers/rp1_cfe/csi2.h",
+      "sha256": "4f0a76c686250aee73edbd48978cbfe6d3a6a9714209a15b9193dbc202903948"
+    },
+    {
+      "source": "/home/philip/dvs_debug/pack_bytes_build/rp1_cfe/pisp_types.h",
+      "snapshot": "drivers/rp1_cfe/pisp_types.h",
+      "sha256": "9fa5f6727cd2e2d1afcd310707effa9a3de48c9b6885b6da8ac2a540fcae0f2d"
+    },
+    {
+      "source": "/home/philip/dvs_debug/pack_bytes_build/rp1_cfe/pisp_fe.h",
+      "snapshot": "drivers/rp1_cfe/pisp_fe.h",
+      "sha256": "308d272566a324a9718bda21db3a008ced6e7c8b7a73519a3636029497f92c39"
+    },
+    {
+      "source": "/home/philip/dvs_debug/pack_bytes_build/rp1_cfe/pisp_fe_config.h",
+      "snapshot": "drivers/rp1_cfe/pisp_fe_config.h",
+      "sha256": "58f168f0180ea4921f79d27e4decba81f9a13185e596c868823e0320a45e47ee"
+    },
+    {
+      "source": "/home/philip/dvs_debug/pack_bytes_build/rp1_cfe/pisp_common.h",
+      "snapshot": "drivers/rp1_cfe/pisp_common.h",
+      "sha256": "27b36513a78a0315f628da114db30cdb08ab1dd52746294a525ff7f138302ff6"
+    },
+    {
+      "source": "/home/philip/dvs_debug/pack_bytes_build/rp1_cfe/dphy.h",
+      "snapshot": "drivers/rp1_cfe/dphy.h",
+      "sha256": "0dad1e2bc6386cf4af61e6e94fa9247cf5e722d2fa6b450db6f08575f606bf88"
+    },
+    {
+      "source": "/home/philip/dvs_debug/pack_bytes_build/rp1_cfe/cfe.h",
+      "snapshot": "drivers/rp1_cfe/cfe.h",
+      "sha256": "8d04319884045bc7a80aea572128e8c42a7fadd82db586dd225929f06cbee01a"
+    },
+    {
+      "source": "/home/philip/dvs_debug/pack_bytes_build/rp1_cfe/Kconfig",
+      "snapshot": "drivers/rp1_cfe/Kconfig",
+      "sha256": "2ffb92b340a3cdfc29f912812705b134fb405827d6744f24d3fc21a16f548c79"
+    },
+    {
+      "source": "/home/philip/dvs_debug/transport_phase2_5_build/sensor/Makefile",
+      "snapshot": "drivers/sensor/Makefile",
+      "sha256": "d399f216925f4696162c16b01251fc9e34dd5b4c3400f2412945469c9ed9ce08"
+    },
+    {
+      "source": "/home/philip/dvs_debug/transport_phase2_5_build/sensor/s5krc1s_guard_height_debug.c",
+      "snapshot": "drivers/sensor/s5krc1s_guard_height_debug.c",
+      "sha256": "2d4bac19806d4e84d1bbdd81f69068296c01c83c09a39323e1588c735a2bcae9"
+    },
+    {
+      "source": "/home/philip/dvs_debug/transport_phase2_5_build/sensor/s5krc1s_min.c",
+      "snapshot": "drivers/sensor/s5krc1s_min.c",
+      "sha256": "2d4bac19806d4e84d1bbdd81f69068296c01c83c09a39323e1588c735a2bcae9"
+    },
+    {
+      "source": "/home/philip/dvs_driver_work/s5krc1s-cam0-overlay.dts",
+      "snapshot": "drivers/overlay/s5krc1s-cam0-overlay.dts",
+      "sha256": "4c585bc4dccc0d0dedf9da2a87775ed62f1573dcad95670d76c0f7fb495d7892"
+    },
+    {
+      "source": "/tmp/dvs_web_metrics.json",
+      "snapshot": "metadata/capture-metrics.json",
+      "sha256": "72cf52bda17359c53bbb5ab7495f784a54dc55d0bd90446ee002083fb9781da5"
+    }
+  ]
+}

@@ -7,6 +7,10 @@ installer=importlib.util.module_from_spec(spec); spec.loader.exec_module(install
 
 class InstallerTests(unittest.TestCase):
     def test_snapshot_integrity(self): installer.verify()
+    def test_dropins_backed_up_as_one_directory(self):
+        targets=installer.backup_targets()
+        self.assertEqual(targets.count(installer.DROPINS),1)
+        self.assertFalse(any(installer.DROPINS in p.parents for p in targets))
     def test_boot_preserves_and_is_idempotent(self):
         original="[all]\ndtoverlay=s5krc1s-cam0\n# display settings\n"
         result=installer.configure_boot(original)
@@ -26,3 +30,13 @@ class InstallerTests(unittest.TestCase):
             self.assertEqual(old.stat().st_mode&0o777,0o640)
             self.assertFalse(new.exists());self.assertFalse((venv/"new-lib").exists())
             self.assertTrue((venv/"python").is_symlink())
+    def test_restore_dropin_directory_including_unknown_overrides(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp); dropins=root/"service.d"; dropins.mkdir()
+            (dropins/"99-local.conf").write_text("old override")
+            installer.backup([dropins],root/"backup")
+            (dropins/"99-local.conf").unlink()
+            (dropins/"50-visual-ab.conf").write_text("new override")
+            installer.restore(root/"backup")
+            self.assertEqual((dropins/"99-local.conf").read_text(),"old override")
+            self.assertFalse((dropins/"50-visual-ab.conf").exists())

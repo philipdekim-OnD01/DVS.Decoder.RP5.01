@@ -1,0 +1,37 @@
+# /etc/systemd/system/dvs-raw2-production.service
+[Unit]
+Description=S5KRC1S RAW2 production web and HDMI pipeline
+After=network-online.target display-manager.service
+Wants=network-online.target display-manager.service
+ConditionPathExists=/home/philip/dvs_raw2_production/raw2_producer
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/home/philip/dvs_raw2_production/raw2_production_start.sh
+TimeoutStartSec=0
+TimeoutStopSec=45
+KillMode=mixed
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
+# /etc/systemd/system/dvs-raw2-production.service.d/50-visual-ab.conf
+[Service]
+Environment=DVS_RAW2_VIS_CONFIG=/home/philip/dvs_raw2_visual_candidate_20261016/viewer_settings.conf
+Environment=DVS_RAW2_ALIGNMENT_AUDIT=0
+
+# /etc/systemd/system/dvs-raw2-production.service.d/60-boundary-shadow.conf
+[Service]
+Environment=DVS_RAW2_BOUNDARY_SHADOW=1
+
+# /etc/systemd/system/dvs-raw2-production.service.d/70-boundary-hist.conf
+[Service]
+Environment=DVS_RAW2_BOUNDARY_SHADOW=1
+
+# /etc/systemd/system/dvs-raw2-production.service.d/80-boundary-trace.conf
+[Service]
+Environment=DVS_RAW2_TRACE_SHADOW=1

@@ -1,0 +1,12 @@
+{
+  "service": "active",
+  "http": 200,
+  "producer_status": "active",
+  "ipc_status": "connected",
+  "websocket_video_bytes": 172824,
+  "frames_advanced": 2266,
+  "capture_fps": 1190.395,
+  "web_fps": 58.97,
+  "hdmi_fps": 59.97,
+  "running_producer_sha256": "5c2a88249aca8c3e3af0e0c3ec6ad772cad902ef215bc531a635f9c7af16776b"
+}

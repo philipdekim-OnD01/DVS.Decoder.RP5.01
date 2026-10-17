@@ -6,6 +6,8 @@ KERNEL = "6.12.47+rpt-rpi-2712"
 UNIT = "dvs-raw2-production.service"
 VENV = pathlib.Path("/home/philip/dvs_web_app/.venv")
 BOOT = pathlib.Path("/boot/firmware/config.txt")
+DROPINS = pathlib.Path("/etc/systemd/system") / (UNIT + ".d")
+VIS_CONFIG = pathlib.Path("/home/philip/dvs_raw2_visual_candidate_20261016/viewer_settings.conf")
 
 def run(*args, **kw):
     return subprocess.run(args, check=True, **kw)
@@ -26,6 +28,12 @@ def configure_boot(current):
 
 def files():
     return sorted(p for p in (ROOT / "payload").rglob("*") if p.is_file())
+
+def backup_targets():
+    # Snapshot the entire drop-in directory, including overrides unknown to this
+    # release. Nested files must not also be backed up individually.
+    targets = [pathlib.Path("/") / p.relative_to(ROOT / "payload") for p in files()]
+    return [p for p in targets if DROPINS not in p.parents] + [DROPINS, BOOT, VENV]
 
 def preflight():
     if os.geteuid() != 0: raise RuntimeError("Run sudo ./install.sh")
@@ -107,7 +115,7 @@ def main():
     # Download dependencies before interrupting the running application.
     with tempfile.TemporaryDirectory(prefix="dvs-wheels-") as wheel_dir:
         run("python3","-m","pip","download","--dest",wheel_dir,"-r",str(ROOT/"requirements.txt"))
-        targets=[pathlib.Path("/")/p.relative_to(ROOT/"payload") for p in files()]+[BOOT,VENV]
+        targets=backup_targets()
         directory=pathlib.Path("/var/backups/dvs")/(time.strftime("%Y%m%d-%H%M%S")+"-"+str(os.getpid()))
         state={"enabled":subprocess.run(["systemctl","is-enabled","--quiet",UNIT]).returncode==0,
                "active":subprocess.run(["systemctl","is-active","--quiet",UNIT]).returncode==0}
@@ -119,6 +127,7 @@ def main():
         (directory/"service.json").write_text(json.dumps(state))
         print("Backup:",directory,flush=True)
         try:
+            if DROPINS.exists(): shutil.rmtree(DROPINS)
             for p in files():
                 target=pathlib.Path("/")/p.relative_to(ROOT/"payload")
                 target.parent.mkdir(parents=True,exist_ok=True); shutil.copy2(p,target)
@@ -131,6 +140,7 @@ def main():
             BOOT.write_text(configure_boot(current))
             run("usermod","-aG","video,render,i2c","philip")
             run("chown","-R","philip:philip","/home/philip/dvs_raw2_production","/home/philip/dvs_web_app")
+            run("chown","philip:philip",str(VIS_CONFIG))
             run("depmod","-a",KERNEL); run("systemctl","daemon-reload"); run("systemctl","enable",UNIT)
         except BaseException:
             print("Install failed; restoring backed-up files.",file=sys.stderr)

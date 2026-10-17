@@ -1,0 +1,37 @@
+make: Entering directory '/usr/src/linux-headers-6.12.47+rpt-rpi-2712'
+  CC [M]  /tmp/dvs-build.bgoZQV/drivers/sensor/s5krc1s_min.o
+  MODPOST /tmp/dvs-build.bgoZQV/drivers/sensor/Module.symvers
+  CC [M]  /tmp/dvs-build.bgoZQV/drivers/sensor/s5krc1s_min.mod.o
+  CC [M]  /tmp/dvs-build.bgoZQV/drivers/sensor/.module-common.o
+  LD [M]  /tmp/dvs-build.bgoZQV/drivers/sensor/s5krc1s_min.ko
+make: Leaving directory '/usr/src/linux-headers-6.12.47+rpt-rpi-2712'
+make: Entering directory '/usr/src/linux-headers-6.12.47+rpt-rpi-2712'
+  CC [M]  /tmp/dvs-build.bgoZQV/drivers/rp1_cfe/cfe.o
+  CC [M]  /tmp/dvs-build.bgoZQV/drivers/rp1_cfe/csi2.o
+  CC [M]  /tmp/dvs-build.bgoZQV/drivers/rp1_cfe/pisp_fe.o
+  CC [M]  /tmp/dvs-build.bgoZQV/drivers/rp1_cfe/dphy.o
+  LD [M]  /tmp/dvs-build.bgoZQV/drivers/rp1_cfe/rp1-cfe.o
+  MODPOST /tmp/dvs-build.bgoZQV/drivers/rp1_cfe/Module.symvers
+  CC [M]  /tmp/dvs-build.bgoZQV/drivers/rp1_cfe/rp1-cfe.mod.o
+  CC [M]  /tmp/dvs-build.bgoZQV/drivers/rp1_cfe/.module-common.o
+  LD [M]  /tmp/dvs-build.bgoZQV/drivers/rp1_cfe/rp1-cfe.ko
+make: Leaving directory '/usr/src/linux-headers-6.12.47+rpt-rpi-2712'
+PASS: code counts, packet wrap, coordinate mapping, invalid preservation
+Reference: 2083.5 us/frame; checksum 137187400
+Optimized: 508.066 us/frame; checksum 137187400
+PASS: RAW2 embedded signature run, period 971, period 976, record boundary, discontinuity
+PASS: display legacy identity, Jetson polarity, temporal fade, denoise, input immutability, config validation
+PASS: histogram other intervals, 971/955, boundary split, no coordinate changes
+PASS: 966/-5 samples; rejected wrap 11+10; split markers; discontinuity; bounded 128-row ring
+PASS: production metrics JSON and 21-column wrap metadata
+test_dilation_does_not_mutate_event_history (test_frame_surface.SurfaceTests.test_dilation_does_not_mutate_event_history) ... ok
+test_hot_pixel_counts_input_frames_only (test_frame_surface.SurfaceTests.test_hot_pixel_counts_input_frames_only) ... ok
+test_polarity_roi_flip_and_unassigned (test_frame_surface.SurfaceTests.test_polarity_roi_flip_and_unassigned) ... ok
+test_short_decay_and_no_repeat_refresh (test_frame_surface.SurfaceTests.test_short_decay_and_no_repeat_refresh) ... ok
+test_temporal_neighbor_preserves_thin_edges (test_frame_surface.SurfaceTests.test_temporal_neighbor_preserves_thin_edges) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.364s
+
+OK
+Build/tests OK. Outputs in build/; live drivers/application unchanged.
