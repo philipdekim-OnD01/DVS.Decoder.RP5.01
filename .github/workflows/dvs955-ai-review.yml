@@ -1,0 +1,29 @@
+name: DVS 955-960 AI Review
+
+on:
+  issue_comment:
+    types: [created]
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  models: read
+  contents: read
+
+concurrency:
+  group: dvs955-ai-review-issue-1
+  cancel-in-progress: false
+
+jobs:
+  review:
+    if: github.event_name != 'issue_comment' || (github.event.issue.number == 1 && github.event.comment.user.type != 'Bot')
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Review new Codex result with GitHub Models
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/dvs955_ai_review.py
