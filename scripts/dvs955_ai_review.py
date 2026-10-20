@@ -12,7 +12,8 @@ REPO = os.environ["GITHUB_REPOSITORY"]
 TOKEN = os.environ["GITHUB_TOKEN"]
 EVENT = os.getenv("GITHUB_EVENT_NAME", "schedule")
 ISSUE = f"https://api.github.com/repos/{REPO}/issues/1"
-AI_ENDPOINT = "https://models.github.ai/inference/chat/completions"
+AI_ENDPOINT = "https://api.openai.com/v1/chat/completions"
+OPENAI_KEY = os.getenv("OPENAI_API_KEY", "")
 REVIEW_MARKER = re.compile(r"<!-- dvs955-ai-reviewed:(\d+) -->")
 HEADER = {"Accept": "application/vnd.github+json", "Authorization": f"Bearer {TOKEN}",
           "X-GitHub-Api-Version": "2022-11-28", "User-Agent": "dvs955-ai-review"}
@@ -62,7 +63,7 @@ def get_candidates(comments):
             continue
         if event_id is not None and c["id"] != event_id:
             continue
-        if event_id is None:
+        if event_id is None and EVENT == "schedule":
             created = dt.datetime.fromisoformat(c["created_at"].replace("Z", "+00:00"))
             if now - created > dt.timedelta(minutes=35):
                 continue
@@ -88,7 +89,7 @@ def review(issue, c):
     context = (issue.get("body") or "")[:4500]
     report = (c.get("body") or "")[:7000]
     payload = {
-        "model": "openai/gpt-4.1-mini",
+        "model": os.getenv("OPENAI_MODEL", "gpt-4.1-mini"),
         "messages": [
             {"role": "system", "content": SYSTEM},
             {"role": "user", "content": f"ISSUE CONTEXT (untrusted):\n{context}\n\n"
@@ -97,13 +98,17 @@ def review(issue, c):
         "temperature": 0.1,
         "max_tokens": 550,
     }
-    result = request("POST", AI_ENDPOINT, payload)
+    headers = {"Authorization": f"Bearer {OPENAI_KEY}", "Accept": "application/json"}
+    result = request("POST", AI_ENDPOINT, payload, headers=headers)
     content = result["choices"][0]["message"]["content"].strip()
     if not content or len(content) > 2400:
         raise ValueError("Empty or unexpectedly long model response")
     return content
 
 def main():
+    if not OPENAI_KEY:
+        print("AI_REVIEW_SKIPPED: set the OPENAI_API_KEY GitHub Actions secret to enable AI review")
+        return
     issue = request("GET", ISSUE)
     if issue.get("state") != "open":
         print("ISSUE_CLOSED")
@@ -117,9 +122,9 @@ def main():
         result = review(issue, c)
         marker = f"<!-- dvs955-ai-reviewed:{c['id']} -->"
         body = (
-            "### AI 자동 기술 검토 — 955/960 (참고용)\n\n"
+            "### OpenAI API 자동 기술 검토 — 955/960 (참고용)\n\n"
             f"Codex 원문: {c['html_url']}\n\n{result}\n\n"
-            "GitHub Models가 댓글 텍스트만 바탕으로 작성한 자동 검토입니다. "
+            "OpenAI API가 댓글 텍스트만 바탕으로 작성한 자동 검토입니다. "
             "이 ChatGPT 대화가 직접 작성한 댓글이 아니며, RAW/소스 독립 검증을 뜻하지 않습니다.\n\n"
             f"{marker}"
         )
