@@ -18,7 +18,7 @@ CHATGPT = re.compile(r"<!-- dvs955-chatgpt-reviewed:(\d+) -->")
 CLAIM = re.compile(r"<!-- dvs955-codex-started:(\d+) -->")
 TRUSTED = {"OWNER", "COLLABORATOR", "MEMBER"}
 PROMPT = Path(".dvs955_codex_prompt.txt")
-RESULT = Path(".dvs955_codex_result.md")
+RESULT = Path("experiment/.dvs955_codex_result.md")
 
 def gh(method, url, data=None):
     headers = {
