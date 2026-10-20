@@ -1,10 +1,8 @@
-name: DVS 955-960 ChatGPT to Codex Continuation
+name: DVS 955-960 Codex Handoff (API key required)
 
 on:
   issue_comment:
     types: [created]
-  schedule:
-    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -17,6 +15,7 @@ concurrency:
 
 jobs:
   codex:
+    name: Codex handoff gate (not proof of execution)
     if: github.event_name != 'issue_comment' || github.event.issue.number == 1
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -39,6 +38,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CODEX_API_KEY_PRESENT: ${{ secrets.OPENAI_API_KEY != '' }}
         run: python3 scripts/dvs955_codex_bridge.py reserve
+
+      - name: Report no Codex execution when gate is closed
+        if: steps.gate.outputs.should_run != 'true'
+        run: |
+          echo "### Codex NOT RUN" >> "$GITHUB_STEP_SUMMARY"
+          echo "Gate did not authorize a Codex run. No model call, Raspberry Pi SSH, code modification or test was performed." >> "$GITHUB_STEP_SUMMARY"
+          echo "Read the gate step log for the reason. An Actions green check means only that this gate job completed, not that Codex ran." >> "$GITHUB_STEP_SUMMARY"
 
       - name: Run Codex offline in experiment workspace
         id: codex_run
