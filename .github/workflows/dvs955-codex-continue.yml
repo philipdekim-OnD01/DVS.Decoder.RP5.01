@@ -1,0 +1,78 @@
+name: DVS 955-960 ChatGPT to Codex Continuation
+
+on:
+  issue_comment:
+    types: [created]
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: dvs955-codex-continuation
+  cancel-in-progress: false
+
+jobs:
+  codex:
+    if: github.event_name != 'issue_comment' || github.event.issue.number == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout bridge from main
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Checkout experiment branch in separate workspace
+        uses: actions/checkout@v4
+        with:
+          ref: wrap21-v4-20261020
+          path: experiment
+          persist-credentials: false
+
+      - name: Check latest trusted ChatGPT review and reserve one run
+        id: gate
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CODEX_API_KEY_PRESENT: ${{ secrets.OPENAI_API_KEY != '' }}
+        run: python3 scripts/dvs955_codex_bridge.py reserve
+
+      - name: Run Codex offline in experiment workspace
+        id: codex_run
+        if: steps.gate.outputs.should_run == 'true'
+        uses: openai/codex-action@v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          permission-profile: ":workspace"
+          working-directory: ${{ github.workspace }}/experiment
+          prompt-file: ${{ github.workspace }}/.dvs955_codex_prompt.txt
+          output-file: ${{ github.workspace }}/experiment/.dvs955_codex_result.md
+
+      - name: Save local patch without pushing to the repository
+        if: steps.gate.outputs.should_run == 'true' && steps.codex_run.outcome == 'success'
+        shell: bash
+        run: |
+          git -C experiment diff --check
+          git -C experiment diff --binary > dvs955-codex.patch
+          git -C experiment status --short > dvs955-codex-status.txt
+
+      - name: Attach patch for human review
+        if: steps.gate.outputs.should_run == 'true' && steps.codex_run.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: dvs955-codex-review-${{ steps.gate.outputs.review_id }}
+          path: |
+            dvs955-codex.patch
+            dvs955-codex-status.txt
+          retention-days: 7
+
+      - name: Publish one Codex result or failure to Issue #1
+        if: always() && steps.gate.outputs.should_run == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REVIEW_ID: ${{ steps.gate.outputs.review_id }}
+          CODEX_STEP_OUTCOME: ${{ steps.codex_run.outcome }}
+        run: python3 scripts/dvs955_codex_bridge.py publish
