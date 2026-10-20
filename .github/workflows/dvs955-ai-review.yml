@@ -1,4 +1,4 @@
-name: DVS 955-960 AI Review
+name: DVS 955-960 AI Review (OpenAI optional)
 
 on:
   issue_comment:
@@ -9,7 +9,6 @@ on:
 
 permissions:
   issues: write
-  models: read
   contents: read
 
 concurrency:
@@ -23,7 +22,9 @@ jobs:
     timeout-minutes: 3
     steps:
       - uses: actions/checkout@v4
-      - name: Review new Codex result with GitHub Models
+      - name: Review new Codex result (skip safely if API key is unset)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.DVS_REVIEW_MODEL || 'gpt-4.1-mini' }}
         run: python3 scripts/dvs955_ai_review.py
