@@ -1,0 +1,17 @@
+{
+  "repo_head": "60475817af1f56a62a34f96da830ec1cff0482f7",
+  "files": {
+    "drivers/rp1_cfe/cfe.c": "184820042bb272cc9b6eb02bd66c318fa8dac0b3b3e45e4488863b1114600e66",
+    "drivers/rp1_cfe/cfe_fmts.h": "b5aa1549efb5feca7bb873a7c35391763db8f5cbd6245d9e698fd6920c31cac6",
+    "drivers/rp1_cfe/csi2.c": "d48bfc6cc4b2a42623af4b0a29501a13e5cfb511dc191aaa0eb5598f5cc8552d",
+    "payload/home/philip/dvs_raw2_production/raw2_producer.cpp": "6f9360d9114df6f20530afec979074470c65cd091e7a9cd6b007ee20e5b71c70"
+  },
+  "recorder_sha256": "68f32fa2afbbdf7601c5acbfb0808fdfaedfd76a0b7f015256dc10e3821366be",
+  "findings": [
+    "GREY/Y8 maps to RAW8 depth8; remap requires Y16 or compressed output; GREY path mode NORMAL.",
+    "PACK_BYTES override sets CH_CTRL bit30; source comment says no striding for embedded data. No 180-byte rotation is implemented in audited configuration code.",
+    "Recorder copies first175680 bytes from DMA to cache/storage; appended first180 bytes are outside stored region.",
+    "Producer comment attributing signature at+176 to PACK_BYTES is not established by these source lines. Hardware behavior and recording-time runtime identity remain unproven."
+  ],
+  "next": "Check documented DT0x12 embedded versus receiver DT0x2a selection and actual archived configuration; do not infer wire type from signature."
+}

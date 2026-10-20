@@ -1,0 +1,245 @@
+{
+  "scope": "first 16 records only; chunk != proven physical column",
+  "sample_records_sha256": "d39ee91aea93fe1605a189aff91326ae43803558642b3f4baeacf81daf46508b",
+  "rows": [
+    {
+      "record": 0,
+      "sequence": 37694,
+      "flags": 8193,
+      "marker_chunk": 864,
+      "marker_file_offset": 155584,
+      "signature_file_offset": 155760,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "00009000"
+      ]
+    },
+    {
+      "record": 1,
+      "sequence": 37695,
+      "flags": 8193,
+      "marker_chunk": 859,
+      "marker_file_offset": 330396,
+      "signature_file_offset": 330572,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "00001004"
+      ]
+    },
+    {
+      "record": 2,
+      "sequence": 37696,
+      "flags": 8193,
+      "marker_chunk": 854,
+      "marker_file_offset": 505208,
+      "signature_file_offset": 505384,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "00001006"
+      ]
+    },
+    {
+      "record": 3,
+      "sequence": 37697,
+      "flags": 8193,
+      "marker_chunk": 849,
+      "marker_file_offset": 680020,
+      "signature_file_offset": 680196,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "00009007"
+      ]
+    },
+    {
+      "record": 4,
+      "sequence": 37698,
+      "flags": 8193,
+      "marker_chunk": 844,
+      "marker_file_offset": 854832,
+      "signature_file_offset": 855008,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "00009000"
+      ]
+    },
+    {
+      "record": 5,
+      "sequence": 37699,
+      "flags": 8193,
+      "marker_chunk": 839,
+      "marker_file_offset": 1029644,
+      "signature_file_offset": 1029820,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "00001000"
+      ]
+    },
+    {
+      "record": 6,
+      "sequence": 37700,
+      "flags": 8193,
+      "marker_chunk": 834,
+      "marker_file_offset": 1204456,
+      "signature_file_offset": 1204632,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "00001008"
+      ]
+    },
+    {
+      "record": 7,
+      "sequence": 37701,
+      "flags": 8193,
+      "marker_chunk": 829,
+      "marker_file_offset": 1379268,
+      "signature_file_offset": 1379444,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "0000900b"
+      ]
+    },
+    {
+      "record": 8,
+      "sequence": 37702,
+      "flags": 8193,
+      "marker_chunk": 824,
+      "marker_file_offset": 1554080,
+      "signature_file_offset": 1554256,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "0000900c"
+      ]
+    },
+    {
+      "record": 9,
+      "sequence": 37703,
+      "flags": 8193,
+      "marker_chunk": 819,
+      "marker_file_offset": 1728892,
+      "signature_file_offset": 1729068,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "0000100c"
+      ]
+    },
+    {
+      "record": 10,
+      "sequence": 37704,
+      "flags": 8193,
+      "marker_chunk": 814,
+      "marker_file_offset": 1903704,
+      "signature_file_offset": 1903880,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "0000100e"
+      ]
+    },
+    {
+      "record": 11,
+      "sequence": 37705,
+      "flags": 8193,
+      "marker_chunk": 809,
+      "marker_file_offset": 2078516,
+      "signature_file_offset": 2078692,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "0000100f"
+      ]
+    },
+    {
+      "record": 12,
+      "sequence": 37706,
+      "flags": 8193,
+      "marker_chunk": 804,
+      "marker_file_offset": 2253328,
+      "signature_file_offset": 2253504,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "00009000"
+      ]
+    },
+    {
+      "record": 13,
+      "sequence": 37707,
+      "flags": 8193,
+      "marker_chunk": 799,
+      "marker_file_offset": 2428140,
+      "signature_file_offset": 2428316,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "00009000"
+      ]
+    },
+    {
+      "record": 14,
+      "sequence": 37708,
+      "flags": 8193,
+      "marker_chunk": 794,
+      "marker_file_offset": 2602952,
+      "signature_file_offset": 2603128,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "00001000"
+      ]
+    },
+    {
+      "record": 15,
+      "sequence": 37709,
+      "flags": 8193,
+      "marker_chunk": 789,
+      "marker_file_offset": 2777764,
+      "signature_file_offset": 2777940,
+      "header_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "00001013"
+      ]
+    }
+  ],
+  "marker_spacing_histogram": {
+    "971": 15
+  },
+  "marker_run_lengths": {
+    "16": 16
+  },
+  "record0_decoder": {
+    "first_pixel": 880,
+    "source_chunk_order": "880..975,0..863",
+    "backwards_jump_byte": 175676,
+    "next_byte_after_jump": 0,
+    "chronological_next_marker_record": 1,
+    "chronological_next_marker_chunk": 859
+  },
+  "header_status": "signature verified; Fig46 fixed header/type and frame counter NOT validated"
+}

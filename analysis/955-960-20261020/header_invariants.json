@@ -1,0 +1,69 @@
+{
+  "scope": "first 16 records, 256 signature sites; adjacent words only",
+  "sample_sha256": "d39ee91aea93fe1605a189aff91326ae43803558642b3f4baeacf81daf46508b",
+  "word_histograms": [
+    {
+      "cccccccc": 256
+    },
+    {
+      "000000e0": 256
+    },
+    {
+      "00000000": 256
+    },
+    {
+      "00009000": 37,
+      "00001000": 30,
+      "00001004": 16,
+      "00001006": 5,
+      "00009006": 11,
+      "00009007": 16,
+      "00001008": 17,
+      "00009008": 13,
+      "0000900b": 16,
+      "0000900c": 5,
+      "0000100c": 27,
+      "0000100e": 15,
+      "0000900e": 1,
+      "0000100f": 5,
+      "0000900f": 11,
+      "00001010": 11,
+      "00009010": 4,
+      "00001013": 2,
+      "00009013": 14
+    }
+  ],
+  "expected_head0_popcount": 4,
+  "observed_head0_popcounts": [
+    3
+  ],
+  "observed_head1_popcounts": [
+    0
+  ],
+  "payload_byte_10_hex_count": 3552,
+  "limits": "Permutation invariants apply only to the adjacent candidate words. They do not exclude interleaving, displacement, different chip revision or corruption; no physical loss conclusion.",
+  "examples": [
+    {
+      "record": 0,
+      "chunk": 864,
+      "file_offset": 155760,
+      "words_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "00009000"
+      ]
+    },
+    {
+      "record": 0,
+      "chunk": 865,
+      "file_offset": 155940,
+      "words_be": [
+        "cccccccc",
+        "000000e0",
+        "00000000",
+        "00009000"
+      ]
+    }
+  ]
+}
