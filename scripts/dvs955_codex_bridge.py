@@ -61,6 +61,15 @@ def reserve():
     reserved_ids = {int(n) for c in comments for n in CLAIM.findall(c.get("body") or "")}
     candidates = []
     now = dt.datetime.now(dt.timezone.utc)
+    recent_starts = 0
+    for c in comments:
+        if CLAIM.search(c.get("body") or ""):
+            created = dt.datetime.fromisoformat(c["created_at"].replace("Z", "+00:00"))
+            if dt.timedelta(0) <= now - created <= dt.timedelta(hours=24):
+                recent_starts += 1
+    if recent_starts >= 3:
+        print("COST_GUARD: maximum 3 Codex runs per 24 hours")
+        return
     for c in comments:
         matches = CHATGPT.findall(c.get("body") or "")
         user = c.get("user") or {}
