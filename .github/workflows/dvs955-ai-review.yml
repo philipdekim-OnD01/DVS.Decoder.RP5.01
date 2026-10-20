@@ -1,10 +1,8 @@
-name: DVS 955-960 AI Review (OpenAI optional)
+name: DVS 955-960 AI Review (API key required)
 
 on:
   issue_comment:
     types: [created]
-  schedule:
-    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -28,3 +26,15 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ vars.DVS_REVIEW_MODEL || 'gpt-4.1-mini' }}
         run: python3 scripts/dvs955_ai_review.py
+      - name: Report whether AI review was configured
+        if: always()
+        env:
+          API_KEY_CONFIGURED: ${{ secrets.OPENAI_API_KEY != '' }}
+        run: |
+          if [ "$API_KEY_CONFIGURED" != "true" ]; then
+            echo "### AI REVIEW NOT RUN" >> "$GITHUB_STEP_SUMMARY"
+            echo "OPENAI_API_KEY is missing; no AI review was performed. A green check does NOT mean the report passed technical review." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "### AI key configured" >> "$GITHUB_STEP_SUMMARY"
+            echo "Check the prior step logs and issue comments to determine whether a new eligible report was reviewed." >> "$GITHUB_STEP_SUMMARY"
+          fi
