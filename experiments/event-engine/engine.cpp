@@ -1,6 +1,7 @@
 #include "source.h"
 #include <nrv_dvs/decoder.h>
 #include "v4l2_capture.hpp"
+#include "regular_input.hpp"
 #include <atomic>
 #include <condition_variable>
 #include <deque>
@@ -84,10 +85,10 @@ int main(int argc,char**argv){
      if(!queue.push(std::move(p),true))break;
     }
    }else{
-    std::ifstream file(argv[2],std::ios::binary);if(!file)throw std::runtime_error("file open failed");
-    while(!interrupted){Packet p;p.data.resize(4093);file.read(reinterpret_cast<char*>(p.data.data()),p.data.size());p.data.resize(file.gcount());if(p.data.empty())break;
+    RegularInput file(argv[2]);
+    while(!interrupted){Packet p;if(!file.next(p.data,4093))break;
      p.sequence=buffers++;bytes+=p.data.size();word_counts.feed(p);log<<p.sequence<<','<<p.data.size()<<",0,0\n";if(!queue.push(std::move(p),false))break;}
-    if(file.bad())throw std::runtime_error("file read failed");
+
    }
    if(!log)throw std::runtime_error("buffer log write failed");
   }catch(const std::exception&e){std::lock_guard lock(queue.mutex);queue.error=e.what();}

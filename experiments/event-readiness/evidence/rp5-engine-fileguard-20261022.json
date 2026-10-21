@@ -1,0 +1,37 @@
+{
+  "pass": true,
+  "sanitizers": "ASan/UBSan",
+  "new_negative_cases": [
+    {
+      "case": "fifo",
+      "exit_code": 1,
+      "rejected": true
+    },
+    {
+      "case": "symlink",
+      "exit_code": 1,
+      "rejected": true
+    },
+    {
+      "case": "directory",
+      "exit_code": 1,
+      "rejected": true
+    },
+    {
+      "case": "valid-live-cli",
+      "rejected": true,
+      "exit_code": 1
+    },
+    {
+      "case": "extra-live-flag",
+      "rejected": true,
+      "exit_code": 1
+    }
+  ],
+  "sample_output_sha256": "e15a8a75899f6352725e0a4fbcd73f537acd1496fda6ae8ac25cd17903be1798",
+  "frames": 1557,
+  "events": 1469217,
+  "reason_sample_recheck": "file acquisition implementation changed; prior decoder suites not rerun",
+  "real_sensor_access": false,
+  "production_ready": false
+}
