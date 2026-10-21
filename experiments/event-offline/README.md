@@ -31,3 +31,7 @@ All four fixed outputs match the aligned original byte-for-byte by SHA256 `e15a8
 This proves sample chunk-boundary invariance after the carry fix, not full protocol correctness or live DT 0x31 reception. Synthetic malformed input, timestamp wrap, frame-count wrap, discontinuity/reset, randomized splits and explicit truncated EOF accounting still need tests. Partial words at EOF remain silently unreported by the SDK; the carry fix does not yet expose that counter. Raw struct output includes ABI layout and is a same-host comparison artifact, not a portable recording format. No throughput, CPU, zero-loss, sensor fps or RP5 success claim is made.
 
 Next: complete these parser tests and design the bounded capture/decode pipeline and 960×720 viewer. Hardware work requires separate approval and isolation from production at `philip@192.168.0.177`.
+
+## Phase A continuation (2026-10-21)
+
+`phase_a.py SDK SAMPLE RESULTS_JSON` builds the temporary patched core with `g++` (override `CXX`) and runs 17 protocol/chunk regressions. It adds explicit partial-word/incomplete-frame EOF counters, gap injection and seeded randomized splitting. `evidence/local-regressions-20261021.json` is the actual **macOS** regression evidence. Native Pi execution is pending the blocked private SDK/sample transfer; see PROGRESS.md. No hardware gate has passed.

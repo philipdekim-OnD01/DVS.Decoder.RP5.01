@@ -9,8 +9,8 @@
 |---|---|---|
 | Phase 1·2 — RP1 CFE / sensor 정적 분석 | **보고 완료** | [Draft PR #2](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/2) |
 | Phase 3A — macOS C++ 코어 및 8 MiB 샘플 | **보고 완료** | [Draft PR #3](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/3); macOS arm64 빌드, complete frames 1557 / events 1469217, four-way fixed split hash match |
-| Phase 3A — RP5 aarch64 네이티브 빌드 | **미확인** | 빌드 및 샘플 재생 기록 필요 |
-| Phase 3A — randomized splits, malformed, wrap, EOF/discontinuity | **미완료/미확인** | 추가 regression tests 필요 |
+| Phase 3A — RP5 aarch64 네이티브 빌드 | **차단 / Gate A 미통과** | SSH 환경 조사 완료. 비공개 SDK·샘플의 Pi 전송이 자동 승인 검토에서 차단됨 |
+| Phase 3A — randomized splits, malformed, wrap, EOF/discontinuity | **로컬 17건 통과 / Pi 미검증** | experiments/event-offline/evidence/local-regressions-20261021.json; native 실행 필요 |
 | Phase 3B — GREY/V4L2 experimental capture adapter | **미완료** | 오프라인 mock/fake producer 우선 |
 | Phase 3B — bounded receive/decode pipeline 및 Viewer | **미완료** | 상태 계측 및 정상 종료 시험 필요 |
 | Phase 3C — 실제 RP5 Event DT 0x31 수신 | **미실행** | preflight·rollback 통과 후 제한된 실험 |
@@ -48,3 +48,16 @@
 - Blockers or uncertainties:
 - Exact next safe action:
 ```
+
+### 2026-10-21 22:38 KST — Phase A 재개: 로컬 회귀 통과, native 전송 차단
+- Branch: `codex/rp5-event-phases-20261021`; 시작 commit `18b78b6`. `git fetch origin` 및 기존 offline 브랜치 fast-forward 완료. AGENTS/runbook/progress와 PR #2 보고서 및 PR #3 코드·results.json을 실제 읽었다. main 직접 변경 없음.
+- SSH 관측: `philip@192.168.0.177`, PhilipRP5, Debian 13.2, aarch64, kernel `6.12.47+rpt-rpi-2712`, GCC 14.2.0, Python3 있음, clang++ 없음. /home 여유 약 5.0 GiB, /tmp 약 4.0 GiB. SSH 읽기 전용 조사 성공. 조사 범위의 /home/philip maxdepth4 검색에서는 이번 민수 SDK/샘플을 확인하지 못함(전체 파일시스템 부재를 단정하지 않음).
+- 승인된 로컬 package/sample checksum을 기존 보고와 대조해 일치 확인: tar SHA256 `3e7bc2c35d8860fda70879ced04dcea9edbc7ff7daa3f41dcc44c94b2b9946b6`, sample SHA256 `962925dfaf87fcd1a16d04cd6e122d32558527b543f39acc2803926f2fc897b3`.
+- 신규 코드: `prepare_core.py`는 임시 SDK 코어에 checked-anchor carry/reset/EOF partial-byte 및 incomplete-frame 통계를 적용한다. `phase_a.py`는 g++/CXX 네이티브 빌드 경로 및 17개 회귀시험을 제공한다. replay.cpp에 고정 seed 랜덤 chunk, 명시 gap offset, 확장 stats 지원 추가. 민수 원문/샘플/레지스터/바이너리는 Git에 넣지 않음.
+- 실제 로컬 명령: `CXX=clang++ python3 experiments/event-offline/phase_a.py /private/tmp/dvs-event-audit/nrv-dvs-jetson-20261014/nrv-dvs-jetson/sdk /private/tmp/dvs-event-sample.bin /private/tmp/rp5-event-upload/local-new-regressions.json`.
+- 결과: macOS arm64 clang C++20 코어 빌드 및 17건 PASS. fixed 1/4/4093/1048576 + random seed 20261021 분할, frame255→0 및 timestamp wrap(period 200us), CID 분리, 1/2/3 EOF 잔여 바이트, 미완성 Frame End, invalid x/y/sub timestamp, unknown/malformed word, gap 뒤 context/carry reset 및 재동기화. sample 완성 프레임 1557 / events 1469217 / invalid=unknown=frame_gaps=0; 5개 분할 출력 SHA256 `e15a8a75899f6352725e0a4fbcd73f537acd1496fda6ae8ac25cd17903be1798`. 이전 macOS 결과를 새 native 결과로 재사용하지 않음. fixed splits는 새 EOF/reset 계측이 기존 출력을 보존하는지 확인하는 regression 용도로 실행.
+- 증거: `experiments/event-offline/evidence/local-regressions-20261021.json` (실제 compiler/platform/input hashes/각 실행 카운터). 이는 Pi 결과가 아님. source ABI 프레임 해시의 플랫폼 간 재현 여부도 native에서 확인 필요.
+- 실패/차단: `scp /private/tmp/rp5-event-upload/phase-a.tar.gz philip@192.168.0.177:/tmp/dvs-event-phase-a-20261021.tar.gz`가 자동 승인 검토에서 실행 전 거절됨. 사유: 비공개 SDK 소스와 민감 샘플의 정확한 payload·remote destination에 대한 승인이 명확하지 않음. 우회 전송하지 않았다. 사용자에게 해당 자료를 이 Pi 임시 실험 경로로 전송하는 명시적 승인 필요. native build/tests는 NOT RUN; Gate A 미통과, Phase B/C/D 진행하지 않음.
+- Production touched: No. 서비스 MainPID=683775, NRestarts=0, ActiveState=active 유지. 마지막 2초 관측 sequence 106088021→106089668. buffers/s 1062.604→825.887, raw bytes/s 186678203.057→145091870.607, web 약58fps, HDMI 약60fps. dequeue/buffer/sequence-gap errors 각각 0. 시각 영상 baseline이나 CSI error baseline은 미확보이며 Phase C preflight PASS로 해석하지 않음.
+- 중단/복구: 실기 캡처 0회, 운영 중단 0초, 센서/모듈/서비스 설정 쓰기 없음. 변경이 없어 복구 명령 실행 없음. RAW2 복구 시험 성공을 주장하지 않음.
+- 다음 안전 작업: 명시적 전송 승인 후, private SDK core/sample + public harness만 Pi 별도 디렉터리에 전송하고 source/sample hash 대조 → GCC C++20 native 17건 실행 → Gate A 판정·commit/push. 이후에만 Phase B. Phase C의 10초×최대3회/총 downtime15분 및 preflight/watchdog/복구 검증 조건은 그대로 적용.
