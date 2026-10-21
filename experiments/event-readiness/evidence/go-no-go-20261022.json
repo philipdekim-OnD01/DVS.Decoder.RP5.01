@@ -1,0 +1,22 @@
+{
+  "decision": "NO-GO",
+  "phase_c": "HARD_BLOCKED",
+  "production_ready": false,
+  "issue": 7,
+  "pr": 5,
+  "software_readiness_cases": 33,
+  "isolated_systemd_marker_cases": 5,
+  "test_owned_ssh_exit_case_pass": true,
+  "cpp_file_cases": 7,
+  "engine_guard_cases": 6,
+  "hardware_restore_tested": false,
+  "remaining_hard_gates": [
+    "real restore backend and nonproduction hardware integration",
+    "sealed private current-state baseline including separately approved live sensor readback",
+    "actual visual and CSI baseline",
+    "safe startup and production service handover",
+    "runtime re-probe/get_frame_desc and packet geometry evidence",
+    "actual restore health/watchdog integration",
+    "explicit evidence-backed GO sign-off"
+  ]
+}

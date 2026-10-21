@@ -130,3 +130,12 @@ cat docs/event-dt31/PROGRESS.md
 - Phase B adapter mock22건(Pi ASan/UBSan) 및 restore 실패 주입24건(로컬/Pi) 통과. 저장 샘플/native/Viewer의 기존 통과 결과는 보존. 성공으로 보고할 수 있는 범위는 이 파일/mock 시험뿐이다.
 - SSH 단절은 mock client exit + 독립 session worker로 모사했으며 실제 SSH/logind/systemd watchdog 생존 시험이 아니다. mock watchdog flag 유지가 실제 watchdog 가동 증명은 아니다.
 - 향후 live backend·현재 RAW2 private baseline·safe startup/firstboot race·실제 watchdog·실기 복구 검증이 모두 해결되고 운영 변경이 명시적으로 승인되기 전에는 실기 재시도/서비스 재시작을 하지 않는다. 현재 pending absent와 expiry inactive는 순간 관측이며 미래 start 안전 보장이 아니다.
+
+
+## 9. Issue #7 readiness 결과 — 2026-10-22 / NO-GO
+
+최신 지침의 허용 범위에서 [readiness 보고서](./READINESS_20261022_KO.md)와 [private bundle/receiver binding 설계](./PRIVATE_BUNDLE_SPEC_KO.md)를 작성했다. 신규 synthetic startup/bundle/proc-watchdog33건, 실제 **marker-only 격리 systemd unit5건**과 시험소유 SSH client 종료/cgroup 생존, C++ fileguard7건/engine guard6건을 검증했다. 기존17/22/24건 증거는 보존한다.
+
+실제 unit은 새 rp5-dvs-rdy-*에 한정하며 ProtectSystem/Home, PrivateDevices/Network, NoNewPrivileges, 비특권 사용자/자기tmp만 쓰기, resource/runtime 제한이 적용된다. 기존 firstboot/camera watchdog과 RAW2 서비스는 호출하지 않는다. deadline 동작은 NOOP alert marker이고 실제 복구 backend가 아니다. **marker-only 독립 실행 PASS는 실기 복구 또는 모든 SSH/logind 장애 검증 PASS가 아니다.**
+
+파일 입력도 ext-family/tmpfs의 pinned regular inode로 제한해 --file 특수/virtual file 우회를 거부한다. --device hard-block과 production_ready=false를 유지한다. 실제 production unit/start 통합·현재 sensor readback/영상/CSI·private snapshot·runtime DT re-probe·hardware backend·복구와 watchdog 연동·GO sign-off가 모두 남아 있으므로 Phase C HARD BLOCKED를 해제하지 않는다. 현재 단계에서 RAW2 운영 환경 변경은 금지다.

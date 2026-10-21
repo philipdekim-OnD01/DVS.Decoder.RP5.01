@@ -89,3 +89,8 @@ Phase C는 아래가 해결될 때까지 BLOCKED다:
 - mock을 넘어서는 복구 검증을 안전하게 수행할 별도 조건과 운영 변경의 명시적 승인.
 
 이번 작업의 운영 서비스 stop/restart·센서/I2C·module/DT·graph 변경·재부팅·실기 캡처는 모두0회다. 새 mock 절차 PASS로 HARD HOLD를 자동 해제하지 않는다.
+
+
+## 2026-10-22 후속 검증
+
+[readiness 보고서](./READINESS_20261022_KO.md)와 [private bundle/DT binding 설계](./PRIVATE_BUNDLE_SPEC_KO.md)에 최신 결과를 기록했다. marker-only 독립 systemd watchdog의 실제 실행·취소·시간제한/cgroup 및 startup 경합/불변성 음성 시험은 진전됐으나 hardware backend나 현재production startup을 변경한 것은 아니다. 최초 조사에서 /usr/bin/i2ctransfer가 없었던 도구 모호성은 /usr/sbin 실경로·hash로 해소했으며 유틸리티 실행은0회다. 이전 mock24건을 실제복구 보증으로 승격하지 않는다.

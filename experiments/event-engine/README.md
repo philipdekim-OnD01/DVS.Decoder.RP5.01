@@ -23,3 +23,8 @@ No real V4L2 ioctl, CSI diagnostics, physical Viewer/HDMI output or live capture
 ## Hard hold update
 
 `--device` is now unconditionally refused with `PHASE_C_BLOCKED` before any systemctl/device/output operation. The previous service-inactive guard is not an authorization route. Only file/mock use is allowed. `v4l2_mock_test.cpp` replaces every adapter OS operation and covers 22 ASan/UBSan cases on Pi, including partial setup cleanup and invalid input. These complement the preserved earlier file/queue/Viewer evidence; they do not validate real device behavior. Empty buffers and zero request geometry are rejected; capability string comparisons are bounded. See new mock and hard-hold evidence JSON.
+
+
+## File-input boundary (2026-10-22)
+
+Plain ifstream acquisition was replaced with `RegularInput`. Linux O_PATH pins the inode without activating a device data file; type/filesystem checks precede the read open through the pinned proc fd. Only regular ext-family/tmpfs files are accepted. Symlinks, FIFOs, directories and kernel virtual files are refused and file size/mtime changes abort replay. This is an intentional RP5 experiment constraint; copy approved samples to an ordinary experimental filesystem rather than weakening it. New7 type/drift and6 engine/CLI guard cases passed on Pi ASan/UBSan. The changed acquisition path preserved the approved sample hash. --device remains unconditionally BLOCKED.

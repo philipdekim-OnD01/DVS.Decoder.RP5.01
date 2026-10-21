@@ -1,6 +1,6 @@
 # Phase C 복구 preflight — BLOCKED (2026-10-21)
 
-업데이트23:14 KST: 별도 restore dry-run/mock 후보와 실패시험24건은 완료했다. 실제 backend·복구/watchdog 검증은 여전히 미완료다. [현재 상세 설계](./RESTORE_PLAN_KO.md)를 참조한다. 아래 최초 STOP 근거는 보존한다.
+2026-10-21 업데이트23:14 KST: 별도 restore dry-run/mock 후보와 실패시험24건은 완료했다. 실제 backend·복구/watchdog 검증은 여전히 미완료다. [현재 상세 설계](./RESTORE_PLAN_KO.md)를 참조한다. 아래 최초 STOP 근거는 보존한다.
 
 Phase A native17건 및 Phase B native file/mock/ASan/UBSan 검증 후, 실기 시작 조건을 통과하지 못했다. 실기 시도0회, Production stop0회, downtime0초. **DT0x31 수신과 RAW2 복구 시험은 미실행**이다. 서비스가 계속 정상 가동한 관측과 실제 모드 전환 후 복구 성공은 구분한다.
 
@@ -39,3 +39,10 @@ Runbook §2의 “복구 불확실 … 실기 시작하지 않거나 즉시 복�
 먼저 현재 RAW2 모듈/DT/서비스/미디어/송신 설정을 원상복원하는 **실험 전용 무재부팅 복구안**을 별도로 작성·검토해야 한다. 센서 수신 DT가 probe 시 복사되는 구조와 현재 동작 모듈을 재바인드/재적재할 때의 복원을 포함하고, 기존 reference-B3 rollback을 호출해서는 안 된다. 이 단계의 새 위험 동작은 현재 STOP을 해제한 뒤 승인 범위 안에서 검증해야 한다.
 
 이후 운영 상태를 바꾸지 않는 dry-run에서 필요한 파일·hash·root 권한·명령 경로를 점검하고, 무해한 marker만 쓰는 독립 watchdog의 발화/취소를 입증해야 한다. 실제 모드 변경 전 정상 영상·데이터율·CSI 오류 baseline과 Event setfile/geometry/DT binding을 확정한다. 모든 preflight가 PASS인 경우에만 10초×최대3회/총 downtime15분 제한의 실기와 RAW2 복구 검증을 진행한다.
+
+
+## 2026-10-22 readiness 후속 판정
+
+[Issue #7 최종 보고서](./READINESS_20261022_KO.md) 참조. 기존 fake watchdog flag를 넘어 manager-owned marker-only unit의 독립 cgroup·expiry·cancel·invalid cancel·runtime cap과 시험소유 SSH client 종료를 검증했다. 단, 실제 복구 backend와 production startup race 통합은 미검증이며 현재RAW2를 중단하지 않았다. synthetic startup/bundle33건 PASS는 실제 private 불변 baseline 생성이나 하드웨어 복구를 뜻하지 않는다. 최종 판정은 계속 **NO-GO / Phase C BLOCKED**다.
+
+I2C 도구의 올바른 경로는 /usr/sbin/i2ctransfer이며 /usr/bin 부재를 전체 부재로 해석하지 않는다. 도구는 실행하지 않았고 live register readback은 여전히 NOT TESTED다. 전후 파일·모듈·graph·service 보존과 오류 지표 증거를 readiness/evidence에 남겼다.

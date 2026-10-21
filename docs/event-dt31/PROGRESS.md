@@ -14,6 +14,8 @@
 | Phase 3B — GREY/V4L2 experimental capture adapter | **mock22건 PASS / live BLOCKED** | Pi ASan/UBSan; 장치·버퍼·오류·cleanup 검증, engine --device 무조건 하드 차단 |
 | Phase 3B — bounded receive/decode pipeline 및 Viewer | **오프라인 PASS** | Pi release + ASan/UBSan file/mock tests; 960×720 browser render 확인. live ioctl/CSI 미검증 |
 | 별도 RAW2 restore 설계 | **dry-run/mock24건 PASS / live backend 없음** | firstboot 호출 관계·hash 확인 및 실패 시뮬레이션; 실제 복구 증명 아님 |
+| Issue #7 startup/bundle readiness | **33건 로컬/Pi PASS / synthetic only** | source pin 일치; private live bundle 미생성·hardware backend 없음 |
+| Issue #7 독립 watchdog | **실제 격리 unit5건 + SSH client 종료 PASS** | marker-only cgroup/취소/timeout 검증; 실제 복구 연동 미검증 |
 | Phase 3C — 실제 RP5 Event DT 0x31 수신 | **BLOCKED / HARD HOLD** | 기존 rollback이 설정 삭제·서비스 disable·재부팅을 수행. 현재 RAW2용 복구/watchdog 미검증 |
 | Phase 3D — RAW2 복구 확인 | **미실행 / 운영 보존 확인** | 모드 변경0회. 최종 active·sequence 증가·V4L2 오류0; 복구 시험 성공은 아님 |
 
@@ -122,7 +124,7 @@
 
 ### 2026-10-22 — Issue #7 / PR #5 최신 지침 재개: 신규 readiness 검증
 - `git fetch origin`; 시작/PR head `58327b82e637feeda74eeb7bf98dc614e83bbf05`. Issue #7 본문(댓글0), PR #5 최신 source review/handoff 댓글 및 AGENTS/RUNBOOK/RESTORE_PLAN/PROGRESS·기존 PR #2/#3 실제 코드/증거 확인. 이전 17/22/24건 증거 보존. 현재 단계는 live 실행이 아니라 GO/NO-GO readiness.
-- 새 `experiments/event-readiness`: 외부 manifest SHA pin, 상대경로/O_NOFOLLOW, 파일 hash·12행 register 형식, setfile 필수, target DT/geometry 검증; readonly synthetic bundle fixture와 hardware backend 없는 isolated startup. marker check 직후·stage 중 생성, concurrent installer/service restart, 동시 controller lock, bundle drift/경로·schema·legacy command injection, fake prior success 거부 포함 **최종33건 로컬/Pi PASS**. 앞선31/32건 결과와 소스도 증거에서 구분. 최종 양 호스트의 소스 hash를 Git 파일과 대조 예정.
+- 새 `experiments/event-readiness`: 외부 manifest SHA pin, 상대경로/O_NOFOLLOW, 파일 hash·12행 register 형식, setfile 필수, target DT/geometry 검증; readonly synthetic bundle fixture와 hardware backend 없는 isolated startup. marker check 직후·stage 중 생성, concurrent installer/service restart, 동시 controller lock, bundle drift/경로·schema·legacy command injection, fake prior success 거부 포함 **최종33건 로컬/Pi PASS**. 앞선31/32건 결과와 source hash도 증거에서 구분. 최종 양 호스트의 소스 hash를 Git 파일과 대조 예정.
 - 별도 실제 manager-owned **marker-only systemd watchdog** 검증 수행. `rp5-dvs-rdy-<unique>-*.service` transient/collect unit만 새로 만들었으며 User/Group=philip, ProtectSystem=strict, ProtectHome, PrivateDevices/Network, NoNewPrivileges, DevicePolicy=closed, ReadWritePaths=자기tmp, RuntimeMaxSec/CPU/메모리 제한 적용. 기존 RAW2/legacy watchdog은 호출하지 않음.
 - 최초unit 실패: strict readonly /tmp 상위에서 Python tempfile.gettempdir()가 쓰기 probe를 하다 실패. 초기 자체 journal 보존. 보호 설정은 완화하지 않고 Linux tmp 경로 검증을 무쓰기 방식으로 수정했다. 추가로 malformed cancel token 타입이 예외를 유발할 수 있음을 코드검토에서 확인해 타입검사를 추가하고 별도 negative case로 재검증.
 - 최종 systemd5건 PASS: deadline→NOOP marker, 정상 nonce+run+mock proof 취소, 잘못된 token 무시, 잘못된 JSON token 타입 무시, RuntimeMaxSec에 의한 SIGTERM→NOOP alert. PID1 parent/별도 system.slice cgroup/실제 보호 속성 및 worker source pin 확인. systemd 자체 timeout journal도 보존. marker-only이며 실제 복구나 센서 동작은 하지 않음.
@@ -132,3 +134,13 @@
 - 읽기 전용 inventory: 실제 i2ctransfer는 `/usr/sbin/i2ctransfer`(`/sbin`도 같은 resolve), SHA256 `94dd49d676021518cda6aa0c4997bc5cd71bf04fea39216e57cbe71861b7c855`; `/usr/bin` 부재를 전체 부재로 해석하지 않음. 실행0회. kernel6.12.47, 양 loaded module srcversion이 modinfo 파일값과 일치. live FDT는 일반 사용자 PermissionError를 명시 후 sudo read-only SHA만 확인(원문 미반출). 현재 sensor register readback/CSI·정상 영상 baseline은 여전히 NOT TESTED.
 - 중간 전후 invariant 07:01:22 KST PASS: 점검 파일/module parameters/media/service/pending 동일; RAW2 PID683775 active/enabled, NRestarts0, sequence 증가, reported V4L2 dequeue/buffer/sequence-gap0. 최종 unit/source 정리·추가 전후 확인은 후속 기록에 명시.
 - Phase C HARD BLOCKED / production_ready=false. 실제 복구 backend·현재 레지스터/영상/CSI·기존 production startup의 firstboot race 통합·복구 watchdog 연결은 미검증. 신규unit은 자기 tmp marker만 쓰고 자동 collect했으며 운영 서비스 stop/restart·I2C·module/DT/media 변경·legacy rollback 호출0회.
+
+### 2026-10-22 07:07 KST — Issue #7 readiness 최종 NO-GO 기록
+- [READINESS_20261022_KO.md](./READINESS_20261022_KO.md)에 최종 GO/NO-GO matrix 및 실제 측정/한계를 기록. [PRIVATE_BUNDLE_SPEC_KO.md](./PRIVATE_BUNDLE_SPEC_KO.md)에 private 불변 bundle 설계와 module re-probe/get_frame_desc DT binding 계획을 명시. 실제 private bundle을 생성·봉인했다고 보고하지 않음. loaded srcversion 일치는 receiver descriptor/sensor 송신 DT 실측을 대신하지 않음.
+- 최종33건 양 host/current Git source SHA 일치. 실제 systemd5건 및 SSH client 종료 unit의 ready.source_sha256도 최종worker와 일치 확인. 초기실패/31/32건 자료는 historical evidence로 보존하며 최종 coverage에 중복 가산하지 않음.
+- 실제 unit5건 결과: expiry FIRED_NOOP1.2225s, valid cancel CANCELLED0.0562s, bad token FIRED_NOOP1.2205s, malformed token FIRED_NOOP1.2112s, manager RuntimeMaxSec3s→SIGTERM/TERMINATED_NOOP(worker elapsed2.5853s; unit startup시간과 구분). PID1 parent·별도 system.slice cgroup과 보호 속성 확인. 종료/취소 인증은 synthetic proof로만 시험. 실제 restore health 연동은 NOT TESTED.
+- SSH 테스트는 이번 시험이 만든 client PID만 종료(return255)하고 새query 시 result가 아직 없음을 본 후 독립unit 결과생성을 확인. 기존 sshd/다른 SSH/네트워크는 변경하지 않았다. 실제 네트워크 단절·모든 logind·복구 backend 실행은 NOT TESTED.
+- 새 file mode는 O_PATH inode pin 후 ext-family/tmpfs regular file만 읽기 open; proc/sysfs류·FIFO·symlink·directory·변조 거부. 최종 CPP7건/engine6guard ASan/UBSan PASS. 입력 구현이 변경됐기 때문에 승인 샘플 output hash만 재확인했으며 frames1557/events1469217 유지. legacy decoder를 수정하지 않음.
+- 최종 운영 불변성07:07:33 KST PASS: 모든 조사 파일 hash/metadata, module parameters, media graph, service 및 pending 상태가 전후 동일. MainPID683775/NRestarts0/active/enabled; sequence 증가, buffers/s1021.589, raw bytes/s179472804.215, web58.976/HDMI59.976fps, reported V4L2 dequeue/buffer/sequence-gap0. CSI error-free로 해석하지 않음. 별도 transient test unit0개 남음. 증거 `rp5-inventory-final-20261022.json`, `rp5-invariants-final-20261022.json`, `rp5-watchdog-cleanup-final-20261022.txt`.
+- 작업 중 생성한 것은 공개 readiness 코드, 합성 fixture 및 별도 marker-only temporary units뿐. RAW2 stop/restart0, I2C invocation0, sensor/module/DT/media writes0, legacy scripts/watchdog 실행0, 실기capture0, production downtime0초.
+- 최종 판정 **NO-GO / Phase C HARD BLOCKED**. 현재production startup은 여전히 기존 경합 경로이며 변경하지 않음. 실제 backend/private live registers/정상 영상·CSI/안전 startup handover/실제복구와 watchdog 연동/GO sign-off가 미충족. Issue #7은 readiness report와 nonproduction harness 결과로 보고하고 실기 단계로 넘어가지 않는다.
