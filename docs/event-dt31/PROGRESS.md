@@ -26,6 +26,14 @@
 - [ ] 실기 시험은 runbook 내 명시된 제한과 stop condition을 모두 통과하는 경우에만.
 - [ ] 어떤 결과이든 RAW2 production 정상 복구를 증명하고 보고.
 
+## 2026-10-21 안전 차단 공지 — Gate C BLOCKED (Codex 현장 조사 보고)
+
+- Codex가 보고한 문제: Pi의 기존 `raw2_production_rollback.sh`는 RAW2 원상복구 대신 RP1 override 삭제·서비스 비활성화·재부팅 수행. 이 스크립트를 Event Packet 복구 수단으로 **사용 금지**. 전체 현장 스크립트는 별도로 읽기 전용 검증 필요.
+- 저장소에 보관된 `raw2_production_start.sh`는 센서 레지스터·media graph를 직접 변경하고 `pending_first_boot_validation` 존재 시 기존 rollback 타이머를 등록함. 운영 `systemctl restart`를 harmless dry-run으로 처리 금지.
+- Phase B: 파일/mock을 이용한 개발과 mock/읽기 전용 복구 경로 조사만 허용. Phase C: 자동 복구 경로의 실증 가능한 검증 전까지 **BLOCKED**, 운영 중단/센서 쓰기 금지.
+- PR #5가 Pi ARM64 17건 통과(Gate A PASS)를 기록함. 이 프로젝트 주 브랜치 진행 로그는 PR #5 개발 브랜치와 동기화가 필요하며, 17건 PASS는 live MIPI 실험 완료를 의미하지 않음.
+- 정지 해제 조건: 별도 restore-to-current-RAW2 절차, 실제 환경 snapshot, 기존 rollback 경로 완전 배제, 독립 watchdog 및 실패 모드 mock 테스트, 운영 영향·복원 검증 계획, 미해결 복구 위험 해소. 실제 다운타임 없이 dry-run을 통과한 것만으로 복구 성공 판정 금지.
+
 ## 실행/인수인계 로그
 
 ### 2026-10-21 — 기본 문서 최초 생성
