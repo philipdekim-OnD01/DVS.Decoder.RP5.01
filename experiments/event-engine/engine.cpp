@@ -58,6 +58,7 @@ int main(int argc,char**argv){
   // --file SAMPLE OUT [queue=8] [decode_delay_us=0], or --device PATH BUS W H OUT --armed
   bool live=argc>1&&std::string(argv[1])=="--device";
   if((!live&&(argc<4||argc>6||std::string(argv[1])!="--file"))||(live&&(argc!=9||std::string(argv[8])!="--armed")))throw std::runtime_error("usage: --file SAMPLE OUT [capacity] [delay_us] | --device PATH BUS W H OUT 10 --armed");
+  if(live){throw std::runtime_error("PHASE_C_BLOCKED: file/mock only; live execution disabled");}
   if(live && (std::string(argv[7])!="10" || std::system("systemctl is-active --quiet dvs-raw2-production.service")!=768))throw std::runtime_error("live requires exactly 10s and production inactive (exit3)");
   std::filesystem::path dir=argv[live?6:3];if(!std::filesystem::create_directory(dir))throw std::runtime_error("output directory must not exist");
   size_t capacity=!live&&argc>=5?std::stoul(argv[4]):8;int delay=!live&&argc>=6?std::stoi(argv[5]):0;

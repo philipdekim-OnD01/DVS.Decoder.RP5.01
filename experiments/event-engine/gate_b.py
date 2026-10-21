@@ -31,6 +31,6 @@ m=json.loads((out/'metrics.json').read_text());assert m['interrupted'] and not m
 out=a.work/'missing-input';r=subprocess.run([str(exe),'--file',str(a.work/'does-not-exist'),str(out)],capture_output=True,text=True,timeout=5);assert r.returncode==1 and 'file open failed' in r.stderr
 result['missing_input_fails_cleanly']=True
 r=subprocess.run([str(exe),'--device','/dev/dvs-deliberately-nonexistent','invalid-bus','8192','128',str(a.work/'refused-live'),'10','--armed'],capture_output=True,text=True,timeout=5)
-assert r.returncode==1 and 'production inactive' in r.stderr and not (a.work/'refused-live').exists()
-result['active_production_refuses_live_before_device_open']=True;result['pass']=True
+assert r.returncode==1 and 'PHASE_C_BLOCKED' in r.stderr and not (a.work/'refused-live').exists()
+result['hard_hold_refuses_live_before_device_open']=True;result['pass']=True
 (a.work/'gate-b-results.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

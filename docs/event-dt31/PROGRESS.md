@@ -10,10 +10,10 @@
 | Phase 1·2 — RP1 CFE / sensor 정적 분석 | **보고 완료** | [Draft PR #2](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/2) |
 | Phase 3A — macOS C++ 코어 및 8 MiB 샘플 | **보고 완료** | [Draft PR #3](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/3); macOS arm64 빌드, complete frames 1557 / events 1469217, four-way fixed split hash match |
 | Phase 3A — RP5 aarch64 네이티브 빌드 | **PASS / Gate A 통과** | 명시적 전송 승인 후 Pi GCC14.2 native 17건 통과; evidence/rp5-native-regressions-20261021.json |
-| Phase 3A — randomized splits, malformed, wrap, EOF/discontinuity | **Pi native 17건 PASS** | experiments/event-offline/evidence/local-regressions-20261021.json; native 실행 필요 |
+| Phase 3A — randomized splits, malformed, wrap, EOF/discontinuity | **Pi native 17건 PASS** | experiments/event-offline/evidence/rp5-native-regressions-20261021.json; 17건 native PASS |
 | Phase 3B — GREY/V4L2 experimental capture adapter | **구현·컴파일 / 실기 미검증** | exact driver/card/bus, GREY/size/buffer checks; Production active 시 open 전 거부 검증 |
 | Phase 3B — bounded receive/decode pipeline 및 Viewer | **오프라인 PASS** | Pi release + ASan/UBSan file/mock tests; 960×720 browser render 확인. live ioctl/CSI 미검증 |
-| Phase 3C — 실제 RP5 Event DT 0x31 수신 | **STOP / preflight FAIL** | 기존 rollback이 설정 삭제·서비스 disable·재부팅을 수행. 현재 RAW2용 복구/watchdog 미검증 |
+| Phase 3C — 실제 RP5 Event DT 0x31 수신 | **BLOCKED / HARD HOLD** | 기존 rollback이 설정 삭제·서비스 disable·재부팅을 수행. 현재 RAW2용 복구/watchdog 미검증 |
 | Phase 3D — RAW2 복구 확인 | **미실행 / 운영 보존 확인** | 모드 변경0회. 최종 active·sequence 증가·V4L2 오류0; 복구 시험 성공은 아님 |
 
 ## 다음 실행 항목
@@ -94,3 +94,12 @@
 - GitHub main의 [PR #6](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/6)에서 AGENTS 및 RUNBOOK의 **Phase C HARD STOP**을 명시. RAW2 시작 스크립트 자체도 센서 setfile·레지스터·media graph 수정 및 pending-first-boot rollback 타이머 가능성이 있어 `systemctl restart`를 단순 dry-run으로 취급하지 않는다.
 - Phase A Gate PASS 기록과 지금까지의 실행 결과는 그대로 보존. Phase B file/mock 기능과 별도 restore-to-current-RAW2 계획·mock 실패 시험만 계속 수행한다. 실제 운영 중단/센서 I2C 쓰기/드라이버 reload/rebind/DT override 변경/재부팅은 복구 경로 검증 전까지 금지.
 - 증거가 없는 복구 성공 판정 금지. 운영 서비스를 건드리지 않은 mock PASS는 실제 RAW2 복원 성공을 뜻하지 않는다. 다음 Codex 작업에서는 실제 조사 증거, 위험한 호출 경로, 독립 watchdog의 안전성, 복구 검증을 PROGRESS에 append할 것.
+
+### 2026-10-21 — Phase B 남은 어댑터 mock 검증 / 실기 코드 HARD HOLD
+- 사용자 최신 지시와 origin `83dab0f`(PR #6 hard stop 문서 sync)를 반영. 기존 native file/queue/decode/Viewer 및 ASan 결과는 보존하고 동일 샘플 suite를 다시 실행하지 않았다.
+- 새 `v4l2_mock_test.cpp`는 open/close/ioctl/mmap/munmap/poll을 모두 fake 함수로 치환하여 실제 장치0open으로 adapter만 검증. GREY/stride/capability/정확한bus/버퍼 수/size/bytesused/index, setup·requeue·STREAMON 실패, poll timeout/error/EINTR, DQBUF EAGAIN/EINTR, driver-error 및 부분 mmap 후 cleanup을 포함해 **22건 Pi ASan/UBSan PASS**.
+- 발견·보완: unterminated capability 문자열은 bounded length로 비교, 요청0 geometry 및 empty bytesused를 거부하도록 보강. 큐·decode·Viewer file 처리 경로는 바꾸지 않음.
+- 실험 engine은 이제 유효한 --device 명령도 **PHASE_C_BLOCKED**로 systemctl/device open/output 생성 전에 거부한다. 실제 Pi에서 가짜 nonexistent path로 exit1과 output 미생성 확인. gate_b.py의 future regression assertion도 해당 hard-hold 메시지로 갱신.
+- 명령: Pi `/tmp/rp5-restore-offline-20261021`에서 `g++ -std=c++20 -O1 -g -Wall -Wextra -Werror -fsanitize=address,undefined -fno-omit-frame-pointer experiments/event-engine/v4l2_mock_test.cpp -o adapter-mock` → `./adapter-mock`. 별도로 engine-hard-hold를 GCC14.2/C++20로 링크하고 CLI 거부 시험. 기존 SDK objects를 재사용했으며 decoder regression 완료 단계를 재수행하지 않음.
+- 증거: `experiments/event-engine/evidence/rp5-adapter-mock-20261021.json`, `rp5-hard-hold-20261021.json`. 기존 release/ASan file evidence 유지. hardware ioctl 및 실제 복구 성공이 아닌 mock 검증임.
+- 운영 stop/restart/센서·I2C·모듈·DT·media graph 변경0회. 다음은 별도 restore 계획·mock 결과·호출 관계 기록이며 Phase C는 BLOCKED 유지.

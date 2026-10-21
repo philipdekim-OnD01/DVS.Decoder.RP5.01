@@ -26,12 +26,13 @@ public:
  unsigned width=0,height=0,stride=0,sizeimage=0;
  V4L2Capture(const std::string& path,const std::string& expected_bus,unsigned w,unsigned h) {
   try {
+   if(!w||!h||uint64_t(w)*h>16*1024*1024)throw std::runtime_error("invalid requested geometry");
    fd=open(path.c_str(),O_RDWR|O_NONBLOCK|O_CLOEXEC);if(fd<0)throw std::runtime_error("device open failed");
    v4l2_capability caps{};call(VIDIOC_QUERYCAP,&caps);
    unsigned c=(caps.capabilities&V4L2_CAP_DEVICE_CAPS)?caps.device_caps:caps.capabilities;
-   if(std::string(reinterpret_cast<char*>(caps.driver))!="rp1-cfe" ||
-      std::string(reinterpret_cast<char*>(caps.card))!="rp1-cfe-csi2_ch0" ||
-      std::string(reinterpret_cast<char*>(caps.bus_info))!=expected_bus ||
+   if(std::string(reinterpret_cast<char*>(caps.driver),strnlen(reinterpret_cast<char*>(caps.driver),sizeof(caps.driver)))!="rp1-cfe" ||
+      std::string(reinterpret_cast<char*>(caps.card),strnlen(reinterpret_cast<char*>(caps.card),sizeof(caps.card)))!="rp1-cfe-csi2_ch0" ||
+      std::string(reinterpret_cast<char*>(caps.bus_info),strnlen(reinterpret_cast<char*>(caps.bus_info),sizeof(caps.bus_info)))!=expected_bus ||
       !(c&V4L2_CAP_VIDEO_CAPTURE)||!(c&V4L2_CAP_STREAMING))throw std::runtime_error("device identity/capability mismatch");
    v4l2_format fmt{};fmt.type=V4L2_BUF_TYPE_VIDEO_CAPTURE;fmt.fmt.pix.width=w;fmt.fmt.pix.height=h;
    fmt.fmt.pix.pixelformat=V4L2_PIX_FMT_GREY;fmt.fmt.pix.field=V4L2_FIELD_NONE;call(VIDIOC_S_FMT,&fmt);
@@ -61,7 +62,7 @@ public:
   int rc;do{rc=ioctl(fd,VIDIOC_DQBUF,&b);}while(rc<0&&errno==EINTR);
   if(rc<0){if(errno==EAGAIN)return false;throw std::runtime_error("DQBUF failed");}
   auto start=std::chrono::steady_clock::now();
-  if(b.index>=maps.size()||b.bytesused>maps[b.index].second||b.bytesused>sizeimage)throw std::runtime_error("DQBUF bounds invalid");
+  if(b.index>=maps.size()||!b.bytesused||b.bytesused>maps[b.index].second||b.bytesused>sizeimage)throw std::runtime_error("DQBUF bounds invalid");
   packet.data.resize(b.bytesused);std::memcpy(packet.data.data(),maps[b.index].first,b.bytesused);
   packet.sequence=b.sequence;packet.driver_error=b.flags&V4L2_BUF_FLAG_ERROR;packet.gap=packet.driver_error;
   call(VIDIOC_QBUF,&b);packet.requeue_us=std::chrono::duration<double,std::micro>(std::chrono::steady_clock::now()-start).count();return true;
