@@ -88,3 +88,9 @@
 - 증거: `docs/event-dt31/evidence/raw2-preserved-20261021.json` 실제 최종 지표 및 rollback/validate hash. RAW2 preserved=Yes; restored-after-event=NOT TESTED.
 - 실기 DT0x31 capture0회/서비스 stop0회/모듈·DT·register 변경0회/downtime0초/재부팅0회. production 복구 명령은 변경이 없어 실행하지 않았다. private SDK·샘플은 승인된 Pi /tmp에만 저장하고 원본 로그/출력 보존; local review HTTP 서버 종료.
 - 다음 작업은 실기 재시도가 아니다. 현재 RAW2용 무재부팅 복구안·watchdog dry-run 검증을 먼저 마련하고 STOP 원인을 해소해야 한다. 사용자에게 현 실패를 보고하며, C/D 성공이나 최종 목표 달성으로 표시하지 않는다.
+
+### 2026-10-21 — 안전 차단: 기존 rollback.sh는 RAW2 복구가 아님
+- Codex 현장 조사의 보고에 따르면 기존 `raw2_production_rollback.sh`는 RP1 override 삭제·RAW2 서비스 비활성화·재부팅을 수행한다. Event Packet 실험 복구용으로 절대 실행·예약·재사용하지 않는다. GitHub에서는 실제 Pi rollback 스크립트 원문을 직접 확인하지 못했으므로 현장 호출 관계 분석 결과를 추후 첨부할 것.
+- GitHub main의 [PR #6](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/6)에서 AGENTS 및 RUNBOOK의 **Phase C HARD STOP**을 명시. RAW2 시작 스크립트 자체도 센서 setfile·레지스터·media graph 수정 및 pending-first-boot rollback 타이머 가능성이 있어 `systemctl restart`를 단순 dry-run으로 취급하지 않는다.
+- Phase A Gate PASS 기록과 지금까지의 실행 결과는 그대로 보존. Phase B file/mock 기능과 별도 restore-to-current-RAW2 계획·mock 실패 시험만 계속 수행한다. 실제 운영 중단/센서 I2C 쓰기/드라이버 reload/rebind/DT override 변경/재부팅은 복구 경로 검증 전까지 금지.
+- 증거가 없는 복구 성공 판정 금지. 운영 서비스를 건드리지 않은 mock PASS는 실제 RAW2 복원 성공을 뜻하지 않는다. 다음 Codex 작업에서는 실제 조사 증거, 위험한 호출 경로, 독립 watchdog의 안전성, 복구 검증을 PROGRESS에 append할 것.
