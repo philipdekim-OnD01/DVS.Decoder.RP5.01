@@ -1,0 +1,72 @@
+{
+  "sample_sha256": "962925dfaf87fcd1a16d04cd6e122d32558527b543f39acc2803926f2fc897b3",
+  "split_invariance_pass": true,
+  "runs": [
+    {
+      "chunk": 1048576,
+      "frames": 1557,
+      "events": 1469217,
+      "invalid": 0,
+      "unknown": 0,
+      "frame_gaps": 0,
+      "buffers": 8,
+      "patched": false,
+      "sha256": "e15a8a75899f6352725e0a4fbcd73f537acd1496fda6ae8ac25cd17903be1798"
+    },
+    {
+      "chunk": 4093,
+      "frames": 0,
+      "events": 142541,
+      "invalid": 222451,
+      "unknown": 960107,
+      "frame_gaps": 385,
+      "buffers": 2050,
+      "patched": false,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "chunk": 1048576,
+      "frames": 1557,
+      "events": 1469217,
+      "invalid": 0,
+      "unknown": 0,
+      "frame_gaps": 0,
+      "buffers": 8,
+      "patched": true,
+      "sha256": "e15a8a75899f6352725e0a4fbcd73f537acd1496fda6ae8ac25cd17903be1798"
+    },
+    {
+      "chunk": 4093,
+      "frames": 1557,
+      "events": 1469217,
+      "invalid": 0,
+      "unknown": 0,
+      "frame_gaps": 0,
+      "buffers": 2050,
+      "patched": true,
+      "sha256": "e15a8a75899f6352725e0a4fbcd73f537acd1496fda6ae8ac25cd17903be1798"
+    },
+    {
+      "chunk": 4,
+      "frames": 1557,
+      "events": 1469217,
+      "invalid": 0,
+      "unknown": 0,
+      "frame_gaps": 0,
+      "buffers": 2097152,
+      "patched": true,
+      "sha256": "e15a8a75899f6352725e0a4fbcd73f537acd1496fda6ae8ac25cd17903be1798"
+    },
+    {
+      "chunk": 1,
+      "frames": 1557,
+      "events": 1469217,
+      "invalid": 0,
+      "unknown": 0,
+      "frame_gaps": 0,
+      "buffers": 8388608,
+      "patched": true,
+      "sha256": "e15a8a75899f6352725e0a4fbcd73f537acd1496fda6ae8ac25cd17903be1798"
+    }
+  ]
+}
