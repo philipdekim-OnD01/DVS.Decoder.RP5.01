@@ -11,19 +11,21 @@
 | Phase 3A — macOS C++ 코어 및 8 MiB 샘플 | **보고 완료** | [Draft PR #3](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/3); macOS arm64 빌드, complete frames 1557 / events 1469217, four-way fixed split hash match |
 | Phase 3A — RP5 aarch64 네이티브 빌드 | **PASS / Gate A 통과** | 명시적 전송 승인 후 Pi GCC14.2 native 17건 통과; evidence/rp5-native-regressions-20261021.json |
 | Phase 3A — randomized splits, malformed, wrap, EOF/discontinuity | **Pi native 17건 PASS** | experiments/event-offline/evidence/rp5-native-regressions-20261021.json; 17건 native PASS |
-| Phase 3B — GREY/V4L2 experimental capture adapter | **구현·컴파일 / 실기 미검증** | exact driver/card/bus, GREY/size/buffer checks; Production active 시 open 전 거부 검증 |
+| Phase 3B — GREY/V4L2 experimental capture adapter | **mock22건 PASS / live BLOCKED** | Pi ASan/UBSan; 장치·버퍼·오류·cleanup 검증, engine --device 무조건 하드 차단 |
 | Phase 3B — bounded receive/decode pipeline 및 Viewer | **오프라인 PASS** | Pi release + ASan/UBSan file/mock tests; 960×720 browser render 확인. live ioctl/CSI 미검증 |
+| 별도 RAW2 restore 설계 | **dry-run/mock24건 PASS / live backend 없음** | firstboot 호출 관계·hash 확인 및 실패 시뮬레이션; 실제 복구 증명 아님 |
 | Phase 3C — 실제 RP5 Event DT 0x31 수신 | **BLOCKED / HARD HOLD** | 기존 rollback이 설정 삭제·서비스 disable·재부팅을 수행. 현재 RAW2용 복구/watchdog 미검증 |
 | Phase 3D — RAW2 복구 확인 | **미실행 / 운영 보존 확인** | 모드 변경0회. 최종 active·sequence 증가·V4L2 오류0; 복구 시험 성공은 아님 |
 
 ## 다음 실행 항목
 
-- [ ] Codex 작업 브랜치, 로컬 상태 및 현재 PR #2·#3 HEAD 재검사.
-- [ ] 민수 SDK/샘플의 승인된 접근 경로와 체크섬 재검증(원본 Git 커밋 금지).
-- [ ] RP5 네이티브 코어 빌드·저장 샘플 재생·랜덤 split·잘린 EOF 회귀 시험.
-- [ ] 독립 capture/decode 구조의 mock 테스트, queue metrics 구현.
-- [ ] 실제 센서 변경 이전 preflight + 자동 rollback의 dry-run 증거 확보.
-- [ ] 실기 시험은 runbook 내 명시된 제한과 stop condition을 모두 통과하는 경우에만.
+- [x] Codex 개발 브랜치·로컬/원격 상태와 기존 PR 코드·증거 확인.
+- [x] 민수 SDK/샘플 접근·체크섬 및 Pi 전송 승인 확인(원본 Git 미포함).
+- [x] RP5 native17건 PASS. 완료한 suite는 변경 사유 없이 반복하지 않음.
+- [x] capture/decode·bounded queue·960×720 Viewer file 시험 및 adapter mock22건 PASS.
+- [x] 별도 restore dry-run/mock24건 및 firstboot 호출 관계 확인. 기존 rollback 재사용 금지.
+- [ ] **BLOCKED**: private live baseline·실제 복구 backend·safe startup/race·독립 watchdog 검증.
+- [ ] **BLOCKED**: HARD HOLD 해제 및 운영 변경 명시 승인 전에는 실기/서비스 재시작 금지.
 - [ ] 어떤 결과이든 RAW2 production 정상 복구를 증명하고 보고.
 
 ## 실행/인수인계 로그
@@ -103,3 +105,17 @@
 - 명령: Pi `/tmp/rp5-restore-offline-20261021`에서 `g++ -std=c++20 -O1 -g -Wall -Wextra -Werror -fsanitize=address,undefined -fno-omit-frame-pointer experiments/event-engine/v4l2_mock_test.cpp -o adapter-mock` → `./adapter-mock`. 별도로 engine-hard-hold를 GCC14.2/C++20로 링크하고 CLI 거부 시험. 기존 SDK objects를 재사용했으며 decoder regression 완료 단계를 재수행하지 않음.
 - 증거: `experiments/event-engine/evidence/rp5-adapter-mock-20261021.json`, `rp5-hard-hold-20261021.json`. 기존 release/ASan file evidence 유지. hardware ioctl 및 실제 복구 성공이 아닌 mock 검증임.
 - 운영 stop/restart/센서·I2C·모듈·DT·media graph 변경0회. 다음은 별도 restore 계획·mock 결과·호출 관계 기록이며 Phase C는 BLOCKED 유지.
+
+### 2026-10-21 23:14 KST — restore 설계·dry-run·실패 시뮬레이션 완료 / Phase C BLOCKED
+- 기존 rollback/start/validate/installer/systemd/firstboot 전체 파일과 관련 참조를 읽기 전용 분석. start56–58행은 pending 시 커널/모듈 검사보다 먼저 4분 destructive rollback timer를 생성; start142–143행은 validate 실행. validate 성공 시 marker/timer 정리, 실패 시 timer 유지. 서비스 Restart=on-failure/5s이며 installer가 marker를 생성하고 reboot함. 기존 스크립트 실행·수정·예약 없음.
+- 현재 pending absent, expiry timer/service not-found/inactive. camera-root-watchdog timer는 disabled/inactive이며 script에 legacy restart 및 force-reboot 경로가 있어 새 watchdog으로 재사용하지 않음. system timer10/user timer0 관측. 조사 범위 밖의 모든 외부 호출 부재는 증명하지 않음.
+- module/source/binary/config/DT/unit/drop-in/setfile/probe/profile/register-record/server/Python/tool 존재·해시 확인. DT42/link625MHz/pack1/strideY. 실제 RP1 sysfs parameter는 diag_pack_bytes/diag_stride_zero/verbose_debug만 관측되어 CSI error tracking을 확인했다고 주장하지 않음.
+- 저장 레지스터 기록12행과 기존 startup assertion의 일치 여부만 검사(PASS); mtime2026-10-20 20:30:47. 현재 센서 I2C 값 검증 아님. 원문 setfile/레지스터 값은 Git에 포함하지 않음.
+- 새 `experiments/event-restore/restore_current_raw2.py`: observed JSON read-only dry-run + OS temp sentinel fixture mock. pinned module/start/binary/DTBO hash 및 수신 파라미터 체크. 실제 systemd/I2C/module/shell backend와 live apply 옵션은 없음. 기존 rollback/start를 호출하지 않으며 mock action은 JSON state transition일 뿐. hardware readiness는 항상false, dry-run exit2가 정상 차단 결과.
+- 최종 `test_restore.py` 24건 local/Pi PASS(초기21건 이후 hash/DT검사3건 추가). 복원 실패(sensor), 서비스 start 실패, sequence 정지/오류 증가/영상 실패, pending/timer 충돌·race, kernel/hash/enable-state drift, watchdog 미준비, deadline injection, 중복실행 lock, 멱등성, dry-run 무변경, production root/live-mode 거부. 실패 시 fake watchdog flag와 오류 증거 유지/수동 개입 표시; reboot/disable/delete fallback 없음.
+- SSH 단절은 실제 접속을 끊지 않고 짧은 수명의 mock client가 독립session worker를 남긴 뒤 종료하는 방식으로 모사. 성공했으나 real SSH/logind/systemd cgroup 생존 검증은 아니며 fake armed flag가 실제 daemon 가동 증명도 아님. 실제 서비스 start 및 센서 쓰기로 시험하지 않았음.
+- 명령: 로컬/Pi `python3 experiments/event-restore/test_restore.py --results <aggregate-json>`; 로컬 `python3 experiments/event-restore/restore_current_raw2.py --dry-run <readonly-inventory-json>`(exit2). Pi 작업 경로 `/tmp/rp5-restore-offline-20261021`. 기존file/queue/decoder/Viewer nativePASS 증거 보존.
+- 증거: `experiments/event-restore/evidence/rp5-readonly-inventory-20261021.json`, `rp5-readonly-extra-20261021.json`, `recorded-register-check-20261021.json`, `dry-run-20261021.json`, `local-mock-v2-20261021.json`, `rp5-mock-v2-20261021.json`. 초기21건 결과도 보존.
+- 전후 불변성 최종23:14:28: 점검 파일 metadata/hash 전부 동일, module parameters/graph hash 동일. PID683775/NRestarts0/active/enabled; sequence108187229→108189432; dequeue/buffer/sequence-gap errors0, web약58/HDMI약60fps. `rp5-after-invariants-20261021.json`에 보존.
+- [상세 보고서](./RESTORE_PLAN_KO.md)에 위험한 호출 그래프, 별도 절차, 검증 한계, TOCTOU 및 남은 blockers 정리. RUNBOOK §8과 engine code 모두 Phase C BLOCKED 유지. 실제 복구 backend·완전한 private baseline/live register·정상 영상/CSI·safe startup·새 watchdog·실기 복구 검증 없이는 HOLD 해제 금지.
+- 운영 서비스 stop/restart0회, I2C 읽기/쓰기0회, module/DT/media graph 변경0회, 기존 rollback 수정/실행/예약0회, 실기capture0회/downtime0초. 이번 mock PASS는 실제 RAW2 복원 성공이 아니다.

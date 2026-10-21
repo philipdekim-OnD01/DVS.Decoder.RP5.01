@@ -1,0 +1,124 @@
+{
+  "pass": true,
+  "simulation_only": true,
+  "real_production_actions": 0,
+  "cases": [
+    {
+      "case": "successful-mock-restore",
+      "pass": true,
+      "real_actions": 0
+    },
+    {
+      "case": "idempotent-repeat",
+      "pass": true
+    },
+    {
+      "case": "sensor-restore",
+      "pass": true,
+      "observed_phase": "MANUAL_INTERVENTION_REQUIRED_MOCK",
+      "error": "sensor profile restore failed (injected)",
+      "watchdog_preserved": true
+    },
+    {
+      "case": "service-start",
+      "pass": true,
+      "observed_phase": "MANUAL_INTERVENTION_REQUIRED_MOCK",
+      "error": "service did not start (injected)",
+      "watchdog_preserved": true
+    },
+    {
+      "case": "stalled-stream",
+      "pass": true,
+      "observed_phase": "MANUAL_INTERVENTION_REQUIRED_MOCK",
+      "error": "RAW2 fresh-frame/health verification failed",
+      "watchdog_preserved": true
+    },
+    {
+      "case": "error-growth",
+      "pass": true,
+      "observed_phase": "MANUAL_INTERVENTION_REQUIRED_MOCK",
+      "error": "RAW2 fresh-frame/health verification failed",
+      "watchdog_preserved": true
+    },
+    {
+      "case": "visual-failure",
+      "pass": true,
+      "observed_phase": "MANUAL_INTERVENTION_REQUIRED_MOCK",
+      "error": "RAW2 fresh-frame/health verification failed",
+      "watchdog_preserved": true
+    },
+    {
+      "case": "pending-race",
+      "pass": true,
+      "observed_phase": "MANUAL_INTERVENTION_REQUIRED_MOCK",
+      "error": "first-boot destructive path is possible; refuse",
+      "watchdog_preserved": true
+    },
+    {
+      "case": "timer-race",
+      "pass": true,
+      "observed_phase": "MANUAL_INTERVENTION_REQUIRED_MOCK",
+      "error": "first-boot destructive path is possible; refuse",
+      "watchdog_preserved": true
+    },
+    {
+      "case": "deadline",
+      "pass": true,
+      "observed_phase": "MANUAL_INTERVENTION_REQUIRED_MOCK",
+      "error": "restore deadline exceeded (injected)",
+      "watchdog_preserved": true
+    },
+    {
+      "case": "pending-present",
+      "pass": true,
+      "writes_before_refusal": 0
+    },
+    {
+      "case": "timer-active",
+      "pass": true,
+      "writes_before_refusal": 0
+    },
+    {
+      "case": "hash-drift",
+      "pass": true,
+      "writes_before_refusal": 0
+    },
+    {
+      "case": "kernel-drift",
+      "pass": true,
+      "writes_before_refusal": 0
+    },
+    {
+      "case": "enable-state-drift",
+      "pass": true,
+      "writes_before_refusal": 0
+    },
+    {
+      "case": "watchdog-missing",
+      "pass": true,
+      "writes_before_refusal": 0
+    },
+    {
+      "case": "mock-ssh-client-exits-independent-worker-finishes",
+      "pass": true,
+      "real_ssh_disconnect_tested": false
+    },
+    {
+      "case": "concurrent-worker-lock",
+      "pass": true
+    },
+    {
+      "case": "dry-run-no-state-write-fail-closed",
+      "pass": true
+    },
+    {
+      "case": "live-mode-unavailable",
+      "pass": true
+    },
+    {
+      "case": "reject-production-root",
+      "pass": true
+    }
+  ],
+  "case_count": 21
+}

@@ -1,0 +1,43 @@
+{
+  "observed_at": "2026-10-21T23:10:57.410522+09:00",
+  "kernel": "6.12.47+rpt-rpi-2712",
+  "files": {
+    "/home/philip/dvs_raw2_production/server_production.py": {
+      "exists": true,
+      "sha256": "29b2143f9b69ad2f6c46aeda022e08b78ec88594a5fce1711d612b67d1611b4f"
+    },
+    "/home/philip/dvs_raw2_visual_candidate_20261016/viewer_settings.conf": {
+      "exists": true,
+      "sha256": "d6e56e29fe6ed317c9803a76627e01840110e2a9171fad607dc078fb9909a796"
+    },
+    "/home/philip/dvs_web_app/.venv/bin/python": {
+      "exists": true,
+      "sha256": "5a8d634b3cf42fa618c2a39c7e674206cefc3b0be3d2f7023d5b1f8ebb51a013"
+    },
+    "/usr/bin/media-ctl": {
+      "exists": true,
+      "sha256": "d9a139afccd5bc40c71526f4577134c1391a2748bd5e91ddba9e5c8e922ec137"
+    },
+    "/usr/bin/i2ctransfer": {
+      "exists": false,
+      "sha256": null
+    },
+    "/home/philip/dvs_raw2_production/raw2_production_install.sh": {
+      "exists": true,
+      "sha256": "adcde6e58ab90c63751451066184bb9428f3317c00c0a162a6e80cf9b024571e"
+    },
+    "/usr/local/sbin/camera-root-watchdog.sh": {
+      "exists": true,
+      "sha256": "7a174936d3dfdc5c6733f065085638a3d631dd2c4f22ff0f19fb1ff882fe86dd"
+    }
+  },
+  "supported_rp1_parameters": [
+    "diag_pack_bytes",
+    "diag_stride_zero",
+    "verbose_debug"
+  ],
+  "camera_watchdog": "Id=camera-root-watchdog.timer\nLoadState=loaded\nActiveState=inactive\nUnitFileState=disabled\n\nId=camera-root-watchdog.service\nLoadState=loaded\nActiveState=inactive\nUnitFileState=static\n",
+  "user_timers": "NEXT LEFT LAST PASSED UNIT ACTIVATES\n\n0 timers listed.\n",
+  "register_record_count": 12,
+  "live_registers_read": false
+}

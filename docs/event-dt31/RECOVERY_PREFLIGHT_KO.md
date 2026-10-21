@@ -1,4 +1,6 @@
-# Phase C 복구 preflight — STOP (2026-10-21)
+# Phase C 복구 preflight — BLOCKED (2026-10-21)
+
+업데이트23:14 KST: 별도 restore dry-run/mock 후보와 실패시험24건은 완료했다. 실제 backend·복구/watchdog 검증은 여전히 미완료다. [현재 상세 설계](./RESTORE_PLAN_KO.md)를 참조한다. 아래 최초 STOP 근거는 보존한다.
 
 Phase A native17건 및 Phase B native file/mock/ASan/UBSan 검증 후, 실기 시작 조건을 통과하지 못했다. 실기 시도0회, Production stop0회, downtime0초. **DT0x31 수신과 RAW2 복구 시험은 미실행**이다. 서비스가 계속 정상 가동한 관측과 실제 모드 전환 후 복구 성공은 구분한다.
 

@@ -119,3 +119,14 @@ cat docs/event-dt31/PROGRESS.md
 단, 이 문서가 현재 체크아웃 브랜치에 없으면 먼저 GitHub의 문서 PR에서 내용을 확인해야 한다. 다른 작업 브랜치의 문서를 자동으로 읽는다고 가정하지 않는다.
 
 **단계마다** `PROGRESS.md`를 갱신: 현재 phase, 확인된 장비와 브랜치/커밋, 수행한 명령·로그, 수치, 주의/블로커, 다음 명령과 롤백 여부. 임의의 테스트 통과 추측이나 PR 녹색 표시만으로 상태를 통과로 바꾸지 말 것.
+
+
+## 8. 2026-10-21 오프라인 restore 설계 검증 결과 / 현재 허용 범위
+
+**Phase C = BLOCKED. 이 절은 과거 §2의 제한적 실기 허용보다 우선한다. 현재는 운영 서비스/센서/I2C/모듈/DT/media graph 변경을 하지 않는다.** 기존 `raw2_production_rollback.sh`를 실행·예약·간접 호출하지 않으며 start/validate/installer도 dry-run 도구로 사용하지 않는다. engine --device 경로는 코드에서도 PHASE_C_BLOCKED로 차단했다.
+
+- [상세 복구 계획·호출 그래프·사전 점검](./RESTORE_PLAN_KO.md): 실제 Pi 파일·모듈·설정 hash 및 pending/watchdog 관측, destructive firstboot 경로, timer/restart race를 기록했다.
+- 별도 `experiments/event-restore/restore_current_raw2.py`는 **dry-run/mock 전용**이며 실제 backend가 없다. `--dry-run`은 계획 JSON과 hardware-blocked exit2를 반환한다. `--mock-worker`는 OS temp sentinel fixture만 처리한다. 기존 rollback/start를 수정하거나 호출하지 않는다.
+- Phase B adapter mock22건(Pi ASan/UBSan) 및 restore 실패 주입24건(로컬/Pi) 통과. 저장 샘플/native/Viewer의 기존 통과 결과는 보존. 성공으로 보고할 수 있는 범위는 이 파일/mock 시험뿐이다.
+- SSH 단절은 mock client exit + 독립 session worker로 모사했으며 실제 SSH/logind/systemd watchdog 생존 시험이 아니다. mock watchdog flag 유지가 실제 watchdog 가동 증명은 아니다.
+- 향후 live backend·현재 RAW2 private baseline·safe startup/firstboot race·실제 watchdog·실기 복구 검증이 모두 해결되고 운영 변경이 명시적으로 승인되기 전에는 실기 재시도/서비스 재시작을 하지 않는다. 현재 pending absent와 expiry inactive는 순간 관측이며 미래 start 안전 보장이 아니다.
