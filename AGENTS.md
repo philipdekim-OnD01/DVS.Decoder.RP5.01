@@ -9,6 +9,13 @@
 4. Complete one phase at a time. After each meaningful step update `docs/event-dt31/PROGRESS.md` with dated facts, commands run, test output locations, failures, and a clear next action. For longer tasks also give short progress updates to the user.
 5. Before an action with side effects, check the runbook's preflight/abort/rollback constraints and confirm the action is within the **specific, limited user authorization for the current task**. A GitHub document itself is not perpetual approval for future experiments.
 
+## CRITICAL HOLD — RAW2 restoration is not validated (2026-10-21)
+- A Codex read-only investigation reports that the existing `raw2_production_rollback.sh` **removes an RP1 override, disables the RAW2 service and reboots**. It is NOT an Event Packet -> RAW2 recovery procedure. Treat it as unsafe for this experiment; **do not execute, schedule or reuse it**.
+- `raw2_production_start.sh` is NOT a harmless restart: it writes sensor setfile/registers, changes the media graph, and can schedule `raw2_production_rollback.sh` when `pending_first_boot_validation` exists. Do not use `systemctl restart` or `systemd-run` as a "dry run" on production.
+- **HARD STOP** for Phase C and any action that interrupts the live RAW2 stream: no production service stop/restart, sensor I2C write, module rebind/reload, RP1 override changes, Device Tree change, or reboot until a separate restore-to-current-RAW2 procedure, watchdog interactions and failure-mode tests are verified. A mock/dry-run PASS alone is not actual restoration proof.
+- Phase B file/mock tests and read-only inspection may continue. Prepare an independent restore *design/script* in a separate experimental workspace; never modify or run the current rollback script. Inspect pending-first-boot and all timers/services read-only, and ensure they cannot invoke the destructive rollback during the proposed restoration.
+- The prior limited experimental authorization does not waive this hold. Record evidence, unresolved assumptions, mock results and the exact preflight gates in `PROGRESS.md`. Do not mark Gate C ready until all restoration checks demonstrably pass.
+
 ## Non-negotiable constraints
 - Prefer offline tests, isolated working directories, and a feature branch. Never directly modify the main branch.
 - Do not alter RAW2 production code, production modprobe/service configuration, kernel/DT, or sensor settings during offline phases.

@@ -22,6 +22,23 @@
 
 `GREY/Y8`은 바이트 저장 컨테이너 후보일 뿐, `0x31` 지원이나 손실 없는 DMA를 보증하지 않는다. 실제로는 FS/FE, 패킷 Word Count, DMA geometry, stride, `bytesused`, `sequence`, CSI CRC/ECC와 드롭을 측정해야 한다. **별도 프로세스는 물리적 센서/CSI 포트 격리가 아니다.** 기존 RAW2와 동시 실시간 테스트를 시도하지 않는다.
 
+## 긴급 안전 차단 — RAW2 rollback 경로 오용 위험 (2026-10-21)
+
+**상태: Phase C BLOCKED / RAW2 운영 중단 금지.** Codex의 Pi 조사에 따르면 기존 `raw2_production_rollback.sh`는 Event Packet에서 RAW2 운영 상태를 회복하는 스크립트가 아니라 RP1 override를 제거하고 서비스를 비활성화한 뒤 재부팅한다. 이 스크립트는 **복구 수단으로 실행·예약·재사용 금지**. 실제 Pi 상의 전체 스크립트 본문과 호출 관계는 읽기 전용으로 확인하고 증거를 남겨야 한다.
+
+운영 `raw2_production_start.sh`는 시작 시 setfile 적용, RAW2 레지스터 설정, media graph 재설정, 프로세스 시작을 수행하며 `pending_first_boot_validation` 존재 시 기존 rollback 스크립트를 타이머로 예약할 수 있다. 따라서 `systemctl restart dvs-raw2-production`과 watchdog 스케줄링은 운영 환경에서 안전한 dry-run이 아니다.
+
+**Phase B는 file/mock만으로 계속한다. Phase C preflight에서 다음 항목을 모두 검증하기 전에는 기존 운영 서비스를 정지하거나 센서/모듈/DT를 변경할 수 없다.**
+
+1. 기존 rollback/validate/start/systemd/timer 호출 그래프와 `pending_first_boot_validation` 조건을 읽기 전용 확인한다. 특히 예상치 못한 reboot, disable, RP1 override 삭제 경로를 식별한다.
+2. 운영 상태(서비스 활성화 여부, module·DT·override 파일/해시/옵션, I2C 설정, media graph, 정상 RAW2 시각 출력 및 수신·오류 지표)를 재현 가능한 방식으로 확보한다. 접근 제어나 영업상 비공개 설정은 공개 Git에 올리지 않는다.
+3. **별도** `restore-to-current-RAW2` 스크립트/검증기를 작업 폴더에 설계한다. 프로덕션 스크립트는 수정/실행하지 않고, mock/fake 환경에서 상태 복원, 멱등성, 오류 처리, 실패 주입, SSH 단절, 타이머 충돌과 제한 시간 초과를 테스트한다.
+4. 독립 watchdog이 금지된 기존 rollback을 호출하지 않으며, restore 검증에 실패할 경우 장비의 삭제/disable/reboot를 자동 실행하지 않음을 확인한다.
+5. 모듈 설정과 센서 설정이 **실제 실행 상태에서** 일치하도록 하는 복구 절차를 문서화한다. 정적 코드 분석이나 무해한 dry-run 성공만으로 실제 복구 보증을 주장하지 않는다.
+6. Gate B 통과, Gate C 모든 preflight, 자동 복구 준비의 충분한 검증, 운영 중단의 경계 조건이 충족되지 않으면 **STOP 후 PROGRESS에 위험·증거·미해결 항목을 기록**한다.
+
+해당 정지 조건은 이전의 제한적 실험 승인보다 우선하며, Codex가 Phase B 개발을 완료하더라도 자동으로 해제되지 않는다. 준비된 복구 절차는 사용자가 명시한 기존 실험의 10초 × 최대 3회/운영 중단 15분 이내 제한을 그대로 따른다.
+
 ## 2. 권한 및 절대 제한
 
 사용자가 현재 대화에서 제한적인 *첫 번째* RP5 실기 검증의 자동 진행을 요청했다. 아래 조건 내에서 불필요한 단계별 승인 질문 없이 진행하되, 이 문서는 별도 세션·다른 기기 또는 범위 확대에 대한 포괄적 권한으로 재해석하지 않는다. 접근통제/OS 권한을 우회하지 않는다.
