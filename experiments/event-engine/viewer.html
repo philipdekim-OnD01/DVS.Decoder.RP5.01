@@ -1,0 +1,14 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>RP5 Event 960×720</title>
+<style>body{background:#15181b;color:#e4e9ef;font:16px system-ui;margin:24px}canvas{max-width:100%;border:1px solid #657383;image-rendering:pixelated}pre{white-space:pre-wrap}</style>
+<h1>RP5 Event Viewer</h1><p>960×720 · ON 녹색 / OFF 빨강 · 파일 재생 또는 실험 수신 결과</p>
+<canvas width="960" height="720" aria-label="960×720 이벤트 좌표 영상"></canvas><pre id="status">연결 중</pre>
+<script>
+const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d');
+async function refresh(){try{
+ const res=await fetch('latest.ppm',{cache:'no-store'});if(!res.ok)throw Error('영상 대기');
+ const bytes=new Uint8Array(await res.arrayBuffer()),header=new TextEncoder().encode('P6\n960 720\n255\n');
+ if(bytes.length!==header.length+960*720*3||!header.every((v,i)=>bytes[i]===v))throw Error('PPM 형식 오류');
+ const image=ctx.createImageData(960,720);for(let i=0;i<960*720;i++){image.data[i*4]=bytes[header.length+i*3];image.data[i*4+1]=bytes[header.length+i*3+1];image.data[i*4+2]=bytes[header.length+i*3+2];image.data[i*4+3]=255;}ctx.putImageData(image,0,0);
+ const metrics=await fetch('metrics.json',{cache:'no-store'});document.querySelector('#status').textContent=metrics.ok?JSON.stringify(await metrics.json(),null,2):'실행 중: 최종 통계 대기';
+}catch(e){document.querySelector('#status').textContent=e.message;}setTimeout(refresh,500)}refresh();
+</script></html>

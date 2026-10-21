@@ -11,8 +11,8 @@
 | Phase 3A — macOS C++ 코어 및 8 MiB 샘플 | **보고 완료** | [Draft PR #3](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/3); macOS arm64 빌드, complete frames 1557 / events 1469217, four-way fixed split hash match |
 | Phase 3A — RP5 aarch64 네이티브 빌드 | **PASS / Gate A 통과** | 명시적 전송 승인 후 Pi GCC14.2 native 17건 통과; evidence/rp5-native-regressions-20261021.json |
 | Phase 3A — randomized splits, malformed, wrap, EOF/discontinuity | **Pi native 17건 PASS** | experiments/event-offline/evidence/local-regressions-20261021.json; native 실행 필요 |
-| Phase 3B — GREY/V4L2 experimental capture adapter | **미완료** | 오프라인 mock/fake producer 우선 |
-| Phase 3B — bounded receive/decode pipeline 및 Viewer | **미완료** | 상태 계측 및 정상 종료 시험 필요 |
+| Phase 3B — GREY/V4L2 experimental capture adapter | **구현·컴파일 / 실기 미검증** | exact driver/card/bus, GREY/size/buffer checks; Production active 시 open 전 거부 검증 |
+| Phase 3B — bounded receive/decode pipeline 및 Viewer | **오프라인 PASS** | Pi release + ASan/UBSan file/mock tests; 960×720 browser render 확인. live ioctl/CSI 미검증 |
 | Phase 3C — 실제 RP5 Event DT 0x31 수신 | **미실행** | preflight·rollback 통과 후 제한된 실험 |
 | Phase 3D — RAW2 복구 확인 | **대기** | 실험 시작 시 반드시 검증 |
 
@@ -67,3 +67,16 @@
 - 실제 명령: `nice -n 10 python3 phase_a.py sdk sample.bin native-results.json` (Pi). GCC14.2 / Linux aarch64 / kernel 6.12.47+rpt-rpi-2712. sample SHA256 기존과 일치. 17건 모두 PASS; fixed/random 분할 5건에서 frames1557/events1469217, invalid/unknown/frame_gaps0, 출력 hash 기존과 동일. 각 synthetic case의 실제 카운터는 `experiments/event-offline/evidence/rp5-native-regressions-20261021.json`에 보존.
 - 모듈 읽기 전용 확인: rp1-cfe.ko SHA256 `0d09dbeaee5fda45bc3e24407254d19dd454c2f4fbb2a26c356b93bf47bfa3dd`, s5krc1s_min.ko `474d02b06165804310e91ee16dca70de691664f1b806783e3f4eda2dd6584153`, 보관 baseline과 일치. parameter DT42/link625MHz. 서비스 active. sudo -n 권한 확인 성공. rollback/validate 파일 존재만 확인했으며 실행 검증은 아직 아님.
 - Gate A PASS. 실기 캡처0회/다운타임0초. 다음: Phase B bounded capture/decode pipeline + GREY adapter + 960×720 Viewer를 파일/mock로 검증. Phase C preflight는 아직 PASS 아님.
+
+### 2026-10-21 22:58 KST — Phase B 오프라인 완료
+- Branch `codex/rp5-event-phases-20261021`, Phase A commit `eec32b1` 이후. Pi 실험 경로 `/tmp/dvs-event-phase-b-20261021`. Production 장치 open/STREAMON 0회, 서비스/센서/모듈 변경 없음.
+- 신규 `experiments/event-engine/`: C++ capture thread → bounded queue → decode(main) thread, file backpressure/live oldest-drop + gap, bounded MMAP GREY adapter 및 strict driver/card/bus 검사, 10초 cap, 종료 RAII. 960×720 PPM snapshot + canvas Viewer, byte/buffer/event/CPU/queue/decoder/CID/Frame End word 통계와 per-buffer CSV. CSI FS/FE/CRC/ECC는 미측정 null로 유지.
+- 첫 `gate-1` 실패: metrics.json의 error 문자열 opening quote 누락 → JSONDecodeError. misleading-indentation 경고도 발견. 양쪽 수정 후 gate-2 통과. Frame End word 독립 계측과 fail-closed active-production 검사 보강 후 gate-3 release 최종 통과. 실패 로그는 Pi `gate-1.log`에 남겨 두었다.
+- 최종 실제 명령: `nice -n 10 python3 /tmp/dvs-event-phase-b-20261021/event-engine/gate_b.py /tmp/dvs-event-phase-a-20261021/sdk /tmp/dvs-event-phase-a-20261021/sample.bin /tmp/dvs-event-phase-b-20261021/gate-3`; 동일 입력을 새 output `gate-asan --sanitize`로 native ASan/UBSan 검증. GCC14.2 C++20, -Wall -Wextra -Werror. SDK object 6개를 먼저 컴파일하고 engine/queue-test 각각 링크; 결과 JSON의 build_command는 동등한 monolithic 명령임을 주석으로 구분.
+- release 파일 재생 실측: 8,388,608bytes / 2050 input buffers / 1557 complete frames / 1469217 events, elapsed1.04236s, process CPU103.569%, queue capacity8/high8/drop0/final0. 이는 **파일·Viewer·쓰기 포함 replay 수치**이며 센서 전송 성능이 아니다. 느린 소비자(cap1/delay2ms) elapsed4.68909s, CPU26.6108%, high1/drop0, 동일 frames/events/hash.
+- 별도 counter: valid sensor Frame End words1558(CID0 1558), output frames1557; on706157/off763060/CID1events0; unsynced_groups830; invalid/unknown/frame_gaps0; EOF incomplete_frames1/partial_bytes0. 이 경계 관측으로 물리 센서 손실 유무를 단정하지 않는다.
+- 큐 유닛: cap2/cap1 oldest drop 뒤 gap 표시, blocked producer stop/wakeup PASS. SIGTERM 종료 bound5초 PASS(실제 약0.509s 실행 후 interrupted 기록, 미소비 queue1은 기록 후 프로세스 종료). missing-input 오류 반환 PASS. active production일 때 nonexistent device path를 넣어 **open 이전 실행 거부** PASS.
+- ASan/UBSan: 모든 위 gate PASS, 진단 오류 없음. release와 slow-consumer 모두 출력 hash Gate A와 일치. sanitized 속도는 계측 overhead가 있어 성능 평가에 사용하지 않는다.
+- Viewer: Pi가 생성한 private PPM을 로컬 /private/tmp에만 회수하고 loopback8873에서 canvas 렌더 시각 확인. 960×720 ON green/OFF red 점 표시 확인. 영상/스크린샷/샘플은 Git에 넣지 않았으며 임시 서버·탭 종료. live HDMI 검증 아님.
+- 증거: `experiments/event-engine/evidence/rp5-file-gate-b-20261021.json`, `rp5-asan-gate-b-20261021.json`; 원본 로그 Pi `gate-3.log`, `gate-asan.log`, 출력/원본 로그 삭제 없음.
+- Gate B software/file/mock PASS. 실제 ioctl fault-injection/수신/CSI와 하드웨어 Viewer는 미검증. 다음 Phase C preflight에서 복구의 확실성을 판정해야 하며 실기 성공으로 간주하지 않는다.
