@@ -13,8 +13,8 @@
 | Phase 3A — randomized splits, malformed, wrap, EOF/discontinuity | **Pi native 17건 PASS** | experiments/event-offline/evidence/local-regressions-20261021.json; native 실행 필요 |
 | Phase 3B — GREY/V4L2 experimental capture adapter | **구현·컴파일 / 실기 미검증** | exact driver/card/bus, GREY/size/buffer checks; Production active 시 open 전 거부 검증 |
 | Phase 3B — bounded receive/decode pipeline 및 Viewer | **오프라인 PASS** | Pi release + ASan/UBSan file/mock tests; 960×720 browser render 확인. live ioctl/CSI 미검증 |
-| Phase 3C — 실제 RP5 Event DT 0x31 수신 | **미실행** | preflight·rollback 통과 후 제한된 실험 |
-| Phase 3D — RAW2 복구 확인 | **대기** | 실험 시작 시 반드시 검증 |
+| Phase 3C — 실제 RP5 Event DT 0x31 수신 | **STOP / preflight FAIL** | 기존 rollback이 설정 삭제·서비스 disable·재부팅을 수행. 현재 RAW2용 복구/watchdog 미검증 |
+| Phase 3D — RAW2 복구 확인 | **미실행 / 운영 보존 확인** | 모드 변경0회. 최종 active·sequence 증가·V4L2 오류0; 복구 시험 성공은 아님 |
 
 ## 다음 실행 항목
 
@@ -80,3 +80,11 @@
 - Viewer: Pi가 생성한 private PPM을 로컬 /private/tmp에만 회수하고 loopback8873에서 canvas 렌더 시각 확인. 960×720 ON green/OFF red 점 표시 확인. 영상/스크린샷/샘플은 Git에 넣지 않았으며 임시 서버·탭 종료. live HDMI 검증 아님.
 - 증거: `experiments/event-engine/evidence/rp5-file-gate-b-20261021.json`, `rp5-asan-gate-b-20261021.json`; 원본 로그 Pi `gate-3.log`, `gate-asan.log`, 출력/원본 로그 삭제 없음.
 - Gate B software/file/mock PASS. 실제 ioctl fault-injection/수신/CSI와 하드웨어 Viewer는 미검증. 다음 Phase C preflight에서 복구의 확실성을 판정해야 하며 실기 성공으로 간주하지 않는다.
+
+### 2026-10-21 22:59 KST — Phase C preflight STOP, RAW2 운영 보존
+- Phase A/B 완료 기록 push 후 C preflight 판정. 기존 rollback/validate를 실행 없이 읽었다. rollback이 RP1 override·production modprobe 삭제/서비스 disable/모듈 파일 변경/재부팅으로 reference-B3를 복원함을 확인했다. 현재 RAW2 원복과 다르며 승인 범위 밖 동작을 포함한다. 대체 무재부팅 복구·독립 watchdog dry-run도 미검증이므로 runbook STOP을 적용.
+- 근거와 체크리스트/재개 요건: `docs/event-dt31/RECOVERY_PREFLIGHT_KO.md`. sensor setfile/geometry/current-state full backup/정상 시각 baseline 등도 아직 PASS가 아니며 기존 파일을 임의 적용하지 않았다.
+- 최종 읽기 전용 관측(22:59:22 KST): MainPID683775/NRestarts0/active; sequence107291681→107293804(약2초); buffers/s847.929→1146.751, raw bytes/s148964165.448→201461218.942, web57.927→57.987fps/HDMI59.924→59.987fps. dequeue/buffer/sequence-gap errors 각각0. CSI debugfs 읽기/센서 I2C 명령0회.
+- 증거: `docs/event-dt31/evidence/raw2-preserved-20261021.json` 실제 최종 지표 및 rollback/validate hash. RAW2 preserved=Yes; restored-after-event=NOT TESTED.
+- 실기 DT0x31 capture0회/서비스 stop0회/모듈·DT·register 변경0회/downtime0초/재부팅0회. production 복구 명령은 변경이 없어 실행하지 않았다. private SDK·샘플은 승인된 Pi /tmp에만 저장하고 원본 로그/출력 보존; local review HTTP 서버 종료.
+- 다음 작업은 실기 재시도가 아니다. 현재 RAW2용 무재부팅 복구안·watchdog dry-run 검증을 먼저 마련하고 STOP 원인을 해소해야 한다. 사용자에게 현 실패를 보고하며, C/D 성공이나 최종 목표 달성으로 표시하지 않는다.
