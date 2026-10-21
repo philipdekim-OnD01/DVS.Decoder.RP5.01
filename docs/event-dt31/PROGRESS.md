@@ -9,8 +9,8 @@
 |---|---|---|
 | Phase 1·2 — RP1 CFE / sensor 정적 분석 | **보고 완료** | [Draft PR #2](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/2) |
 | Phase 3A — macOS C++ 코어 및 8 MiB 샘플 | **보고 완료** | [Draft PR #3](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/3); macOS arm64 빌드, complete frames 1557 / events 1469217, four-way fixed split hash match |
-| Phase 3A — RP5 aarch64 네이티브 빌드 | **차단 / Gate A 미통과** | SSH 환경 조사 완료. 비공개 SDK·샘플의 Pi 전송이 자동 승인 검토에서 차단됨 |
-| Phase 3A — randomized splits, malformed, wrap, EOF/discontinuity | **로컬 17건 통과 / Pi 미검증** | experiments/event-offline/evidence/local-regressions-20261021.json; native 실행 필요 |
+| Phase 3A — RP5 aarch64 네이티브 빌드 | **PASS / Gate A 통과** | 명시적 전송 승인 후 Pi GCC14.2 native 17건 통과; evidence/rp5-native-regressions-20261021.json |
+| Phase 3A — randomized splits, malformed, wrap, EOF/discontinuity | **Pi native 17건 PASS** | experiments/event-offline/evidence/local-regressions-20261021.json; native 실행 필요 |
 | Phase 3B — GREY/V4L2 experimental capture adapter | **미완료** | 오프라인 mock/fake producer 우선 |
 | Phase 3B — bounded receive/decode pipeline 및 Viewer | **미완료** | 상태 계측 및 정상 종료 시험 필요 |
 | Phase 3C — 실제 RP5 Event DT 0x31 수신 | **미실행** | preflight·rollback 통과 후 제한된 실험 |
@@ -61,3 +61,9 @@
 - Production touched: No. 서비스 MainPID=683775, NRestarts=0, ActiveState=active 유지. 마지막 2초 관측 sequence 106088021→106089668. buffers/s 1062.604→825.887, raw bytes/s 186678203.057→145091870.607, web 약58fps, HDMI 약60fps. dequeue/buffer/sequence-gap errors 각각 0. 시각 영상 baseline이나 CSI error baseline은 미확보이며 Phase C preflight PASS로 해석하지 않음.
 - 중단/복구: 실기 캡처 0회, 운영 중단 0초, 센서/모듈/서비스 설정 쓰기 없음. 변경이 없어 복구 명령 실행 없음. RAW2 복구 시험 성공을 주장하지 않음.
 - 다음 안전 작업: 명시적 전송 승인 후, private SDK core/sample + public harness만 Pi 별도 디렉터리에 전송하고 source/sample hash 대조 → GCC C++20 native 17건 실행 → Gate A 판정·commit/push. 이후에만 Phase B. Phase C의 10초×최대3회/총 downtime15분 및 preflight/watchdog/복구 검증 조건은 그대로 적용.
+
+### 2026-10-21 — Phase A 완료: RP5 native Gate A PASS
+- 사용자에게서 private SDK core + 8MiB sample의 해당 Pi /tmp 전송에 대한 명시 승인 수신. scp 성공. 원격 경로 `/tmp/dvs-event-phase-a-20261021`, umask077. Production 변경 없음.
+- 실제 명령: `nice -n 10 python3 phase_a.py sdk sample.bin native-results.json` (Pi). GCC14.2 / Linux aarch64 / kernel 6.12.47+rpt-rpi-2712. sample SHA256 기존과 일치. 17건 모두 PASS; fixed/random 분할 5건에서 frames1557/events1469217, invalid/unknown/frame_gaps0, 출력 hash 기존과 동일. 각 synthetic case의 실제 카운터는 `experiments/event-offline/evidence/rp5-native-regressions-20261021.json`에 보존.
+- 모듈 읽기 전용 확인: rp1-cfe.ko SHA256 `0d09dbeaee5fda45bc3e24407254d19dd454c2f4fbb2a26c356b93bf47bfa3dd`, s5krc1s_min.ko `474d02b06165804310e91ee16dca70de691664f1b806783e3f4eda2dd6584153`, 보관 baseline과 일치. parameter DT42/link625MHz. 서비스 active. sudo -n 권한 확인 성공. rollback/validate 파일 존재만 확인했으며 실행 검증은 아직 아님.
+- Gate A PASS. 실기 캡처0회/다운타임0초. 다음: Phase B bounded capture/decode pipeline + GREY adapter + 960×720 Viewer를 파일/mock로 검증. Phase C preflight는 아직 PASS 아님.
