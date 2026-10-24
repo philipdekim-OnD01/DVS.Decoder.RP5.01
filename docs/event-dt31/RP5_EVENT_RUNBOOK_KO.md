@@ -22,6 +22,14 @@
 
 `GREY/Y8`은 바이트 저장 컨테이너 후보일 뿐, `0x31` 지원이나 손실 없는 DMA를 보증하지 않는다. 실제로는 FS/FE, 패킷 Word Count, DMA geometry, stride, `bytesused`, `sequence`, CSI CRC/ECC와 드롭을 측정해야 한다. **별도 프로세스는 물리적 센서/CSI 포트 격리가 아니다.** 기존 RAW2와 동시 실시간 테스트를 시도하지 않는다.
 
+## 2026-10-25 설계 결정 — RAW2 보존 + 신규 Event Engine + 최소 스위처
+
+사용자 결정: 별도의 범용 복구 프로그램 개발에 집중하지 않고 **기존 RAW2(A)는 변경 없이 보존**, **신규 DT=0x31 Event 프로그램(B)을 별도로 완성**, 실패 시 **검증된 원본 A로 전환**하는 Blue-Green 운영 모델을 채택한다. 상세 설계 및 Codex 우선순위: [BLUE_GREEN_SWITCH_PLAN_KO.md](./BLUE_GREEN_SWITCH_PLAN_KO.md).
+
+중요: A·B는 서로 다른 소프트웨어지만 **실제 센서와 RP1 CFE는 하나**다. 프로그램 교체만으로 `0x31` 센서 레지스터·receiver DT·probe 상태·media graph가 `0x2A`로 원복되지 않는다. 따라서 최소 스위처는 원본 하드웨어 설정의 안전 복원과 실제 영상·버퍼 검증까지 포함해야 한다. 기존 destructive rollback 및 first-boot timer 호출 위험은 그대로 유효하다.
+
+**우선 작업**: (1) 원본 보존·비공개 snapshot 명세, (2) 별도 B 서비스/설정 및 file/mock Viewer 완성, (3) mock-only 단일 소유권 스위처, (4) 복귀/경합/watchdog 검증, (5) 모든 preflight를 실제 증거로 통과했을 때에만 Phase C 검토. 현재 **Phase C HARD BLOCKED**, `--device` 차단 유지. 이 결정은 복구 검증 조건의 축소, 운영 중단·레지스터 쓰기·재부팅 승인 또는 실제 스위치 실행 지시가 아니다.
+
 ## 긴급 안전 차단 — RAW2 rollback 경로 오용 위험 (2026-10-21)
 
 **상태: Phase C BLOCKED / RAW2 운영 중단 금지.** Codex의 Pi 조사에 따르면 기존 `raw2_production_rollback.sh`는 Event Packet에서 RAW2 운영 상태를 회복하는 스크립트가 아니라 RP1 override를 제거하고 서비스를 비활성화한 뒤 재부팅한다. 이 스크립트는 **복구 수단으로 실행·예약·재사용 금지**. 실제 Pi 상의 전체 스크립트 본문과 호출 관계는 읽기 전용으로 확인하고 증거를 남겨야 한다.

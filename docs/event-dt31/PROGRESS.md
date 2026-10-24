@@ -56,3 +56,9 @@
 - Blockers or uncertainties:
 - Exact next safe action:
 ```
+
+## 2026-10-25 — 사용자 설계 방향 변경 (문서/지시만, 실기 미실행)
+
+- 새 공식 설계 문서 [BLUE_GREEN_SWITCH_PLAN_KO.md](./BLUE_GREEN_SWITCH_PLAN_KO.md): 원본 RAW2(A) 불변 + 신규 Event Packet(B) 독립 개발 + 최소한의 fail-closed 스위처로 A↔B 전환 후 원본 A 정상 동작을 검증하는 방향으로 변경.
+- 위 문서는 작업 우선순위와 배포 구조의 결정이다. 장비 전환, 복구 성공, Live DT0x31 완료의 증거가 아니며 **Phase C HARD BLOCKED** 유지.
+- 최신 개발 진척은 [PR #5](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/5)의 PROGRESS/evidence를 기준으로 한다. main의 앞선 항목은 과거 시점 기록이다. 현재 실제 센서·CSI·service 상태는 Codex가 별도로 실측해야 한다.
