@@ -2,7 +2,7 @@
 
 - 결정: 2026-10-25 사용자 요청. **원본을 수정하지 않고 새 Event Packet 실행 경로를 별도 제작**하며, 실패 시 검증된 원본 RAW2로 전환한다.
 - 상태: **설계 결정 / 구현·실기 전환 미검증**. `Phase C HARD BLOCKED` 및 `--device PHASE_C_BLOCKED` 유지. 본 문서는 자동 실행 승인이나 복구 성공 근거가 아니다.
-- 현재 작업: [PR #5](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/5), [Issue #7](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/7). [RUNBOOK](./RP5_EVENT_RUNBOOK_KO.md), [RESTORE_PLAN](./RESTORE_PLAN_KO.md) (PR #5에서 사용), [PROGRESS](./PROGRESS.md)를 함께 읽는다.
+- 현재 작업: [PR #5](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/5), [Issue #7](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/7). [RUNBOOK](./RP5_EVENT_RUNBOOK_KO.md), [RESTORE_PLAN — PR #5](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/blob/codex/rp5-event-phases-20261021/docs/event-dt31/RESTORE_PLAN_KO.md), [PROGRESS](./PROGRESS.md)를 함께 읽는다.
 
 ## 1. 가장 중요한 원칙
 
