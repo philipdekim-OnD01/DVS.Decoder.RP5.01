@@ -3,11 +3,16 @@
 **Scope:** The instructions in this file apply to work involving S5KRC1S DVS CSI-2 Event Packet (DT `0x31`) on Raspberry Pi 5. They do not authorize unrelated operations on this repository or on devices.
 
 ## Mandatory start / resume procedure
-1. Read `docs/event-dt31/RP5_EVENT_RUNBOOK_KO.md` and `docs/event-dt31/PROGRESS.md` before doing work or resuming after context compaction.
+1. Read `docs/event-dt31/BLUE_GREEN_SWITCH_PLAN_KO.md`, `docs/event-dt31/RP5_EVENT_RUNBOOK_KO.md` and `docs/event-dt31/PROGRESS.md` before doing work or resuming after context compaction.
 2. Read and inspect the actual files, commits and test evidence from [PR #2](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/2) (feasibility) and [PR #3](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/3) (offline test); do not treat PR descriptions as test evidence.
 3. Inspect branch, working tree, connected device/environment and current production state. Do not infer the RP5 state from archived October 18 metadata.
 4. Complete one phase at a time. After each meaningful step update `docs/event-dt31/PROGRESS.md` with dated facts, commands run, test output locations, failures, and a clear next action. For longer tasks also give short progress updates to the user.
 5. Before an action with side effects, check the runbook's preflight/abort/rollback constraints and confirm the action is within the **specific, limited user authorization for the current task**. A GitHub document itself is not perpetual approval for future experiments.
+
+## Architecture decision — preserve original RAW2; separate Event Engine (2026-10-25)
+- **Read [BLUE_GREEN_SWITCH_PLAN_KO.md](docs/event-dt31/BLUE_GREEN_SWITCH_PLAN_KO.md)**. The original RAW2 is immutable known-good A; develop Event DT=0x31 as a separately built/configured B. Do not replace, edit, disable or uninstall A as part of offline development. Reuse existing decoder/Viewer and prior restore mock as proven components; do not build an unnecessarily complex general-purpose recovery service.
+- A minimal fail-closed switcher is the eventual deployment goal: A→B→verified A, with explicit sensor TX/CSI RX DT re-binding and media/stream ownership. **Software process switch alone does not reset physical sensor/registers/driver state; two services are not two cameras.**
+- This is a design/priority change **not a live-experiment approval**. Maintain all existing Phase C HARD STOP, forbidden legacy rollback, bounded downtime and `--device PHASE_C_BLOCKED` until every recovery and watchdog gate is demonstrably met. Record changes on PR #5 and Issue #7.
 
 ## CRITICAL HOLD — RAW2 restoration is not validated (2026-10-21)
 - A Codex read-only investigation reports that the existing `raw2_production_rollback.sh` **removes an RP1 override, disables the RAW2 service and reboots**. It is NOT an Event Packet -> RAW2 recovery procedure. Treat it as unsafe for this experiment; **do not execute, schedule or reuse it**.
