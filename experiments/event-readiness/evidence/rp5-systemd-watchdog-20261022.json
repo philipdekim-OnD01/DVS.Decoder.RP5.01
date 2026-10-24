@@ -1,0 +1,101 @@
+{
+  "pass": true,
+  "scope": "new marker-only isolated systemd units",
+  "cases": [
+    {
+      "name": "expiry",
+      "expected": "FIRED_NOOP_ALERT",
+      "actual": {
+        "status": "FIRED_NOOP_ALERT",
+        "run": "ad463b2f63b16f5acb082360",
+        "elapsed": 1.2241902209934779,
+        "invalid_cancel_observations": 0,
+        "hardware_actions": 0,
+        "production_ready": false,
+        "action": "marker-only",
+        "cgroup": "0::/system.slice/rp5-dvs-rdy-e48becf115-expiry.service\n"
+      },
+      "ready": {
+        "pid": 896636,
+        "ppid": 1,
+        "sid": 896636,
+        "cgroup": "0::/system.slice/rp5-dvs-rdy-e48becf115-expiry.service\n",
+        "run": "ad463b2f63b16f5acb082360"
+      },
+      "effective_properties": "RuntimeMaxUSec=5s\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /tmp/dvs-readiness-20261022/readiness/watchdog_worker.py --worker /tmp/dvs-watchdog-gate-20261022-v2/expiry ; ignore_errors=no ; start_time=[Thu 2026-10-22 06:56:12 KST] ; stop_time=[n/a] ; pid=896636 ; code=(null) ; status=0/0 }\nControlGroup=/system.slice/rp5-dvs-rdy-e48becf115-expiry.service\nDevicePolicy=closed\nUser=philip\nReadWritePaths=/tmp/dvs-watchdog-gate-20261022-v2/expiry\nPrivateDevices=yes\nPrivateNetwork=yes\nProtectHome=yes\nProtectSystem=strict\nNoNewPrivileges=yes\nId=rp5-dvs-rdy-e48becf115-expiry.service\n",
+      "pass": true
+    },
+    {
+      "name": "cancel",
+      "expected": "CANCELLED_SANDBOX",
+      "actual": {
+        "status": "CANCELLED_SANDBOX",
+        "run": "8e41fc684fd255be8f6c77ae",
+        "elapsed": 0.026008431043010205,
+        "invalid_cancel_observations": 0,
+        "hardware_actions": 0,
+        "production_ready": false,
+        "action": "marker-only",
+        "cgroup": "0::/system.slice/rp5-dvs-rdy-fc399386ad-cancel.service\n"
+      },
+      "ready": {
+        "pid": 896645,
+        "ppid": 1,
+        "sid": 896645,
+        "cgroup": "0::/system.slice/rp5-dvs-rdy-fc399386ad-cancel.service\n",
+        "run": "8e41fc684fd255be8f6c77ae"
+      },
+      "effective_properties": "RuntimeMaxUSec=5s\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /tmp/dvs-readiness-20261022/readiness/watchdog_worker.py --worker /tmp/dvs-watchdog-gate-20261022-v2/cancel ; ignore_errors=no ; start_time=[Thu 2026-10-22 06:56:14 KST] ; stop_time=[n/a] ; pid=896645 ; code=(null) ; status=0/0 }\nControlGroup=/system.slice/rp5-dvs-rdy-fc399386ad-cancel.service\nDevicePolicy=closed\nUser=philip\nReadWritePaths=/tmp/dvs-watchdog-gate-20261022-v2/cancel\nPrivateDevices=yes\nPrivateNetwork=yes\nProtectHome=yes\nProtectSystem=strict\nNoNewPrivileges=yes\nId=rp5-dvs-rdy-fc399386ad-cancel.service\n",
+      "pass": true
+    },
+    {
+      "name": "badcancel",
+      "expected": "FIRED_NOOP_ALERT",
+      "actual": {
+        "status": "FIRED_NOOP_ALERT",
+        "run": "b6847e4bc20c28da48eae122",
+        "elapsed": 1.2023225410375744,
+        "invalid_cancel_observations": 45,
+        "hardware_actions": 0,
+        "production_ready": false,
+        "action": "marker-only",
+        "cgroup": "0::/system.slice/rp5-dvs-rdy-b376d0a06b-badcancel.service\n"
+      },
+      "ready": {
+        "pid": 896650,
+        "ppid": 1,
+        "sid": 896650,
+        "cgroup": "0::/system.slice/rp5-dvs-rdy-b376d0a06b-badcancel.service\n",
+        "run": "b6847e4bc20c28da48eae122"
+      },
+      "effective_properties": "RuntimeMaxUSec=5s\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /tmp/dvs-readiness-20261022/readiness/watchdog_worker.py --worker /tmp/dvs-watchdog-gate-20261022-v2/badcancel ; ignore_errors=no ; start_time=[Thu 2026-10-22 06:56:14 KST] ; stop_time=[n/a] ; pid=896650 ; code=(null) ; status=0/0 }\nControlGroup=/system.slice/rp5-dvs-rdy-b376d0a06b-badcancel.service\nDevicePolicy=closed\nUser=philip\nReadWritePaths=/tmp/dvs-watchdog-gate-20261022-v2/badcancel\nPrivateDevices=yes\nPrivateNetwork=yes\nProtectHome=yes\nProtectSystem=strict\nNoNewPrivileges=yes\nId=rp5-dvs-rdy-b376d0a06b-badcancel.service\n",
+      "pass": true
+    },
+    {
+      "name": "runtimecap",
+      "expected": "TERMINATED_NOOP_ALERT",
+      "actual": {
+        "status": "TERMINATED_NOOP_ALERT",
+        "run": "55bc06beff80b0d4b65c408b",
+        "elapsed": 2.3743364909896627,
+        "invalid_cancel_observations": 0,
+        "hardware_actions": 0,
+        "production_ready": false,
+        "action": "marker-only",
+        "cgroup": "0::/system.slice/rp5-dvs-rdy-b93a76428a-runtimecap.service\n"
+      },
+      "ready": {
+        "pid": 896659,
+        "ppid": 1,
+        "sid": 896659,
+        "cgroup": "0::/system.slice/rp5-dvs-rdy-b93a76428a-runtimecap.service\n",
+        "run": "55bc06beff80b0d4b65c408b"
+      },
+      "effective_properties": "RuntimeMaxUSec=3s\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /tmp/dvs-readiness-20261022/readiness/watchdog_worker.py --worker /tmp/dvs-watchdog-gate-20261022-v2/runtimecap ; ignore_errors=no ; start_time=[Thu 2026-10-22 06:56:16 KST] ; stop_time=[n/a] ; pid=896659 ; code=(null) ; status=0/0 }\nControlGroup=/system.slice/rp5-dvs-rdy-b93a76428a-runtimecap.service\nDevicePolicy=closed\nUser=philip\nReadWritePaths=/tmp/dvs-watchdog-gate-20261022-v2/runtimecap\nPrivateDevices=yes\nPrivateNetwork=yes\nProtectHome=yes\nProtectSystem=strict\nNoNewPrivileges=yes\nId=rp5-dvs-rdy-b93a76428a-runtimecap.service\n",
+      "pass": true
+    }
+  ],
+  "production_service_changed": false,
+  "hardware_restore_tested": false,
+  "production_ready": false
+}

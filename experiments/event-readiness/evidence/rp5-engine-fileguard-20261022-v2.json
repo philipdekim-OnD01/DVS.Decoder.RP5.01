@@ -1,0 +1,42 @@
+{
+  "pass": true,
+  "sanitizers": "ASan/UBSan build",
+  "cases": [
+    {
+      "name": "fifo",
+      "exit_code": 1,
+      "refused": true
+    },
+    {
+      "name": "symlink",
+      "exit_code": 1,
+      "refused": true
+    },
+    {
+      "name": "directory",
+      "exit_code": 1,
+      "refused": true
+    },
+    {
+      "name": "kernel-virtual-file",
+      "exit_code": 1,
+      "refused": true
+    },
+    {
+      "name": "live",
+      "exit_code": 1,
+      "refused": true
+    },
+    {
+      "name": "force",
+      "exit_code": 1,
+      "refused": true
+    }
+  ],
+  "sample_frames": 1557,
+  "sample_events": 1469217,
+  "sample_output_sha256": "e15a8a75899f6352725e0a4fbcd73f537acd1496fda6ae8ac25cd17903be1798",
+  "production_ready": false,
+  "hardware_restore_tested": false,
+  "private_outputs_retained_in_public_repo": false
+}

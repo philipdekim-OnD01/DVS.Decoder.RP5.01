@@ -1,0 +1,14 @@
+{
+  "observed_at": "2026-10-22T07:07:33.224837+09:00",
+  "production_ready": false,
+  "checks": {
+    "file_hashes_metadata_unchanged": true,
+    "module_params_unchanged": true,
+    "media_graph_unchanged": true,
+    "production_service_unchanged": true,
+    "pending_unchanged": true,
+    "v4l2_sequence_advances": true,
+    "reported_v4l2_errors_zero": true
+  },
+  "pass": true
+}

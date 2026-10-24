@@ -1,0 +1,225 @@
+{
+  "pass": true,
+  "scope": "new non-production readiness tests",
+  "case_count": 31,
+  "cases": [
+    {
+      "name": "externally-pinned-synthetic-bundle",
+      "pass": true
+    },
+    {
+      "name": "refuse-rp1_override-hash-drift",
+      "pass": true
+    },
+    {
+      "name": "refuse-sensor_module-hash-drift",
+      "pass": true
+    },
+    {
+      "name": "refuse-dt_overlay-hash-drift",
+      "pass": true
+    },
+    {
+      "name": "refuse-setfile-hash-drift",
+      "pass": true
+    },
+    {
+      "name": "refuse-missing-setfile",
+      "pass": true
+    },
+    {
+      "name": "refuse-duplicate-register",
+      "pass": true
+    },
+    {
+      "name": "refuse-bad-register",
+      "pass": true
+    },
+    {
+      "name": "refuse-oversized-value",
+      "pass": true
+    },
+    {
+      "name": "refuse-wrong-dt",
+      "pass": true
+    },
+    {
+      "name": "refuse-wrong-geometry",
+      "pass": true
+    },
+    {
+      "name": "refuse-path-traversal",
+      "pass": true
+    },
+    {
+      "name": "refuse-legacy-command",
+      "pass": true
+    },
+    {
+      "name": "refuse-fake-live-proof",
+      "pass": true
+    },
+    {
+      "name": "external-pin-defeats-self-signed-tamper",
+      "pass": true
+    },
+    {
+      "name": "refuse-bundle-symlink",
+      "pass": true
+    },
+    {
+      "name": "isolated-startup-no-production-actions",
+      "pass": true,
+      "actual": {
+        "mode": "SANDBOX_ONLY",
+        "status": "VERIFIED_SANDBOX",
+        "effects": [
+          "receiver",
+          "sensor-profile",
+          "media-profile",
+          "processes"
+        ],
+        "legacy_invocations": 0,
+        "real_production_actions": 0,
+        "production_ready": false,
+        "reason": "no live backend"
+      }
+    },
+    {
+      "name": "marker-flip-after-initial-check",
+      "pass": true,
+      "actual": {
+        "mode": "SANDBOX_ONLY",
+        "status": "REFUSED",
+        "effects": [],
+        "legacy_invocations": 0,
+        "real_production_actions": 0,
+        "production_ready": false,
+        "reason": "firstboot marker/timer conflict"
+      }
+    },
+    {
+      "name": "marker-flip-before-receiver",
+      "pass": true,
+      "actual": {
+        "mode": "SANDBOX_ONLY",
+        "status": "REFUSED",
+        "effects": [],
+        "legacy_invocations": 0,
+        "real_production_actions": 0,
+        "production_ready": false,
+        "reason": "firstboot marker/timer conflict"
+      }
+    },
+    {
+      "name": "marker-flip-after-sensor-profile",
+      "pass": true,
+      "actual": {
+        "mode": "SANDBOX_ONLY",
+        "status": "REFUSED",
+        "effects": [
+          "receiver",
+          "sensor-profile"
+        ],
+        "legacy_invocations": 0,
+        "real_production_actions": 0,
+        "production_ready": false,
+        "reason": "firstboot marker/timer conflict"
+      }
+    },
+    {
+      "name": "marker-flip-before-processes",
+      "pass": true,
+      "actual": {
+        "mode": "SANDBOX_ONLY",
+        "status": "REFUSED",
+        "effects": [
+          "receiver",
+          "sensor-profile",
+          "media-profile"
+        ],
+        "legacy_invocations": 0,
+        "real_production_actions": 0,
+        "production_ready": false,
+        "reason": "firstboot marker/timer conflict"
+      }
+    },
+    {
+      "name": "concurrent-installer-marker-refused",
+      "pass": true
+    },
+    {
+      "name": "service-restart-simulation-remains-refused",
+      "pass": true
+    },
+    {
+      "name": "concurrent-start-controller-lock",
+      "pass": true
+    },
+    {
+      "name": "startup-revalidates-files-before-effects",
+      "pass": true
+    },
+    {
+      "name": "process-watchdog-expiry",
+      "pass": true,
+      "actual": {
+        "status": "FIRED_NOOP_ALERT",
+        "run": "439759abc529f75054299f63",
+        "elapsed": 0.36746099998708814,
+        "invalid_cancel_observations": 0,
+        "hardware_actions": 0,
+        "production_ready": false,
+        "action": "marker-only",
+        "cgroup": null
+      }
+    },
+    {
+      "name": "process-watchdog-valid-cancel",
+      "pass": true,
+      "actual": {
+        "status": "CANCELLED_SANDBOX",
+        "run": "dd5bef0d65817230bcb84d68",
+        "elapsed": 0.00023274996783584356,
+        "invalid_cancel_observations": 0,
+        "hardware_actions": 0,
+        "production_ready": false,
+        "action": "marker-only",
+        "cgroup": null
+      }
+    },
+    {
+      "name": "process-watchdog-wrong-token",
+      "pass": true,
+      "actual": {
+        "status": "FIRED_NOOP_ALERT",
+        "run": "e715bc10b7f7f884c99fa615",
+        "elapsed": 0.3638144580181688,
+        "invalid_cancel_observations": 11,
+        "hardware_actions": 0,
+        "production_ready": false,
+        "action": "marker-only",
+        "cgroup": null
+      }
+    },
+    {
+      "name": "watchdog-signal-alert-without-fallback",
+      "pass": true
+    },
+    {
+      "name": "watchdog-lock-contention",
+      "pass": true
+    },
+    {
+      "name": "startup-and-watchdog-no-command-network-or-live-backend",
+      "pass": true
+    }
+  ],
+  "hardware_restore_tested": false,
+  "production_ready": false,
+  "source_sha256": {
+    "bundle_startup.py": "2580850519728f5c014abf4348e096a32e90c0da281b35ead72a4edab820b4a1",
+    "watchdog_worker.py": "50b01f382790ac4b7f602c142b62ab3b055dba9b4998a20c433cb1aa17f553dd",
+    "test_readiness.py": "64465eff73a8787db048926d56588cdc4e2edb897ec0052f5410468155c4eeb1"
+  }
+}

@@ -1,0 +1,319 @@
+{
+  "observed_at": "2026-10-21T23:03:17.547151+09:00",
+  "files": {
+    "/home/philip/dvs_raw2_production/raw2_production_start.sh": {
+      "exists": true,
+      "bytes": 5875,
+      "sha256": "ac7b6b0340a58fcd28b91c457738e12f9ed7532916906f239a538b503845fc12",
+      "mtime": "2026-10-12T23:21:14.268413+09:00"
+    },
+    "/home/philip/dvs_raw2_production/raw2_production_rollback.sh": {
+      "exists": true,
+      "bytes": 3392,
+      "sha256": "6f45ec60a21e573226fcf403285c23af28e7e30b80e0156cd37b8c71a7f52661",
+      "mtime": "2026-09-23T18:43:06.148022+09:00"
+    },
+    "/home/philip/dvs_raw2_production/raw2_production_validate.sh": {
+      "exists": true,
+      "bytes": 1182,
+      "sha256": "795a8d880deb03ae793b27489263e25e995254ab6cd199cfdec660218be08e95",
+      "mtime": "2026-09-23T18:43:06.128021+09:00"
+    },
+    "/home/philip/dvs_raw2_production/raw2_producer": {
+      "exists": true,
+      "bytes": 82528,
+      "sha256": "5c2a88249aca8c3e3af0e0c3ec6ad772cad902ef215bc531a635f9c7af16776b",
+      "mtime": "2026-10-16T09:21:05.898943+09:00"
+    },
+    "/home/philip/dvs_raw2_production/sensor_hand_profile.py": {
+      "exists": true,
+      "bytes": 1721,
+      "sha256": "ca9e064470ef661d38edfaddbc36cfd45807c8fe31b1dce689202310af78b06e",
+      "mtime": "2026-10-12T23:21:14.208369+09:00"
+    },
+    "/home/philip/dvs_raw2_production/backup/sensor_registers_before_key.txt": {
+      "exists": true,
+      "bytes": 120,
+      "sha256": "234bd1c4f99db40ba8cc50290fdb8b8f40e8c352742a7bf5a7a28c8b16f77b02",
+      "mtime": "2026-09-23T18:44:57.141080+09:00"
+    },
+    "/home/philip/dvs_raw2_production/sensor_registers_raw2_programmed.txt": {
+      "exists": true,
+      "bytes": 120,
+      "sha256": "e487e3513c0d3d5bbc6660b706d16038f64e3ad22e9c6288b21f3f3a0231c68c",
+      "mtime": "2026-10-20T20:30:47.107109+09:00"
+    },
+    "/home/philip/dvs_raw2_production/media_graph_raw2.txt": {
+      "exists": true,
+      "bytes": 3839,
+      "sha256": "2f1219ad62fc90d6c2d0a601955a7acc268301086e3e274ca797de42d5e25ee4",
+      "mtime": "2026-10-20T20:30:47.127110+09:00"
+    },
+    "/home/philip/dvs_raw2_production/devices.txt": {
+      "exists": true,
+      "bytes": 36,
+      "sha256": "ab0d9f81b25c8511f4d2c2575e09b095bf7312667014f0a852675c3c8a9aa009",
+      "mtime": "2026-10-20T20:30:46.719107+09:00"
+    },
+    "/home/philip/dvs_raw2_production/pending_first_boot_validation": {
+      "exists": false
+    },
+    "/home/philip/bin/s5krc1s_probe_init.py": {
+      "exists": true,
+      "bytes": 7915,
+      "sha256": "ac9964b979d12c137efb1806ffa68ebf025e81c09be45c9859badb9620a8ea49",
+      "mtime": "2026-08-06T10:07:56.656980+09:00"
+    },
+    "/home/philip/bin/Delta_10_2000FPS.txt": {
+      "exists": true,
+      "bytes": 4527,
+      "sha256": "a9fd9d86f0c8d1d7970510cf2abcf334792019055b44190a24441f7f4da62002",
+      "mtime": "2026-07-31T12:18:41.128706+09:00"
+    },
+    "/etc/modprobe.d/s5krc1s_min.conf": {
+      "exists": true,
+      "bytes": 56,
+      "sha256": "0a7b6de8f08e62c6c5cae36b08227dfa6ff403866bc72fca0309a186b1a766da",
+      "mtime": "2026-09-06T17:36:34.604155+09:00"
+    },
+    "/etc/modprobe.d/dvs-raw2-production-rp1.conf": {
+      "exists": true,
+      "bytes": 84,
+      "sha256": "e176768321d62458ed9d8e65df2afad0acc81ab951d3c632638aaec536cc2eee",
+      "mtime": "2026-09-23T18:45:02.017178+09:00"
+    },
+    "/etc/systemd/system/dvs-raw2-production.service": {
+      "exists": true,
+      "bytes": 469,
+      "sha256": "036ea1bf3ed2fa7bb4796d86808d1877ef79b097924150aee9a292e81e8f8d67",
+      "mtime": "2026-09-23T18:44:56.133061+09:00"
+    },
+    "/boot/firmware/config.txt": {
+      "exists": true,
+      "bytes": 1509,
+      "sha256": "e0e2d147bbe366ec26f00b48627228b9b82ef14d034563e7fb3d1386a21c4829",
+      "mtime": "2026-10-12T22:32:32+09:00"
+    },
+    "/boot/firmware/overlays/s5krc1s-cam0.dtbo": {
+      "exists": true,
+      "bytes": 1439,
+      "sha256": "03d0ac9dde5529fcd8194c831eb33c271a24ddd74d7052cbc6cec21bf63699f1",
+      "mtime": "2026-08-06T10:56:10+09:00"
+    },
+    "/etc/systemd/system/dvs-raw2-production.service.d/50-visual-ab.conf": {
+      "exists": true,
+      "bytes": 150,
+      "sha256": "4a191abd0e0390e29753e41bc2e5e43516648fa7ea4c491e4627bfb0eff346a0",
+      "mtime": "2026-10-16T08:10:19.662538+09:00"
+    },
+    "/etc/systemd/system/dvs-raw2-production.service.d/60-boundary-shadow.conf": {
+      "exists": true,
+      "bytes": 49,
+      "sha256": "915e7a3f381af5f729bbafc24ea2b7c276737e42d7fe1afaf360e5e7e9c5e813",
+      "mtime": "2026-10-16T08:48:47.390556+09:00"
+    },
+    "/etc/systemd/system/dvs-raw2-production.service.d/80-boundary-trace.conf": {
+      "exists": true,
+      "bytes": 46,
+      "sha256": "e78dbeeb9a038aa2f26a6cf59301a681d57984c0b70032df282a18957d2c9d5e",
+      "mtime": "2026-10-16T09:21:05.938943+09:00"
+    },
+    "/etc/systemd/system/dvs-raw2-production.service.d/70-boundary-hist.conf": {
+      "exists": true,
+      "bytes": 49,
+      "sha256": "915e7a3f381af5f729bbafc24ea2b7c276737e42d7fe1afaf360e5e7e9c5e813",
+      "mtime": "2026-10-16T09:00:48.527655+09:00"
+    },
+    "/lib/modules/6.12.47+rpt-rpi-2712/updates/rp1-cfe.ko": {
+      "exists": true,
+      "bytes": 101344,
+      "sha256": "0d09dbeaee5fda45bc3e24407254d19dd454c2f4fbb2a26c356b93bf47bfa3dd",
+      "mtime": "2026-09-23T18:45:02.017178+09:00"
+    },
+    "/lib/modules/6.12.47+rpt-rpi-2712/extra/s5krc1s_min.ko": {
+      "exists": true,
+      "bytes": 17096,
+      "sha256": "474d02b06165804310e91ee16dca70de691664f1b806783e3f4eda2dd6584153",
+      "mtime": "2026-09-23T18:45:02.013178+09:00"
+    }
+  },
+  "references": [
+    {
+      "path": "/home/philip/dvs_raw2_production/raw2_production_start.sh",
+      "line": 56,
+      "text": "if [[ -e \"$RUN/pending_first_boot_validation\" ]]; then"
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/raw2_production_start.sh",
+      "line": 57,
+      "text": "systemd-run --unit=raw2-production-firstboot-expiry --on-active=4min \\"
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/raw2_production_start.sh",
+      "line": 58,
+      "text": "\"$RUN/raw2_production_rollback.sh\" first-boot-health-timeout >/dev/null"
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/raw2_production_start.sh",
+      "line": 142,
+      "text": "if [[ -e \"$RUN/pending_first_boot_validation\" ]]; then"
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/raw2_production_start.sh",
+      "line": 143,
+      "text": "\"$RUN/raw2_production_validate.sh\" >>\"$RUN/logs/first-boot-validation.log\" 2>&1 &"
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/raw2_production_validate.sh",
+      "line": 22,
+      "text": "rm -f \"$RUN/pending_first_boot_validation\""
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/raw2_production_validate.sh",
+      "line": 23,
+      "text": "systemctl stop raw2-production-firstboot-expiry.timer >/dev/null 2>&1 || true"
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/rollback_hand_tuning.sh",
+      "line": 5,
+      "text": "for file in raw2_producer.cpp dvs_renderer.cpp dvs_renderer.hpp hdmi_controls.py app_raw2.js raw2_production_start.sh server_production.py; do"
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/rollback_hand_tuning.sh",
+      "line": 9,
+      "text": "for file in raw2_producer.cpp dvs_renderer.cpp dvs_renderer.hpp hdmi_controls.py app_raw2.js raw2_production_start.sh server_production.py; do"
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/raw2_production_rollback.sh",
+      "line": 46,
+      "text": "systemctl stop raw2-production-firstboot-expiry.timer >/dev/null 2>&1 || true"
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/raw2_production_rollback.sh",
+      "line": 65,
+      "text": "rm -f \"$RUN/pending_first_boot_validation\""
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/dvs-raw2-production.service",
+      "line": 11,
+      "text": "ExecStart=/home/philip/dvs_raw2_production/raw2_production_start.sh"
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/raw2_production_install.sh",
+      "line": 37,
+      "text": "rm -f \"$RP1_OVERRIDE\" \"$TEMP_MODPROBE\" \"$RUN/pending_first_boot_validation\""
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/raw2_production_install.sh",
+      "line": 97,
+      "text": "touch \"$RUN/pending_first_boot_validation\""
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/backup/hand-tuning-20261012/raw2_production_start.sh",
+      "line": 56,
+      "text": "if [[ -e \"$RUN/pending_first_boot_validation\" ]]; then"
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/backup/hand-tuning-20261012/raw2_production_start.sh",
+      "line": 57,
+      "text": "systemd-run --unit=raw2-production-firstboot-expiry --on-active=4min \\"
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/backup/hand-tuning-20261012/raw2_production_start.sh",
+      "line": 58,
+      "text": "\"$RUN/raw2_production_rollback.sh\" first-boot-health-timeout >/dev/null"
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/backup/hand-tuning-20261012/raw2_production_start.sh",
+      "line": 139,
+      "text": "if [[ -e \"$RUN/pending_first_boot_validation\" ]]; then"
+    },
+    {
+      "path": "/home/philip/dvs_raw2_production/backup/hand-tuning-20261012/raw2_production_start.sh",
+      "line": 140,
+      "text": "\"$RUN/raw2_production_validate.sh\" >>\"$RUN/logs/first-boot-validation.log\" 2>&1 &"
+    },
+    {
+      "path": "/etc/systemd/system/dvs-raw2-production.service",
+      "line": 11,
+      "text": "ExecStart=/home/philip/dvs_raw2_production/raw2_production_start.sh"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/dvs-raw2-production.service",
+      "line": 11,
+      "text": "ExecStart=/home/philip/dvs_raw2_production/raw2_production_start.sh"
+    }
+  ],
+  "module_parameters": {
+    "s5krc1s_min/csi2_dt": "42",
+    "s5krc1s_min/link_freq_hz": "625000000",
+    "rp1_cfe/diag_pack_bytes": "1",
+    "rp1_cfe/diag_stride_zero": "Y",
+    "rp1_cfe/track_csi2_errors": null
+  },
+  "media_graph": {
+    "device": "/dev/media0",
+    "returncode": 0,
+    "sha256": "73cd3d7419c858f1605823ae5a0aa4641ab3019c65632f4f809c73e464ad0748",
+    "format_lines": [
+      "[stream:0 fmt:Y8_1X8/8192x128 field:none]",
+      "[stream:0 fmt:unknown/16384x1 field:none]",
+      "[stream:0 fmt:SRGGB10_1X10/640x480 field:none colorspace:raw xfer:none ycbcr:601 quantization:full-range]",
+      "[stream:0 fmt:SRGGB10_1X10/640x480 field:none colorspace:raw xfer:none ycbcr:601 quantization:full-range]",
+      "[stream:0 fmt:Y8_1X8/8192x128 field:none]",
+      "-> \"rp1-cfe-csi2_ch0\":0 [ENABLED]",
+      "[stream:0 fmt:unknown/16384x1 field:none]",
+      "[stream:0 fmt:SRGGB10_1X10/640x480 field:none colorspace:raw xfer:none ycbcr:601 quantization:full-range]",
+      "[stream:0 fmt:SRGGB10_1X10/640x480 field:none colorspace:raw xfer:none ycbcr:601 quantization:full-range]",
+      "[stream:0 fmt:SRGGB16_1X16/640x480 field:none colorspace:raw xfer:none ycbcr:601 quantization:full-range]",
+      "[stream:0 fmt:FIXED/16384x1 field:none]",
+      "[stream:0 fmt:SRGGB16_1X16/640x480 field:none colorspace:raw xfer:none ycbcr:601 quantization:full-range]",
+      "[stream:0 fmt:SRGGB16_1X16/640x480 field:none colorspace:raw xfer:none ycbcr:601 quantization:full-range]",
+      "[stream:0 fmt:FIXED/16384x1 field:none]",
+      "[stream:0 fmt:Y8_1X8/8192x128 field:none colorspace:raw]",
+      "- entity 18: rp1-cfe-csi2_ch0 (1 pad, 1 link)"
+    ]
+  },
+  "service": {
+    "returncode": 0,
+    "stdout": "Restart=on-failure\nRestartUSec=5s\nMainPID=683775\nNRestarts=0\nActiveState=active\nUnitFileState=enabled\nActiveEnterTimestamp=Tue 2026-10-20 20:30:46 KST",
+    "stderr": ""
+  },
+  "firstboot": {
+    "returncode": 0,
+    "stdout": "Id=raw2-production-firstboot-expiry.timer\nTriggers=\nLoadState=not-found\nActiveState=inactive\n\nId=raw2-production-firstboot-expiry.service\nTriggers=\nLoadState=not-found\nActiveState=inactive",
+    "stderr": ""
+  },
+  "system_timers": {
+    "returncode": 0,
+    "stdout": "NEXT                           LEFT LAST                              PASSED UNIT                         ACTIVATES\nWed 2026-10-21 23:03:38 KST     21s Wed 2026-10-21 23:03:08 KST       8s ago pi-thermal-clock-guard.timer pi-thermal-clock-guard.service\nThu 2026-10-22 00:00:00 KST   56min Wed 2026-10-21 00:00:22 KST      23h ago dpkg-db-backup.timer         dpkg-db-backup.service\nThu 2026-10-22 00:11:27 KST 1h 8min Wed 2026-10-21 00:52:08 KST      22h ago logrotate.timer              logrotate.service\nThu 2026-10-22 03:09:34 KST 4h 6min Wed 2026-10-21 03:00:38 KST      20h ago man-db.timer                 man-db.service\nThu 2026-10-22 06:14:19 KST      7h Wed 2026-10-21 06:49:08 KST      16h ago apt-daily-upgrade.timer      apt-daily-upgrade.service\nThu 2026-10-22 07:14:53 KST      8h Wed 2026-10-21 07:14:53 KST      15h ago systemd-tmpfiles-clean.timer systemd-tmpfiles-clean.service\nThu 2026-10-22 09:59:08 KST     10h Wed 2026-10-21 09:59:08 KST      13h ago rpi-zram-writeback.timer     rpi-zram-writeback.service\nThu 2026-10-22 17:24:20 KST     18h Wed 2026-10-21 19:04:48 KST 3h 58min ago apt-daily.timer              apt-daily.service\nSun 2026-10-25 03:10:33 KST  3 days Sun 2026-10-18 03:10:08 KST   3 days ago e2scrub_all.timer            e2scrub_all.service\nMon 2026-10-26 01:20:02 KST  4 days Mon 2026-10-19 01:13:53 KST   2 days ago fstrim.timer                 fstrim.service\n\n10 timers listed.",
+    "stderr": ""
+  },
+  "user_timers": {
+    "returncode": 0,
+    "stdout": "NEXT LEFT LAST PASSED UNIT ACTIVATES\n\n0 timers listed.",
+    "stderr": ""
+  },
+  "metrics_before": {
+    "v4l2_sequence": 107519921,
+    "capture_buffers_sec": 648.907,
+    "raw_bytes_sec": 114000032.837,
+    "web_fps": 56.904,
+    "hdmi_fps": 59.899,
+    "v4l2_dequeue_errors": 0,
+    "v4l2_buffer_errors": 0,
+    "v4l2_sequence_gaps": 0
+  },
+  "metrics_after": {
+    "v4l2_sequence": 107521065,
+    "capture_buffers_sec": 558.721,
+    "raw_bytes_sec": 98156166.575,
+    "web_fps": 57.971,
+    "hdmi_fps": 59.97,
+    "v4l2_dequeue_errors": 0,
+    "v4l2_buffer_errors": 0,
+    "v4l2_sequence_gaps": 0
+  },
+  "live_registers_read": false,
+  "production_changed": false
+}

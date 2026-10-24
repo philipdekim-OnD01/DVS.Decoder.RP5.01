@@ -1,0 +1,99 @@
+{
+  "host": "Linux-6.12.47+rpt-rpi-2712-aarch64-with-glibc2.41",
+  "source_sha256": "64c7c6944e4d63348b62a3f129a7a54645bcbbedb47148636861bdce8df5567c",
+  "cases": [
+    {
+      "case": "schema_bool",
+      "pass": true
+    },
+    {
+      "case": "schema_float",
+      "pass": true
+    },
+    {
+      "case": "run_null",
+      "pass": true
+    },
+    {
+      "case": "run_empty",
+      "pass": true
+    },
+    {
+      "case": "run_nonhex",
+      "pass": true
+    },
+    {
+      "case": "hash_list",
+      "pass": true
+    },
+    {
+      "case": "hash_short",
+      "pass": true
+    },
+    {
+      "case": "timeout_bool",
+      "pass": true
+    },
+    {
+      "case": "timeout_string",
+      "pass": true
+    },
+    {
+      "case": "timeout_null",
+      "pass": true
+    },
+    {
+      "case": "timeout_nan",
+      "pass": true
+    },
+    {
+      "case": "timeout_inf",
+      "pass": true
+    },
+    {
+      "case": "timeout_negative",
+      "pass": true
+    },
+    {
+      "case": "timeout_long",
+      "pass": true
+    },
+    {
+      "case": "action_other",
+      "pass": true
+    },
+    {
+      "case": "shape_15",
+      "pass": true
+    },
+    {
+      "case": "shape_16",
+      "pass": true
+    },
+    {
+      "case": "shape_17",
+      "pass": true
+    },
+    {
+      "case": "shape_18",
+      "pass": true
+    },
+    {
+      "case": "reject_replay_ready.json",
+      "pass": true
+    },
+    {
+      "case": "reject_replay_result.json",
+      "pass": true
+    },
+    {
+      "case": "fresh_expiry",
+      "pass": true,
+      "elapsed": 0.20573018002323806
+    }
+  ],
+  "passed": 22,
+  "production_ready": false,
+  "hardware_actions": 0,
+  "scope": "local process and temp files only; not systemd or hardware recovery"
+}

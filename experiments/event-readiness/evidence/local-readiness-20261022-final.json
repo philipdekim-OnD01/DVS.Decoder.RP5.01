@@ -1,0 +1,243 @@
+{
+  "pass": true,
+  "scope": "new non-production readiness tests",
+  "case_count": 33,
+  "cases": [
+    {
+      "name": "externally-pinned-synthetic-bundle",
+      "pass": true
+    },
+    {
+      "name": "refuse-rp1_override-hash-drift",
+      "pass": true
+    },
+    {
+      "name": "refuse-sensor_module-hash-drift",
+      "pass": true
+    },
+    {
+      "name": "refuse-dt_overlay-hash-drift",
+      "pass": true
+    },
+    {
+      "name": "refuse-setfile-hash-drift",
+      "pass": true
+    },
+    {
+      "name": "refuse-missing-setfile",
+      "pass": true
+    },
+    {
+      "name": "refuse-duplicate-register",
+      "pass": true
+    },
+    {
+      "name": "refuse-bad-register",
+      "pass": true
+    },
+    {
+      "name": "refuse-oversized-value",
+      "pass": true
+    },
+    {
+      "name": "refuse-wrong-dt",
+      "pass": true
+    },
+    {
+      "name": "refuse-wrong-geometry",
+      "pass": true
+    },
+    {
+      "name": "refuse-path-traversal",
+      "pass": true
+    },
+    {
+      "name": "refuse-legacy-command",
+      "pass": true
+    },
+    {
+      "name": "refuse-fake-live-proof",
+      "pass": true
+    },
+    {
+      "name": "external-pin-defeats-self-signed-tamper",
+      "pass": true
+    },
+    {
+      "name": "refuse-bundle-symlink",
+      "pass": true
+    },
+    {
+      "name": "isolated-startup-no-production-actions",
+      "pass": true,
+      "actual": {
+        "mode": "SANDBOX_ONLY",
+        "status": "VERIFIED_SANDBOX",
+        "effects": [
+          "receiver",
+          "sensor-profile",
+          "media-profile",
+          "processes"
+        ],
+        "legacy_invocations": 0,
+        "real_production_actions": 0,
+        "production_ready": false,
+        "reason": "no live backend"
+      }
+    },
+    {
+      "name": "marker-flip-after-initial-check",
+      "pass": true,
+      "actual": {
+        "mode": "SANDBOX_ONLY",
+        "status": "REFUSED",
+        "effects": [],
+        "legacy_invocations": 0,
+        "real_production_actions": 0,
+        "production_ready": false,
+        "reason": "firstboot marker/timer conflict"
+      }
+    },
+    {
+      "name": "marker-flip-before-receiver",
+      "pass": true,
+      "actual": {
+        "mode": "SANDBOX_ONLY",
+        "status": "REFUSED",
+        "effects": [],
+        "legacy_invocations": 0,
+        "real_production_actions": 0,
+        "production_ready": false,
+        "reason": "firstboot marker/timer conflict"
+      }
+    },
+    {
+      "name": "marker-flip-after-sensor-profile",
+      "pass": true,
+      "actual": {
+        "mode": "SANDBOX_ONLY",
+        "status": "REFUSED",
+        "effects": [
+          "receiver",
+          "sensor-profile"
+        ],
+        "legacy_invocations": 0,
+        "real_production_actions": 0,
+        "production_ready": false,
+        "reason": "firstboot marker/timer conflict"
+      }
+    },
+    {
+      "name": "marker-flip-before-processes",
+      "pass": true,
+      "actual": {
+        "mode": "SANDBOX_ONLY",
+        "status": "REFUSED",
+        "effects": [
+          "receiver",
+          "sensor-profile",
+          "media-profile"
+        ],
+        "legacy_invocations": 0,
+        "real_production_actions": 0,
+        "production_ready": false,
+        "reason": "firstboot marker/timer conflict"
+      }
+    },
+    {
+      "name": "fake-prior-success-cannot-skip-guards",
+      "pass": true
+    },
+    {
+      "name": "concurrent-installer-marker-refused",
+      "pass": true
+    },
+    {
+      "name": "service-restart-simulation-remains-refused",
+      "pass": true
+    },
+    {
+      "name": "concurrent-start-controller-lock",
+      "pass": true
+    },
+    {
+      "name": "startup-revalidates-files-before-effects",
+      "pass": true
+    },
+    {
+      "name": "process-watchdog-expiry",
+      "pass": true,
+      "actual": {
+        "status": "FIRED_NOOP_ALERT",
+        "run": "0c6f8370cd0410aac8075380",
+        "elapsed": 0.37387250002939254,
+        "invalid_cancel_observations": 0,
+        "hardware_actions": 0,
+        "production_ready": false,
+        "action": "marker-only",
+        "cgroup": null
+      }
+    },
+    {
+      "name": "process-watchdog-valid-cancel",
+      "pass": true,
+      "actual": {
+        "status": "CANCELLED_SANDBOX",
+        "run": "6d1e617769d778449fcb998a",
+        "elapsed": 0.00026658305432647467,
+        "invalid_cancel_observations": 0,
+        "hardware_actions": 0,
+        "production_ready": false,
+        "action": "marker-only",
+        "cgroup": null
+      }
+    },
+    {
+      "name": "process-watchdog-wrong-token",
+      "pass": true,
+      "actual": {
+        "status": "FIRED_NOOP_ALERT",
+        "run": "2a871b6aa573bf37a479926c",
+        "elapsed": 0.36100441694725305,
+        "invalid_cancel_observations": 11,
+        "hardware_actions": 0,
+        "production_ready": false,
+        "action": "marker-only",
+        "cgroup": null
+      }
+    },
+    {
+      "name": "process-watchdog-malformed-token",
+      "pass": true,
+      "actual": {
+        "status": "FIRED_NOOP_ALERT",
+        "run": "2d8cc4322cf2cd4d56745618",
+        "elapsed": 0.3694919580593705,
+        "invalid_cancel_observations": 11,
+        "hardware_actions": 0,
+        "production_ready": false,
+        "action": "marker-only",
+        "cgroup": null
+      }
+    },
+    {
+      "name": "watchdog-signal-alert-without-fallback",
+      "pass": true
+    },
+    {
+      "name": "watchdog-lock-contention",
+      "pass": true
+    },
+    {
+      "name": "startup-and-watchdog-no-command-network-or-live-backend",
+      "pass": true
+    }
+  ],
+  "hardware_restore_tested": false,
+  "production_ready": false,
+  "source_sha256": {
+    "bundle_startup.py": "2580850519728f5c014abf4348e096a32e90c0da281b35ead72a4edab820b4a1",
+    "watchdog_worker.py": "464791fb0251cafc4fadabe578c20e6c044f6d3adf3127e6aad3b1f2dee453ab",
+    "test_readiness.py": "31db801d05885b423fc56e723ac60b7cd1192d1ead39ff1e4285ff21b7239ca6"
+  }
+}

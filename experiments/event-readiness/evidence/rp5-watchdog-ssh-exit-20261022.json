@@ -1,0 +1,28 @@
+{
+  "pass_": true,
+  "ssh_client_returncode": 255,
+  "scope": "one owned test SSH client terminated; separate manager unit writes NOOP marker",
+  "production_ready": false,
+  "hardware_restore_tested": false,
+  "network_outage_tested": false,
+  "result_absent_after_client_exit": true,
+  "result": {
+    "status": "FIRED_NOOP_ALERT",
+    "run": "c7ef72c85643809570dc2645",
+    "elapsed": 1.5093389539979398,
+    "invalid_cancel_observations": 0,
+    "hardware_actions": 0,
+    "production_ready": false,
+    "action": "marker-only",
+    "cgroup": "0::/system.slice/rp5-dvs-rdy-edbfcfa440-ssh-exit.service\n"
+  },
+  "ready": {
+    "pid": 896815,
+    "ppid": 1,
+    "sid": 896815,
+    "cgroup": "0::/system.slice/rp5-dvs-rdy-edbfcfa440-ssh-exit.service\n",
+    "run": "c7ef72c85643809570dc2645"
+  },
+  "properties": "RuntimeMaxUSec=5s\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /tmp/dvs-readiness-20261022/readiness/watchdog_worker.py --worker /tmp/dvs-watchdog-ssh-exit-20261022/ssh-exit ; ignore_errors=no ; start_time=[Thu 2026-10-22 06:57:11 KST] ; stop_time=[n/a] ; pid=896815 ; code=(null) ; status=0/0 }\nControlGroup=/system.slice/rp5-dvs-rdy-edbfcfa440-ssh-exit.service\nDevicePolicy=closed\nUser=philip\nReadWritePaths=/tmp/dvs-watchdog-ssh-exit-20261022/ssh-exit\nPrivateDevices=yes\nPrivateNetwork=yes\nProtectHome=yes\nProtectSystem=strict\nNoNewPrivileges=yes\nId=rp5-dvs-rdy-edbfcfa440-ssh-exit.service\n",
+  "query_session_cgroup": "0::/user.slice/user-1000.slice/session-298.scope\n"
+}
