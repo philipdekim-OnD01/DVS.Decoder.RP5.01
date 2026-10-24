@@ -1,0 +1,16 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
+const source=fs.readFileSync(new URL('./viewer.js',import.meta.url),'utf8');
+const {indexFrames,renderFrame}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+const run=process.argv[2],b=fs.readFileSync(run+'/frames.bin'),data=indexFrames(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength));
+assert.equal(data.frames.length,1557);
+const frame=renderFrame(data,data.frames.length-1),ppm=fs.readFileSync(run+'/latest.ppm');
+const rgb=Buffer.alloc(960*720*3);for(let i=0;i<960*720;i++)for(let c=0;c<3;c++)rgb[i*3+c]=frame.pixels[i*4+c];
+assert.deepEqual(rgb,ppm.subarray(15));
+const synthetic=new ArrayBuffer(28),v=new DataView(synthetic);v.setBigUint64(0,123n,true);v.setUint32(12,2,true);v.setUint16(16,4,true);v.setUint16(18,8,true);v.setUint8(20,1);v.setUint16(22,5,true);v.setUint16(24,16,true);v.setUint8(26,2);v.setUint8(27,1);
+const s=indexFrames(synthetic),all=renderFrame(s,0),on=renderFrame(s,0,'on'),off=renderFrame(s,0,'off');
+assert.equal(all.on,1);assert.equal(all.off,1);assert.equal(on.pixels[(17*960+5)*4],0);assert.equal(off.pixels[(8*960+4)*4+1],0);assert.equal(all.pixels[(17*960+5)*4],255);assert.equal(all.pixels[(8*960+4)*4+1],255);
+assert.throws(()=>indexFrames(new ArrayBuffer(15)));v.setUint16(16,960,true);assert.throws(()=>indexFrames(synthetic));
+const report={pass:true,host:process.platform+' '+process.arch,actual_frames:1557,last_frame_RGB_matches_native_PPM:true,rgb_sha256:crypto.createHash('sha256').update(rgb).digest('hex'),synthetic_polarity_and_bounds:true,physical_coordinates:'NOT VERIFIED',private_images_committed:false};
+console.log(JSON.stringify(report,null,2));

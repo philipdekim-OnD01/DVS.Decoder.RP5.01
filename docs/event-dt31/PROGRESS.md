@@ -222,3 +222,9 @@
 - `event-b/build.py`, file-onlyCLI/app/config/shareViewer, package bin/runs/manifest 추가. 기존engine/Queue/SDKcarrypatch/RegularInput 재사용, Packet공통헤더분리. EVENT_FILE_ONLY에서V4L2/service-check코드제외. --device hardblock유지, production파일작성없음.
 - Pi aarch64 GCC14.2 -Werror nativebuild PASS(`/tmp/dvs-event-b-package-20261025-v2`). 초기live변수unused compileFAIL→동일ifdef범위로이동후새경로재빌드. `event-b/evidence/b1-native-build.json`, first-build-failure.txt.
 - 신규Viewer=frames binary indexedplay/pause/seek/fps/ON/OFF/timestamp, 기존greenON/redOFF렌더규칙. B1은빌드검증이며실제패키지fileE2E/브라우저는B2/B3에서확인. RAW2 A unchanged/복귀개발0/live0/Phase C HARD BLOCKED. NEXT=B2 standalonepackageE2E1회.
+
+## 2026-10-25 — Issue15 B2 DONE / 신규packageE2E
+
+- Pi check_package.py 단회승인8MiB file→기존queue/decoder→1557frames/960×720PPM 및새Viewer파일출력 PASS. source/sample/binary/output SHA핀고정. SDKevents1469217/ON706157/OFF763060/unsynced830, EOF0partial/1incomplete. cap8/high8/drop0/final0, exit0.
+- file0.971242s/8.63699MBps/CPU105.156%/childmaxRSS27504KiB 실측(센서성능아님). 완성outputevents1468615 vsSDK누적1469217은다른범위,602차이를손실로주장안함. CSInull/실기미실행.
+- Node새Viewer1557index/lastRGB=PPM동치/합성polaritybounds PASS. 공개 `event-b/evidence/b2-*`,privateframe/image비공개유지. 기존suite/분석반복0/RAW2 A unchanged. NEXT=B3 브라우저file재생/seek/polarity시각검증및물리좌표한계정리.

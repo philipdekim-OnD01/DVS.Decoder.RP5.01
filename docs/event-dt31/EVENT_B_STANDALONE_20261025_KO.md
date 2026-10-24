@@ -24,3 +24,13 @@
 Viewer는기존PPM렌더의greenON/redOFF규칙을재사용해완성frame binary를index하고play/pause/seek/fps/polarity/timestamp/stats를표시한다. 물리좌표검증이아닌file-only UI임을표기한다. B2에서실제패키지재생과검증을수행한다.
 
 B1 실제결과: Pi GCC14.2 -Werror nativebuild PASS, manifest `b1-native-build.json` source/binary SHA 기록. 첫build는live-only locals미사용경고로FAIL했으며같은ifdef로이동한후새v2경로에서PASS했다. runtimeE2E/Viewer검증은다음단계이며아직성공으로보고하지않는다.
+
+## B2 신규패키지 단일 file E2E
+
+`check_package.py --package /tmp/dvs-event-b-package-20261025-v2 --sample <approved8MiB> ...`를Pi에서1회실행했다. packageCLI→RegularInput→기존boundedbyteQueue→SDKdecoder/outputWaitPipe→framebinary/PPM→파일Viewer 경로다. 이전native17/adapter22/restore24/readiness33/Issue11분석을반복한것이아니다.
+
+sample SHA962925df…97b3, outputframe SHAe15a8a…1798 일치. 완성1557frames, SDK1469217events(ON706157/OFF763060), unsynced830, invalid/unknown/framegap0. queuecap8/high8/drop0/final0, EOFpartial0/incomplete1, exit0/complete=true. timestamp305033→1093826µs monotonic. file run0.971242s/8.63699MBps/CPU105.156%, child maxRSS27504KiB 관측. 이는해당파일재생/출력비용을포함한단회측정이며센서성능·누수없음의장기보장이아니다. CSIFS/FE/CRC/ECC는null이다.
+
+완성frame에실린event는1468615개로SDK통계와602개차이가난다. SDK누적events와시작·끝완성출력만의event count는다른범위이며EOF incomplete1이존재한다. 이차이를전송손실로보고하지않는다. binary에서V4L2Capture symbol없음과CLI --device즉시거부확인. source/binary pins `b1-native-build.json`, 수치 `b2-native-e2e.json`.
+
+Node파일Viewer에서1557개index/마지막frameRGB를native PPM과byte동치검증, 합성ON/OFF/좌표bounds거부확인(`b2-render-equivalence.json`). 파생frame/PPM은비공개temp에만복사했으며Git에없다. 실제브라우저play/seek/display확인은B3에서수행한다.
