@@ -34,3 +34,9 @@ sample SHA962925df…97b3, outputframe SHAe15a8a…1798 일치. 완성1557frames
 완성frame에실린event는1468615개로SDK통계와602개차이가난다. SDK누적events와시작·끝완성출력만의event count는다른범위이며EOF incomplete1이존재한다. 이차이를전송손실로보고하지않는다. binary에서V4L2Capture symbol없음과CLI --device즉시거부확인. source/binary pins `b1-native-build.json`, 수치 `b2-native-e2e.json`.
 
 Node파일Viewer에서1557개index/마지막frameRGB를native PPM과byte동치검증, 합성ON/OFF/좌표bounds거부확인(`b2-render-equivalence.json`). 파생frame/PPM은비공개temp에만복사했으며Git에없다. 실제브라우저play/seek/display확인은B3에서수행한다.
+
+## B3 실제Browser / 표시와물리검증분리
+
+로컬비공개파생결과를127.0.0.1:8767로만제공해in-app browser에서확인했다. 최초sandboxbind가EPERM으로중단되어첫브라우저접속은refused였으며허용된loopback전용실행후정상로드했다. 완성1557frame, 첫frame305033µs/ON548/OFF668, 재생후frame5이상진행/일시정지, slider End로마지막1557/1093826µs/507µs주기/ON447/OFF384, OFF만·ON만선택을확인했다. canvas속성960×720/스크린샷시각검토완료. Browser API의canvas pixel조회는지원되지않아pixel검증은B2 Node/nativePPM근거로만보고한다.
+
+화면은프레임당희소logicalevents이고실제손가락촬영identity/원센서물리좌표·시각정확성은file/mock으로인증불가다. 축이동/보간/Group2추측보정없음. 표시결함은입증되지않아B3 코드변경은없다. 이미지/원본frame은공개Git에올리지않았다. `b3-browser-review.json`은집계관찰만보존한다. NEXT=B4 config/exit/격리/fail-closed/재현문서.

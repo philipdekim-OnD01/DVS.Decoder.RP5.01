@@ -228,3 +228,8 @@
 - Pi check_package.py 단회승인8MiB file→기존queue/decoder→1557frames/960×720PPM 및새Viewer파일출력 PASS. source/sample/binary/output SHA핀고정. SDKevents1469217/ON706157/OFF763060/unsynced830, EOF0partial/1incomplete. cap8/high8/drop0/final0, exit0.
 - file0.971242s/8.63699MBps/CPU105.156%/childmaxRSS27504KiB 실측(센서성능아님). 완성outputevents1468615 vsSDK누적1469217은다른범위,602차이를손실로주장안함. CSInull/실기미실행.
 - Node새Viewer1557index/lastRGB=PPM동치/합성polaritybounds PASS. 공개 `event-b/evidence/b2-*`,privateframe/image비공개유지. 기존suite/분석반복0/RAW2 A unchanged. NEXT=B3 브라우저file재생/seek/polarity시각검증및물리좌표한계정리.
+
+## 2026-10-25 — Issue15 B3 DONE / 실제파일Viewer 확인
+
+- in-app browser에서private loopbackViewer canvas960×720/1557frames/play→진행/pause/Endseek/ON만/OFF만/시각·주기·frameevents·통계확인. 최초sandboxbind EPERM→허용loopback실행후정상; canvaspixel API미지원은B2Node검증과구분.
+- `b3-browser-review.json` 공개집계만기록, private스크린샷/frameGit유출0. 새표시결함입증없어코드수정없음, 물리손가락/좌표정확성UNKNOWN, 임의좌표보정0. RAW2 A unchanged/Phase C HARD BLOCKED. NEXT=B4 패키지config/status/격리/실패/재현회귀.
