@@ -1,0 +1,290 @@
+{
+  "pass": true,
+  "raw_records_read": 16,
+  "raw_bytes_read": 2811424,
+  "sample_records_sha256": "d39ee91aea93fe1605a189aff91326ae43803558642b3f4baeacf81daf46508b",
+  "first_bad_layer": "UNKNOWN",
+  "rows": [
+    {
+      "host_record": 0,
+      "host_sequence": 37694,
+      "candidate_marker_id": 0,
+      "candidate_marker_chunk": 864,
+      "marker_file_offset": 155584,
+      "candidate_span_chunks": 971,
+      "first_pixel": 880,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 96,
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "host_record": 1,
+      "host_sequence": 37695,
+      "candidate_marker_id": 1,
+      "candidate_marker_chunk": 859,
+      "marker_file_offset": 330396,
+      "candidate_span_chunks": 971,
+      "first_pixel": 875,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 101,
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "host_record": 2,
+      "host_sequence": 37696,
+      "candidate_marker_id": 2,
+      "candidate_marker_chunk": 854,
+      "marker_file_offset": 505208,
+      "candidate_span_chunks": 971,
+      "first_pixel": 870,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 106,
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "host_record": 3,
+      "host_sequence": 37697,
+      "candidate_marker_id": 3,
+      "candidate_marker_chunk": 849,
+      "marker_file_offset": 680020,
+      "candidate_span_chunks": 971,
+      "first_pixel": 865,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 111,
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "host_record": 4,
+      "host_sequence": 37698,
+      "candidate_marker_id": 4,
+      "candidate_marker_chunk": 844,
+      "marker_file_offset": 854832,
+      "candidate_span_chunks": 971,
+      "first_pixel": 860,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 116,
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "host_record": 5,
+      "host_sequence": 37699,
+      "candidate_marker_id": 5,
+      "candidate_marker_chunk": 839,
+      "marker_file_offset": 1029644,
+      "candidate_span_chunks": 971,
+      "first_pixel": 855,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 121,
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "host_record": 6,
+      "host_sequence": 37700,
+      "candidate_marker_id": 6,
+      "candidate_marker_chunk": 834,
+      "marker_file_offset": 1204456,
+      "candidate_span_chunks": 971,
+      "first_pixel": 850,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 126,
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "host_record": 7,
+      "host_sequence": 37701,
+      "candidate_marker_id": 7,
+      "candidate_marker_chunk": 829,
+      "marker_file_offset": 1379268,
+      "candidate_span_chunks": 971,
+      "first_pixel": 845,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 131,
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "host_record": 8,
+      "host_sequence": 37702,
+      "candidate_marker_id": 8,
+      "candidate_marker_chunk": 824,
+      "marker_file_offset": 1554080,
+      "candidate_span_chunks": 971,
+      "first_pixel": 840,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 136,
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "host_record": 9,
+      "host_sequence": 37703,
+      "candidate_marker_id": 9,
+      "candidate_marker_chunk": 819,
+      "marker_file_offset": 1728892,
+      "candidate_span_chunks": 971,
+      "first_pixel": 835,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 141,
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "host_record": 10,
+      "host_sequence": 37704,
+      "candidate_marker_id": 10,
+      "candidate_marker_chunk": 814,
+      "marker_file_offset": 1903704,
+      "candidate_span_chunks": 971,
+      "first_pixel": 830,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 146,
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "host_record": 11,
+      "host_sequence": 37705,
+      "candidate_marker_id": 11,
+      "candidate_marker_chunk": 809,
+      "marker_file_offset": 2078516,
+      "candidate_span_chunks": 971,
+      "first_pixel": 825,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 151,
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "host_record": 12,
+      "host_sequence": 37706,
+      "candidate_marker_id": 12,
+      "candidate_marker_chunk": 804,
+      "marker_file_offset": 2253328,
+      "candidate_span_chunks": 971,
+      "first_pixel": 820,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 156,
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "host_record": 13,
+      "host_sequence": 37707,
+      "candidate_marker_id": 13,
+      "candidate_marker_chunk": 799,
+      "marker_file_offset": 2428140,
+      "candidate_span_chunks": 971,
+      "first_pixel": 815,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 161,
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "host_record": 14,
+      "host_sequence": 37708,
+      "candidate_marker_id": 14,
+      "candidate_marker_chunk": 794,
+      "marker_file_offset": 2602952,
+      "candidate_span_chunks": 971,
+      "first_pixel": 810,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 166,
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "host_record": 15,
+      "host_sequence": 37709,
+      "candidate_marker_id": 15,
+      "candidate_marker_chunk": 789,
+      "marker_file_offset": 2777764,
+      "candidate_span_chunks": null,
+      "first_pixel": 805,
+      "selected_count": 960,
+      "flagged_source_chunks": 0,
+      "first_backward_serial": 171,
+      "sensor_frame": "UNKNOWN"
+    }
+  ],
+  "audit_derived_arithmetic": [
+    {
+      "source": "audit #6300566219 arithmetic, NOT reread RAW",
+      "host_record": 173,
+      "head": 15,
+      "tail": 6,
+      "previous_tail": 1,
+      "candidate_interval": 971,
+      "candidate_marker_start_chunk": 970,
+      "candidate_marker_file_offset": 30572840,
+      "first_pixel": 15,
+      "selected_source_range": [
+        15,
+        974
+      ],
+      "flagged_overlap": [
+        970,
+        971,
+        972,
+        973,
+        974
+      ],
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "source": "audit #6300566219 arithmetic, NOT reread RAW",
+      "host_record": 174,
+      "head": 10,
+      "tail": 11,
+      "previous_tail": 6,
+      "candidate_interval": 971,
+      "candidate_marker_start_chunk": 965,
+      "candidate_marker_file_offset": 30747652,
+      "first_pixel": 10,
+      "selected_source_range": [
+        10,
+        969
+      ],
+      "flagged_overlap": [
+        965,
+        966,
+        967,
+        968,
+        969
+      ],
+      "sensor_frame": "UNKNOWN"
+    },
+    {
+      "source": "audit #6300566219 arithmetic, NOT reread RAW",
+      "host_record": 175,
+      "head": 5,
+      "tail": 16,
+      "previous_tail": 11,
+      "candidate_interval": 971,
+      "candidate_marker_start_chunk": 960,
+      "candidate_marker_file_offset": 30922464,
+      "first_pixel": 5,
+      "selected_source_range": [
+        5,
+        964
+      ],
+      "flagged_overlap": [
+        960,
+        961,
+        962,
+        963,
+        964
+      ],
+      "sensor_frame": "UNKNOWN"
+    }
+  ],
+  "test_scope": "first16 identity/selection and three schematic audit examples; not full200 rerun or authenticated sensor recovery",
+  "production_changes": 0
+}
