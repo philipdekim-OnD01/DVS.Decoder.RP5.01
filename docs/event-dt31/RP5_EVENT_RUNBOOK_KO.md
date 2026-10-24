@@ -22,6 +22,14 @@
 
 `GREY/Y8`은 바이트 저장 컨테이너 후보일 뿐, `0x31` 지원이나 손실 없는 DMA를 보증하지 않는다. 실제로는 FS/FE, 패킷 Word Count, DMA geometry, stride, `bytesused`, `sequence`, CSI CRC/ECC와 드롭을 측정해야 한다. **별도 프로세스는 물리적 센서/CSI 포트 격리가 아니다.** 기존 RAW2와 동시 실시간 테스트를 시도하지 않는다.
 
+## 2026-10-25 교차 분석 우선순위 — Pi RAW2 Issue #1부터
+
+최신 우선 분석 대상은 [Pi RAW2 Issue #1](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/1)의 **971/976 호스트 마커 경계와 미인증 955/960 물리 컬럼** 문제다. Jetson `nrv-dvs-Orin01`의 2026-10-25 **비공개** 기술보고서와 실제 수신 시험에서 검증된 방법은 대조자료이며 **같은 원인을 증명하지 않는다**. 교차 검토: [CROSS_PLATFORM_REVIEW_20261025_KO.md](./CROSS_PLATFORM_REVIEW_20261025_KO.md); 실행 우선순위/종료 기준: [CODEX_PI_FIRST_DEBUG_20261025_KO.md](./CODEX_PI_FIRST_DEBUG_20261025_KO.md).
+
+**먼저 RAW2 Issue #1의 마지막 독립 감사에 규정된 기존 자료의 wire/header 신원 근거를 읽기 전용으로 확인하고, 없으면 UNKNOWN/STOP.** 기존 200건 Wrap21 분류 복구는 센서 960컬럼 복원이 아니다. 8픽셀 Jetson 왜곡, 128픽셀 Pi AER 주기, RAW2 5블록 위상차, 과거 RP1 LEN_LIMIT는 서로 **다른 진단 트랙**이다. Jetson 수신 버퍼 조기 반환/프레임 연속성·레지스터 readback 방법은 추후 Pi의 파일/mock 진단에 적용하되 실제 센서 설정 변경은 하지 않는다.
+
+본 우선순위 변경은 **새 Phase C 허가가 아니다**. 모든 기존 시작 스크립트/legacy rollback 금지, A 원본 보존, `--device` 차단 및 Phase C HARD BLOCKED 유지.
+
 ## 2026-10-25 설계 결정 — RAW2 보존 + 신규 Event Engine + 최소 스위처
 
 사용자 결정: 별도의 범용 복구 프로그램 개발에 집중하지 않고 **기존 RAW2(A)는 변경 없이 보존**, **신규 DT=0x31 Event 프로그램(B)을 별도로 완성**, 실패 시 **검증된 원본 A로 전환**하는 Blue-Green 운영 모델을 채택한다. 상세 설계 및 Codex 우선순위: [BLUE_GREEN_SWITCH_PLAN_KO.md](./BLUE_GREEN_SWITCH_PLAN_KO.md).

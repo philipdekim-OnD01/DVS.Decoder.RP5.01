@@ -62,3 +62,10 @@
 - 새 공식 설계 문서 [BLUE_GREEN_SWITCH_PLAN_KO.md](./BLUE_GREEN_SWITCH_PLAN_KO.md): 원본 RAW2(A) 불변 + 신규 Event Packet(B) 독립 개발 + 최소한의 fail-closed 스위처로 A↔B 전환 후 원본 A 정상 동작을 검증하는 방향으로 변경.
 - 위 문서는 작업 우선순위와 배포 구조의 결정이다. 장비 전환, 복구 성공, Live DT0x31 완료의 증거가 아니며 **Phase C HARD BLOCKED** 유지.
 - 최신 개발 진척은 [PR #5](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/5)의 PROGRESS/evidence를 기준으로 한다. main의 앞선 항목은 과거 시점 기록이다. 현재 실제 센서·CSI·service 상태는 Codex가 별도로 실측해야 한다.
+
+## 2026-10-25 — Jetson 교차 분석 반영 및 Pi Issue #1 최우선 작업 배정
+
+- 공식 비교 보고: [CROSS_PLATFORM_REVIEW_20261025_KO.md](./CROSS_PLATFORM_REVIEW_20261025_KO.md), 별도 Codex 지시: [CODEX_PI_FIRST_DEBUG_20261025_KO.md](./CODEX_PI_FIRST_DEBUG_20261025_KO.md).
+- **Pi 최신 Issue #1** 971/976 호스트 마커 현상의 원인/센서 실제 헤더를 기존 RAW·동일 촬영의 보존 metadata에서 먼저 검증. 200건 Wrap21 성공을 960 물리 컬럼 완전 복원으로 처리하지 않음. 기존 LEN_LIMIT/multipacket 및 Jetson 8픽셀 왜곡은 독립 문제.
+- Jetson 실제 수신/시뮬레이션/메일 보고와 Pi 파일/mock 실측을 구분. 다음 단계는 Pi Event sample에서 수신·decode 경계/unsynced_groups 오프라인 분석; 원본 RAW2 보존 + Event 독립 개발 + 최소 스위처 설계 유지.
+- **문서 변경만**. 10월25일 기존 Pi 실측 값은 PR #5에 남은 기록이며 이번 작업에서 새로 측정하지 않음. RAW2 서비스/I2C/kernel/DT/media 변경·새 캡처 **0회**, `Phase C HARD BLOCKED` 유지.
