@@ -239,3 +239,10 @@
 - README독립build/run/config/Viewer/exit/SDK의존성/ABI/기밀/실기비범위작성. 새configFIFO대기결함실제재현(0.5s), 소유child만종료; package/config O_PATH일반inodepin/16KiB/strictJSON+duplicate거부로수정. emptyinput거부.
 - Pi새launcherruntime17 PASS(기존native17아님): config음성/패키지경로격리/선택device거부/합성tiny정상/기존run불변/SIGTERM130completefalse/info. privatepackage런처만갱신, nativebinaryB1동일. 증거b4-runtime.json/b4-config-first-failure.json/b4-final-package-manifest.json.
 - 브라우저임시tab·loopbackserver종료. 기존분석/큰sample반복0/복귀개발0/production변경0/live0/Phase C HARD BLOCKED. NEXT=B5 최종sha·diff검토/DraftPR/Issue15결과링크.
+
+## 2026-10-25 — Issue15 B5 최종 보고 / 독립 offline package
+
+- 공개 결과물: event-b 독립 build/runtime/config/playable960×720 Viewer, 한정 신규 시험·집계, EVENT_B_STANDALONE_20261025_KO.md와 README. AGENTS에 Issue15 재개 checkpoint와 유일한 NEXT=Draft PR review를 기록. 원본 PR5/13 변경·merge 없음.
+- 최종 source-manifest 일치/native binary B1 이후 불변/output SHA·집계 정합성/변경 파일 범위/git diff --check PASS. b5-final-checks.json. SDK/RAW/image/frame 공개0, 기존 suite·분석 재실행0.
+- 07:44:02 KST readonly RAW2 연속 확인: PID683775/NRestarts0/active/enabled, 보고 dequeue/buffer/sequence-gap0, web57.999/HDMI59.999fps. b5-raw2-continuity.json. 복귀 시험이 아님.
+- B0~B5 offline 완성 검토 요청. 실기/물리좌표·손가락/복귀 NOT TESTED, 복귀 개발 범위 제외. RAW2 A UNTOUCHED/Phase C HARD BLOCKED/--device 거부. NEXT=별도 Draft PR 검토, 새 카드 전 재실험 없음.

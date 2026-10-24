@@ -50,3 +50,25 @@ Node파일Viewer에서1557개index/마지막frameRGB를native PPM과byte동치�
 Pi신규runtime17건PASS(`b4-runtime.json`): malformed JSON/shape/bool/duplicate/range/extra, FIFO/symlink/outsideconfig, --device즉시거부, pathescape명칭/없는·빈입력, checkout밖cwd에서합성1frame/2events완료상태, 기존run불변거부, 소유한child에SIGTERM전달(exit130/completefalse), info manifest. 이는**새패키지17건**이며기존native decoder17건과다른시험이다. raw8MiB E2E나decoder분석은재실행하지않고launcher변경에관련된tiny합성만사용했다.
 
 Browser검증용자체tab와loopbackserver는종료했다(명령/PID확인후시험소유프로세스만종료). package는/tmp에만존재하며production파일/설치/서비스/센서/DT/media/watchdog/실기0회. NEXT=B5 최종artifact검사와별도DraftPR/Issue인수인계.
+
+## B5 최종 결과와 다음 작업
+
+독립 Event B의 **파일 기반 소프트웨어 완성**을 검토 요청한다. 운영 설치 없이 `/tmp/dvs-event-b-package-20261025-v2/bin/event-b`에서 실행되며, 재현 절차는 [event-b/README.md](../../event-b/README.md)에 있다. 승인 SDK와 sample이 없으면 공개 저장소만으로 빌드·재생할 수 없다. 이 제한은 기밀 자료를 공개하지 않기 위한 입력 의존성이다.
+
+| 검증 범위 | 결과와 근거 |
+|---|---|
+| 독립 native 빌드 | Pi GCC14.2, EVENT_FILE_ONLY, 별도 bin/config/share/runs, manifest 일치 |
+| 신규 패키지 저장 파일 E2E | 단회 PASS, 1557 완성 프레임 / SDK1469217 이벤트, 출력 SHA 기준 일치 |
+| bounded queue / EOF / 종료 | cap8/high8/drop0/final0, EOF partial0/incomplete1, exit0 |
+| 960×720 파일 Viewer | Node native-PPM 동치, 실제 browser play/pause/seek/polarity/timestamp 확인 |
+| 새 런처 안전·실패 시험 | 17 PASS, config FIFO 대기 결함 수정, SIGTERM130/complete=false |
+| 기존 검증 재사용 | decoder/queue/파일 가드/렌더와 PR13 해석 재사용. 과거 suite와 분석 재실행 없음 |
+| 실기 센서·물리 좌표·손가락 정확성 | **NOT TESTED / UNKNOWN**. 실제 센서 모드 전환 없음 |
+| 복귀 프로그램 / Switcher | **범위 제외**, 개발하거나 실행하지 않음 |
+| RAW2 A / Phase C | **UNTOUCHED / HARD BLOCKED**, --device 거부 유지 |
+
+최종 manifest의 source hashes가 현재 소스와 일치하고 native binary는 B1 이후 그대로임을 확인했다(`b5-final-checks.json`). 파생 영상·SDK·sample·frame binary는 공개 Git에 없다. 임시 browser/server도 종료했다.
+
+2026-10-25 07:44:02 KST 읽기 전용 종료 점검: RAW2 PID683775, NRestarts0, active/enabled. 보고된 V4L2 dequeue/buffer/sequence-gap0, web57.999/HDMI59.999fps. 이는 계속 가동 상태의 한 시점 확인이며 복구 시험이나 물리 영상 검증은 아니다(`b5-raw2-continuity.json`).
+
+**유일한 NEXT:** 이 독립 file-only 패키지의 Draft PR 검토. 후속 기능은 새 작업 카드로 정하며, 완료된 B0~B5나 기존 분석을 반복하지 않는다. 실기 전환은 이 결과로 승인되지 않는다.

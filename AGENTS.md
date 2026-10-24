@@ -11,6 +11,10 @@
 - **Safety:** A production entirely untouched; no operational service, I2C, /dev/video device open/STREAMON, kernel/module, Device Tree, media graph, watchdog/rollback/start script, live capture, reboot or private-source publication. Event `--device PHASE_C_BLOCKED` and Phase C **HARD BLOCKED** stay enabled. No permissions for live experiments follow from this document.
 - **Branch discipline:** keep PR #5, #10, #13 intact; work in a separate limited B feature branch and publish a Draft PR. Never directly commit application code to main or publish private SDK/setfile/RAW.
 
+## Issue #15 checkpoint — independent offline package submitted (2026-10-25)
+
+B0–B5 implementation/evidence are on `codex/event-b-standalone-20261025`. Read Issue #15 latest comments and the last PROGRESS entry before resuming. The report is `docs/event-dt31/EVENT_B_STANDALONE_20261025_KO.md`, executable-package instructions are `event-b/README.md`. Existing PR #5/#13 components were reused. Do not rerun completed analyses/suites or begin restoration development; NEXT is review of the separate Draft PR. This checkpoint does not permit sensor mode switching or clear Phase C HARD BLOCKED.
+
 ## Mandatory start / resume procedure
 1. Read `docs/event-dt31/BLUE_GREEN_SWITCH_PLAN_KO.md`, `docs/event-dt31/RP5_EVENT_RUNBOOK_KO.md` and `docs/event-dt31/PROGRESS.md` before doing work or resuming after context compaction.
 2. Read and inspect the actual files, commits and test evidence from [PR #2](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/2) (feasibility) and [PR #3](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/3) (offline test); do not treat PR descriptions as test evidence.
