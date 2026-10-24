@@ -160,3 +160,10 @@
 - **유의:** A 바이너리 선택만으로 TX/receiver DT, driver probe, media graph 및 V4L2가 복구되지 않는다. 신뢰할 수 있는 전환/복귀 절차가 실제로 검증돼야 하며, 기존 legacy rollback/start firstboot race 금지는 유지.
 - 다음 Codex 작업은 기존 디코더/파일/mock/Viewer 결과를 보존하고 B 독립 실행 구성과 simulated-only switcher에 집중. 이미 검증된 복구 mock/watchdog 자료는 재사용하고 불필요한 반복 테스트를 피한다.
 - **이번 업데이트는 GitHub 문서 동기화만**이며 RP5 접속·실기 전환·하드웨어 설정 조작·복원 시험은 실행하지 않았다. Phase C = **HARD BLOCKED**, `--device` 차단, 다음 GO/NO-GO 판단은 새로운 실행 증거가 있어야 한다.
+
+## 2026-10-25 — Jetson 기술 근거 교차 검토 + Pi Issue #1 우선순위 반영
+
+- [PR #9](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/9)에서 사용자 요청 최종 보고서 [CROSS_PLATFORM_REVIEW_20261025_KO.md](./CROSS_PLATFORM_REVIEW_20261025_KO.md)와 **별도 Codex 작업 지시** [CODEX_PI_FIRST_DEBUG_20261025_KO.md](./CODEX_PI_FIRST_DEBUG_20261025_KO.md)를 공식 `main`에 병합하고 본 브랜치에도 동기화.
+- **최우선 문제 = [Pi RAW2 Issue #1](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/1)**: `971/976` 호스트 마커 vs 실제 센서 embedded 헤더 인증, `955/960` 물리 컬럼 미확정. 마지막 독립 감사 기준 기존 동일 녹화의 wire/metadata를 한정 확인; 증거 없으면 **UNKNOWN/STOP**, 가짜 5컬럼 보간/패치 금지.
+- Jetson 2026-10-25 **비공개** dossier와 Issue #1(가정 기반 모델) 구분. RX early-QBUF, host/sensor counters 분리, register readback, 32bit Event fixed-boundary 분석은 오프라인 기법으로만 차후 참조; 민감 원문/코드/메일을 공개 저장소로 복제 금지.
+- 기존 Event SDK native17, V4L2 mock22, restore mock24, readiness33/watchdog synthetic 결과 **보존**. 문제 해결이라고 중복 인증하지 않음. **이번 업데이트는 문서/GitHub 인수인계만**, 실제 Pi 장비 접속/캡처·I2C·서비스 변경 없음. Event 실기 Phase C **HARD BLOCKED**.
