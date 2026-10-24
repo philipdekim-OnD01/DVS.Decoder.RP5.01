@@ -1,0 +1,13 @@
+{
+  "pass": true,
+  "host": "macOS-26.5.2-arm64-arm-64bit",
+  "legacy_sub_timestamp_pairs": 1558,
+  "sdk_complete_frame_timestamps": 1557,
+  "compared_prefix_pairs": 1557,
+  "equal": true,
+  "final_legacy_pair_has_no_complete_sdk_frame": "EOF incomplete frame, excluded",
+  "event_trace_unchanged": true,
+  "physical_time_accuracy": "UNKNOWN",
+  "method": "actual legacy ref/sub stats joined as ref*1000+sub compared to actual SDK SensorFrame.timestamp_us",
+  "sensor_time_sequence_sha256": "776443f573e0071af45b423ff94a70a1e6dc2b429b64094f92643697d61d861c"
+}

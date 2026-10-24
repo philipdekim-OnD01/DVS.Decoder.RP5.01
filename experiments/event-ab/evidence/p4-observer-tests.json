@@ -1,0 +1,162 @@
+{
+  "host": "macOS-26.5.2-arm64-arm-64bit",
+  "cases": [
+    {
+      "name": "synthetic-split-1",
+      "pass": true,
+      "input_sha256": "5046942e6ff0560fb6de61f47105424b16d5e7d4050223a5592f6c5df1b1cee6",
+      "output_sha256": "40129a7c50d340e006e4122999a19843f91f736504da6c6280cfb84473da76fc",
+      "trace_sha256": "05861398cc170deb111fd150925c0e68b47b9a78435e8eda6eee512dd434bfbe",
+      "stats": {
+        "chunk": 1,
+        "frames": 2,
+        "events": 4,
+        "invalid": 0,
+        "unknown": 0,
+        "on": 2,
+        "off": 2,
+        "cid1_events": 0,
+        "unsynced_groups": 2,
+        "discontinuities": 0,
+        "eof_partial_bytes": 2,
+        "eof_incomplete_frames": 0,
+        "frame_gaps": 0,
+        "buffers": 8250
+      }
+    },
+    {
+      "name": "synthetic-split-4",
+      "pass": true,
+      "input_sha256": "5046942e6ff0560fb6de61f47105424b16d5e7d4050223a5592f6c5df1b1cee6",
+      "output_sha256": "40129a7c50d340e006e4122999a19843f91f736504da6c6280cfb84473da76fc",
+      "trace_sha256": "05861398cc170deb111fd150925c0e68b47b9a78435e8eda6eee512dd434bfbe",
+      "stats": {
+        "chunk": 4,
+        "frames": 2,
+        "events": 4,
+        "invalid": 0,
+        "unknown": 0,
+        "on": 2,
+        "off": 2,
+        "cid1_events": 0,
+        "unsynced_groups": 2,
+        "discontinuities": 0,
+        "eof_partial_bytes": 2,
+        "eof_incomplete_frames": 0,
+        "frame_gaps": 0,
+        "buffers": 2063
+      }
+    },
+    {
+      "name": "synthetic-split-4093",
+      "pass": true,
+      "input_sha256": "5046942e6ff0560fb6de61f47105424b16d5e7d4050223a5592f6c5df1b1cee6",
+      "output_sha256": "40129a7c50d340e006e4122999a19843f91f736504da6c6280cfb84473da76fc",
+      "trace_sha256": "05861398cc170deb111fd150925c0e68b47b9a78435e8eda6eee512dd434bfbe",
+      "stats": {
+        "chunk": 4093,
+        "frames": 2,
+        "events": 4,
+        "invalid": 0,
+        "unknown": 0,
+        "on": 2,
+        "off": 2,
+        "cid1_events": 0,
+        "unsynced_groups": 2,
+        "discontinuities": 0,
+        "eof_partial_bytes": 2,
+        "eof_incomplete_frames": 0,
+        "frame_gaps": 0,
+        "buffers": 3
+      }
+    },
+    {
+      "name": "synthetic-split-1048576",
+      "pass": true,
+      "input_sha256": "5046942e6ff0560fb6de61f47105424b16d5e7d4050223a5592f6c5df1b1cee6",
+      "output_sha256": "40129a7c50d340e006e4122999a19843f91f736504da6c6280cfb84473da76fc",
+      "trace_sha256": "05861398cc170deb111fd150925c0e68b47b9a78435e8eda6eee512dd434bfbe",
+      "stats": {
+        "chunk": 1048576,
+        "frames": 2,
+        "events": 4,
+        "invalid": 0,
+        "unknown": 0,
+        "on": 2,
+        "off": 2,
+        "cid1_events": 0,
+        "unsynced_groups": 2,
+        "discontinuities": 0,
+        "eof_partial_bytes": 2,
+        "eof_incomplete_frames": 0,
+        "frame_gaps": 0,
+        "buffers": 1
+      }
+    },
+    {
+      "name": "synthetic-split-0",
+      "pass": true,
+      "input_sha256": "5046942e6ff0560fb6de61f47105424b16d5e7d4050223a5592f6c5df1b1cee6",
+      "output_sha256": "40129a7c50d340e006e4122999a19843f91f736504da6c6280cfb84473da76fc",
+      "trace_sha256": "05861398cc170deb111fd150925c0e68b47b9a78435e8eda6eee512dd434bfbe",
+      "stats": {
+        "chunk": 0,
+        "frames": 2,
+        "events": 4,
+        "invalid": 0,
+        "unknown": 0,
+        "on": 2,
+        "off": 2,
+        "cid1_events": 0,
+        "unsynced_groups": 2,
+        "discontinuities": 0,
+        "eof_partial_bytes": 2,
+        "eof_incomplete_frames": 0,
+        "frame_gaps": 0,
+        "buffers": 3
+      }
+    },
+    {
+      "name": "synthetic-mo1-signed-group2",
+      "pass": true,
+      "input_sha256": "0b715aab18bccb60ccbb3fbea87106b9e4ea7f35e2c70c02b209856fd1642673",
+      "trace_sha256": "d15237b3cef87b1cd95dfa358bbe6368a379af763eb54b52b45c17ba28c80850",
+      "expected_y_polarity": [
+        [
+          17,
+          0
+        ],
+        [
+          8,
+          1
+        ]
+      ]
+    },
+    {
+      "name": "synthetic-delta0-invalid-before-unsynced",
+      "pass": true,
+      "input_sha256": "7a1eff9f42dd48bfdce9531ef0686cf822892d77790f901596813ef50c826e9b",
+      "stats": {
+        "chunk": 1,
+        "frames": 0,
+        "events": 0,
+        "invalid": 1,
+        "unknown": 0,
+        "on": 0,
+        "off": 0,
+        "cid1_events": 0,
+        "unsynced_groups": 0,
+        "discontinuities": 0,
+        "eof_partial_bytes": 0,
+        "eof_incomplete_frames": 0,
+        "frame_gaps": 0,
+        "buffers": 4
+      }
+    }
+  ],
+  "passed": 7,
+  "full_sample_split_suite_rerun": false,
+  "scope": "new observation hooks and small synthetic context/EOF cases; no new production parser change",
+  "hardware_actions": 0,
+  "phase_c": "HARD BLOCKED"
+}

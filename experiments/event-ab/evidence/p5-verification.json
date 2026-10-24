@@ -1,0 +1,18 @@
+{
+  "pass": true,
+  "host": "macOS-26.5.2-arm64-arm-64bit",
+  "checks": "original source pins; retained actual trace/frame hashes; P2-P4 aggregate consistency; no decoder rerun",
+  "public_harness_sha256": {
+    "build.py": "01c2eb8eab3d7e673b4e6f3a4674d422c319c30d1040f3307379da4cbbf451c5",
+    "test_observer.py": "53adb42c562d71b5e7753670060749ddd9d86ee80b37767368de6cfc12a9207e",
+    "legacy_replay.cpp": "e8173eeeb83e7c1bc06e124dff56525d0261ee2debb50ec3f062345b76381ae8",
+    "trace.hpp": "104e98995f29f32d07b8ec70911953e0b8357046c54553ce9aa4d56a1f3e2e12",
+    "compare_timestamps.py": "ce7e685c79b89908acae2919341a2b1967ce19d11c891ecb103ddaab8be50ba4",
+    "classify_unsynced.py": "f2eda9b7ebbb5fbaa78316a5410de9e25f5f0cae7d3f5c6dcbc1dc6750c3518b",
+    "run_ab.py": "95d4c030af750e0f7d5179d1cc328ae0abb953b6a76f4b19c3f0b7abd6511cbd"
+  },
+  "sample_sha256": "962925dfaf87fcd1a16d04cd6e122d32558527b543f39acc2803926f2fc897b3",
+  "private_data_committed": false,
+  "phase_c": "HARD BLOCKED",
+  "production_changed": false
+}

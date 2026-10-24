@@ -167,3 +167,46 @@
 - **최우선 문제 = [Pi RAW2 Issue #1](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/1)**: `971/976` 호스트 마커 vs 실제 센서 embedded 헤더 인증, `955/960` 물리 컬럼 미확정. 마지막 독립 감사 기준 기존 동일 녹화의 wire/metadata를 한정 확인; 증거 없으면 **UNKNOWN/STOP**, 가짜 5컬럼 보간/패치 금지.
 - Jetson 2026-10-25 **비공개** dossier와 Issue #1(가정 기반 모델) 구분. RX early-QBUF, host/sensor counters 분리, register readback, 32bit Event fixed-boundary 분석은 오프라인 기법으로만 차후 참조; 민감 원문/코드/메일을 공개 저장소로 복제 금지.
 - 기존 Event SDK native17, V4L2 mock22, restore mock24, readiness33/watchdog synthetic 결과 **보존**. 문제 해결이라고 중복 인증하지 않음. **이번 업데이트는 문서/GitHub 인수인계만**, 실제 Pi 장비 접속/캡처·I2C·서비스 변경 없음. Event 실기 Phase C **HARD BLOCKED**.
+
+## 2026-10-25 — Issue11 P0 DONE / Event offline A/B 출처 고정
+
+- main AGENTS f7f9492, Issue11 최신 본문/댓글, PR5 실제 head53b6cf9/base18b78b6 및 개발 PROGRESS 확인. RAW2 PR10 UNKNOWN/STOP 보존; 완료971분석/기존native17 등 반복 안 함.
+- 별도 `codex/event-unsynced-offline-20261025` 생성. 승인8MiB sample SHA962925df…97b3 실물 확인. 구형 reference-b3/dual 소스와 SDK 접근 가능; 비공개 temp에만 보존. 구형 설치폴더 Git commit은 NOT AVAILABLE(비Git), 파일 SHA로 고정하고 과거binary 동일성 주장 안 함.
+- 증거 `experiments/event-ab/evidence/p0-inputs.json`, 보고 `EVENT_OFFLINE_AB_20261025_KO.md`. 테스트: 출처/hash 확인 완료; decoder 신규실행 NOT TESTED. RAW2/하드웨어 변경0, Phase C HARD BLOCKED. NEXT=P1 파서 기능 대응표.
+
+## 2026-10-25 — Issue11 P1 DONE / 파서 의미 대응표
+
+- 구형 deployed source(파일 SHA pin)와 신규 SDK decoder source를 직접 읽고 TIMESTAMP/COLUMN/mo/group1/2/B2/B3/polarity/Y/FE/CID/EOF/byte-order/split gate 대응표 작성. 공개 보고서 `EVENT_OFFLINE_AB_20261025_KO.md` P1에 private 파일/원본 행 번호 및 비교불가 범위 표시.
+- 신규unsynced 증가조건=x/ref/sub/epoch 부재(단 delta0 invalid 검사가 선행). 구형은 epoch/ref/sub gate가 없고 reference=B3 only ON, dual에서mo 부호 미사용, FE후column유지. 둘을 자동정답으로 삼지 않음.
+- 실제 실행=source inspection; P1은 decoder runtime PASS가 아님. P0 commit=b9b79aa(앞 Issue댓글의 모호한 commit 문구 정정). RAW2 UNTOUCHED/Phase C HARD BLOCKED. NEXT=P2 실제parser독립 A/B 및 최초offset.
+
+## 2026-10-25 — Issue11 P2 DONE / 실제 parser A/B
+
+- macOS arm64 Appleclang21 C++20 신규 harness 빌드·실행. private 구형 C++ reference/dual 및 기존carry수정 SDK를 독립 호출. 코드 `experiments/event-ab/{build.py,legacy_replay.cpp,trace.hpp,run_ab.py}`, 공개 집계 `p2-build.json`,`p2-comparison.json`.
+- reference718585 ONonly, dual1470290(ON706596/OFF763694), SDK1469217(ON706157/OFF763060), SDKframes1557/unsynced830/invalid0. 관찰hook 적용 후 output SHA e15a8a…1798 baseline일치.
+- 최초divergence byte4 GROUP: old has valid x79 and emits, SDK missing ref/sub/epoch so skips. dual vs SDK event-producing words1172581동치/830불일치. reference정책차이 별도. 시간/physical정답 비교불가.
+- decoder/운영 수정0, private raw/traces공개0, Phase C HARD BLOCKED. NEXT=P3 unsynced830의 offset/context/boundary 분류. 기존native17 등 반복 안 함.
+
+## 2026-10-25 — Issue11 P3 DONE / unsynced830 전부 파일prefix
+
+- `classify_unsynced.py` actualtrace+독립4B분류/FEcounter 확인. 830개 모두 offset4..5732, 유효X/없는ref·sub·epoch. COLUMN0/FE5736/REF5740/SUB5744/epochCOLUMN5748; 이후unsynced0. dual-vsSDK 다른offset집합과 정확히동일. prefix1073 extra events=ON439+OFF634.
+- Jetson dvs_gaps.py blob08bb043…2636 방법만 권한내검토; source공개/이식0. column-orphan words0와SDKunsynced830은 다른정의. mo0만sample에존재, mo1동치미입증. V4L2/CSI원본경계·prefix물리원인·sensorloss UNKNOWN.
+- 증거 `experiments/event-ab/evidence/p3-unsynced.json`, 실제분류/assertion PASS(macOS). 디코더수정0/RAW2변경0/Phase C HARD BLOCKED. NEXT=P4 관찰hook의 작은합성 split/EOF/미동기상태 표적회귀.
+
+## 2026-10-25 — Issue11 P4 DONE / 합성7건 + timestamp1557쌍
+
+- `test_observer.py` macOS7 PASS: 새hook offset/carry/미동기/EOF, mo1, invalid우선순위. 합성8250B 1/4/4093/1MiB/random 분할 frame/event/unsynced trace동일. 최초예상offset8232오류→8224수정후PASS. 기존8MiB full split/native17 반복안함.
+- 구형adapter ref/sub관찰 추가, dual실제호출1회 및 `compare_timestamps.py`: 완성SDK1557개 timestamp와구형ref*1000+sub동치. 마지막1쌍 EOF incomplete제외, oldeventtrace P2와동일. 최초EventGroup stride8가정FAIL→실제ABI6수정후PASS. productionparser본문변경0.
+- 증거 `p4-observer-tests.json`,`p4-timestamps.json`; nativePi/ASan/live NOT TESTED. RAW2 untouched/Phase C HARD BLOCKED. NEXT=P5 최종보고·재현README·DraftPR·Issue11/PR5 링크인수인계.
+
+## 2026-10-25 — Issue11 P5 보고·인수인계
+
+- P0 b9b79aa / P1 6e60210 / P2 e49bfd6 / P3 d651bf8 / P4 b541fb4를 단계별commit/push 및Issue11 DONE/EVIDENCE/TEST/BLOCKER/NEXT댓글로보존. 최신Issue댓글재확인, 완료단계반복없음.
+- 최종보고 `EVENT_OFFLINE_AB_20261025_KO.md`, 재현 `experiments/event-ab/README.md`. 공개내용=source식별hash/작은통계/관찰harness뿐, privateSDK/구형소스/sample/frame/traces유출없음.
+- 결과=830전부파일prefix 미동기상태(유효X/없는ref·sub·epoch), dual 차이1073events완전설명; 이후logicaleventtuple 및1557timestamp동치. 실제손실/물리좌표·시각/원V4L2·CSI경계/prefix물리원인 UNKNOWN. productionparserpatch0/RAW2 변경0/live0/Phase C HARD BLOCKED.
+- 최종검증=git diff --check, 증거JSON/P0 원본 source SHA/trace·frameSHA대조; 기존suite재실행없음. 별도DraftPR 및Issue11/PR5링크로완료검토요청. 자동merge/Issueclose없음. NEXT=검토후새작업카드; 이분석반복금지.
+
+### Issue11 P5 GitHub 인수인계 링크
+
+- 최종보고/코드6단계 commit(push완료) HEAD aedfbaa, 별도 [Draft PR13](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/13), base=보존된PR5개발브랜치. 이링크기록추가후에도 코드/시험결과는같다.
+- [Issue11](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/11)에P5체크포인트와최종5줄요약, PR5에참조링크기록. 자동merge/close없음. P0–P5 오프라인완료로검토요청하며NEXT=검토결과/다음작업카드. Phase C HARD BLOCKED.
