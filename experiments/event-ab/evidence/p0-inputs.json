@@ -1,0 +1,30 @@
+{
+  "checkpoint": "P0",
+  "host": "macOS-26.5.2-arm64-arm-64bit",
+  "sample": {
+    "bytes": 8388608,
+    "sha256": "962925dfaf87fcd1a16d04cd6e122d32558527b543f39acc2803926f2fc897b3",
+    "format": "raw 4-byte Event words; original V4L2 boundaries not preserved"
+  },
+  "pr5": {
+    "head": "53b6cf93d2aaca0ff0b3e0c5d35e9ea66725d63b",
+    "base": "18b78b6ce7276c9136a6f1e6402c176f62172237"
+  },
+  "main_agents_commit": "f7f94920d2b27cbf894e8e3ff5a50f914349d58d",
+  "legacy_git_commit": "NOT AVAILABLE: deployed folder is not a Git repository; no historical binary equivalence claimed",
+  "legacy_files": {
+    "dvs_types.hpp": "a2a3c08ccadcf1489169b93f588fe640c617e12b2d434fc51d9882d19963fac5",
+    "s5krc1s_decoder.cpp": "48a39fd2bec7c8a349ae1a6ec0034f111b7a9eef0340ef33f0a1a6d32f927201",
+    "s5krc1s_decoder.hpp": "cff348c627db288f501c76116bed8d523f296732e3978c14dd2ccd6ab06bedff"
+  },
+  "sdk_files": {
+    "src/decoder.cpp": "ae39864636615f47a082c0f2b478d7de1fd2459da5c08363822726dea9ea6f9b",
+    "src/nrv_dvs/decoder.cpp": "ff6294eda3d4b0237425373d877437e32c4c1e3081b7654dee4a5cfba100b50d",
+    "include/decoder.h": "5de769ff8bb1a3cf2fc4712d265d1f82a9a8a5ed4d9a12d631ce5f988fbeb2ae",
+    "include/nrv_dvs/decoder.h": "cae6a3ab39a4c727db1722ed3538e07a907a6fad2ca077f932d5232c20d1f22c"
+  },
+  "offline_patcher_sha256": "3ecaf7b5725d27ed64dfd86a67f8a810111759ca34b84a93a1180c014305b4e9",
+  "production_changed": false,
+  "phase_c": "HARD BLOCKED",
+  "baseline_not_rerun": true
+}

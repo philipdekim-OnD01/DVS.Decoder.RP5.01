@@ -167,3 +167,9 @@
 - **최우선 문제 = [Pi RAW2 Issue #1](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/1)**: `971/976` 호스트 마커 vs 실제 센서 embedded 헤더 인증, `955/960` 물리 컬럼 미확정. 마지막 독립 감사 기준 기존 동일 녹화의 wire/metadata를 한정 확인; 증거 없으면 **UNKNOWN/STOP**, 가짜 5컬럼 보간/패치 금지.
 - Jetson 2026-10-25 **비공개** dossier와 Issue #1(가정 기반 모델) 구분. RX early-QBUF, host/sensor counters 분리, register readback, 32bit Event fixed-boundary 분석은 오프라인 기법으로만 차후 참조; 민감 원문/코드/메일을 공개 저장소로 복제 금지.
 - 기존 Event SDK native17, V4L2 mock22, restore mock24, readiness33/watchdog synthetic 결과 **보존**. 문제 해결이라고 중복 인증하지 않음. **이번 업데이트는 문서/GitHub 인수인계만**, 실제 Pi 장비 접속/캡처·I2C·서비스 변경 없음. Event 실기 Phase C **HARD BLOCKED**.
+
+## 2026-10-25 — Issue11 P0 DONE / Event offline A/B 출처 고정
+
+- main AGENTS f7f9492, Issue11 최신 본문/댓글, PR5 실제 head53b6cf9/base18b78b6 및 개발 PROGRESS 확인. RAW2 PR10 UNKNOWN/STOP 보존; 완료971분석/기존native17 등 반복 안 함.
+- 별도 `codex/event-unsynced-offline-20261025` 생성. 승인8MiB sample SHA962925df…97b3 실물 확인. 구형 reference-b3/dual 소스와 SDK 접근 가능; 비공개 temp에만 보존. 구형 설치폴더 Git commit은 NOT AVAILABLE(비Git), 파일 SHA로 고정하고 과거binary 동일성 주장 안 함.
+- 증거 `experiments/event-ab/evidence/p0-inputs.json`, 보고 `EVENT_OFFLINE_AB_20261025_KO.md`. 테스트: 출처/hash 확인 완료; decoder 신규실행 NOT TESTED. RAW2/하드웨어 변경0, Phase C HARD BLOCKED. NEXT=P1 파서 기능 대응표.
