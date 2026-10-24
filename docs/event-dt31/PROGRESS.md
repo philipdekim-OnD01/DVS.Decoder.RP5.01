@@ -152,3 +152,11 @@
 - `watchdog_worker.py`: strict JSON type/identity/finite deadline 및 ready/result 재사용 거부. 시작 전 cancel까지 거부한 초기 구현이 기존33건 회귀에서 실패하여 수정했다.
 - 신규 `test_watchdog_request.py` 로컬/Pi22 PASS, 기존 readiness 로컬/Pi33 PASS. 명령/실측/실패와 한계는 [10월25일 보고서](./READINESS_20261025_KO.md). 증거 `experiments/event-readiness/evidence/*20261025.json`. Python/temp 프로세스 시험이며 이번 worker의 systemd/SSH 재시험은 NOT TESTED. 이전 독립 unit 증거는 이전 source pin 범위로만 보존.
 - production 변경0, I2C0, legacy rollback/start/validate 호출0. live backend와 private baseline/startup 통합/실기 복구 미검증이므로 Phase C HARD BLOCKED/NO-GO 유지. 다음 작업: 비운영 복구 backend와 health/cancel 연동 설계·실패 주입. 실제 장비 전환 금지.
+
+## 2026-10-25 — 사용자 설계 결정 반영 / Blue-Green A/B 원본 보존
+
+- [PR #8](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/8)으로 공식 문서 [BLUE_GREEN_SWITCH_PLAN_KO.md](./BLUE_GREEN_SWITCH_PLAN_KO.md)를 main에 병합한 설계 결정 반영.
+- A=기존 RAW2를 변경하지 않고 보존; B=신규 Event Packet(0x31)을 독립 빌드/서비스/설정으로 개발; 최소 Switcher=검증된 단일 센서·MIPI 소유권 전환과 원본 A 복귀·정상 영상 확인.
+- **유의:** A 바이너리 선택만으로 TX/receiver DT, driver probe, media graph 및 V4L2가 복구되지 않는다. 신뢰할 수 있는 전환/복귀 절차가 실제로 검증돼야 하며, 기존 legacy rollback/start firstboot race 금지는 유지.
+- 다음 Codex 작업은 기존 디코더/파일/mock/Viewer 결과를 보존하고 B 독립 실행 구성과 simulated-only switcher에 집중. 이미 검증된 복구 mock/watchdog 자료는 재사용하고 불필요한 반복 테스트를 피한다.
+- **이번 업데이트는 GitHub 문서 동기화만**이며 RP5 접속·실기 전환·하드웨어 설정 조작·복원 시험은 실행하지 않았다. Phase C = **HARD BLOCKED**, `--device` 차단, 다음 GO/NO-GO 판단은 새로운 실행 증거가 있어야 한다.
