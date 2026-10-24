@@ -85,3 +85,11 @@ actual dual-vs-SDK가 다른830 offsets 집합과 실제unsynced830 offsets 집�
 이 비교의 최초시도는 출력EventGroup stride를8B로 잘못 가정해 FAIL했다. SDKheader의 실제필드/이ABI상6B로 수정한 뒤 container전체소비/1557 timestamp동치 assertion PASS. SDK의 SensorFrame16B/EventGroup6B ABI에 한정하며 다른 ABI에 이 rawbinarylayout을 일반화하지 않는다.
 
 이번 신규시험은 macOS clang21 file/synthetic뿐이며 Pi native 재검증·ASan·실기수신은 NOT TESTED. baseline17건을 이번시험으로 중복 집계하지 않는다. 신규SDK 파서 결함은 이 관측에서 증명되지 않아 parser 수정없음. RAW2 production UNTOUCHED/Phase C HARD BLOCKED.
+
+## P5 종료 / 인수인계
+
+- P0–P4 실제증거와 수행범위를 보존하며 재현명령/관찰hook/ABI/기밀경계를 `experiments/event-ab/README.md`에 정리했다. 본 브랜치는 PR5와PR10을 수정하거나 merge하지 않는다. 별도DraftPR을 제출하고 Issue11/PR5에 링크한다.
+- **결론:** 이8MiB sample의830 증가조건과 발생위치는 소프트웨어 수준에서 규명됐다. 전부유효COLUMN 이후·timestamp/epoch 동기이전의 파일prefix이며, 830word/1073logical-event 차이를 완전히설명한다. 이후dual/SDK logicaleventtuple 및1557개 대응timestamp는 일치한다. reference-b3는 의도적subset정책으로동치가아니다.
+- **UNKNOWN:** prefix가 이렇게 시작한 물리적사유, 원래V4L2/CSI경계, 센서물리손실/좌표/시각정확성, 구형historicalbinary동일성, mo1등sample미포함경로의일반동치. 외부wire사실없이이카운터를실손실로보고하지않는다.
+- **원인수정 없음:** 새C++결함이입증되지않아production/SDKparser본문수정없음(기존carrypatch+private관찰만). 새코드는진단harness이며운영기능이아니다. 기존native17/adapter22/restore24/readiness33 및 기존fullsplit성공을새PASS로계산하지않는다.
+- **NEXT:** Issue11은오프라인완료기준충족으로검토요청한다(자동close/merge없음). 이후작업카드가정해질때까지본분석은재실행하지않는다. 실기필요근거는별도승인·검증대상이며RAW2 A원본불변/Phase C HARD BLOCKED/--device fail-close유지.

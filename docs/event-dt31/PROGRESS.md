@@ -198,3 +198,10 @@
 - `test_observer.py` macOS7 PASS: 새hook offset/carry/미동기/EOF, mo1, invalid우선순위. 합성8250B 1/4/4093/1MiB/random 분할 frame/event/unsynced trace동일. 최초예상offset8232오류→8224수정후PASS. 기존8MiB full split/native17 반복안함.
 - 구형adapter ref/sub관찰 추가, dual실제호출1회 및 `compare_timestamps.py`: 완성SDK1557개 timestamp와구형ref*1000+sub동치. 마지막1쌍 EOF incomplete제외, oldeventtrace P2와동일. 최초EventGroup stride8가정FAIL→실제ABI6수정후PASS. productionparser본문변경0.
 - 증거 `p4-observer-tests.json`,`p4-timestamps.json`; nativePi/ASan/live NOT TESTED. RAW2 untouched/Phase C HARD BLOCKED. NEXT=P5 최종보고·재현README·DraftPR·Issue11/PR5 링크인수인계.
+
+## 2026-10-25 — Issue11 P5 보고·인수인계
+
+- P0 b9b79aa / P1 6e60210 / P2 e49bfd6 / P3 d651bf8 / P4 b541fb4를 단계별commit/push 및Issue11 DONE/EVIDENCE/TEST/BLOCKER/NEXT댓글로보존. 최신Issue댓글재확인, 완료단계반복없음.
+- 최종보고 `EVENT_OFFLINE_AB_20261025_KO.md`, 재현 `experiments/event-ab/README.md`. 공개내용=source식별hash/작은통계/관찰harness뿐, privateSDK/구형소스/sample/frame/traces유출없음.
+- 결과=830전부파일prefix 미동기상태(유효X/없는ref·sub·epoch), dual 차이1073events완전설명; 이후logicaleventtuple 및1557timestamp동치. 실제손실/물리좌표·시각/원V4L2·CSI경계/prefix물리원인 UNKNOWN. productionparserpatch0/RAW2 변경0/live0/Phase C HARD BLOCKED.
+- 최종검증=git diff --check, 증거JSON/P0 원본 source SHA/trace·frameSHA대조; 기존suite재실행없음. 별도DraftPR 및Issue11/PR5링크로완료검토요청. 자동merge/Issueclose없음. NEXT=검토후새작업카드; 이분석반복금지.
