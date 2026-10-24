@@ -1,0 +1,58 @@
+{
+  "host": "macOS-26.5.2-arm64-arm-64bit",
+  "sample_sha256": "962925dfaf87fcd1a16d04cd6e122d32558527b543f39acc2803926f2fc897b3",
+  "sdk_unsynced_count": 830,
+  "offset_min": 4,
+  "offset_max": 5732,
+  "before_first_column": 0,
+  "before_first_frame_end": 830,
+  "before_first_ref_ts": 830,
+  "before_first_sub_ts": 830,
+  "missing_state": {
+    "x_invalid": 0,
+    "ref_missing": 830,
+    "sub_missing": 830,
+    "epoch_missing": 830,
+    "CID1": 0
+  },
+  "method_reference": {
+    "name": "Jetson dvs_gaps.py",
+    "git_blob_sha": "08bb04300fc876e11b4966832e4fc24ebb132636",
+    "scope": "reviewed 4B classification, carried COLUMN/FE state and fixed-offset method only; no private code copied"
+  },
+  "column_orphan_group_words": 0,
+  "frame_number_check_failures": 0,
+  "first_epoch_column_after_timestamp": 5748,
+  "fixed_boundary_causality": "NOT INFERABLE: original buffer/packet metadata absent; offset0 is file start, not proven DMA boundary",
+  "prefix_group_words": 830,
+  "prefix_column_changes": 604,
+  "first_offsets": {
+    "COLUMN": 0,
+    "GROUP": 4,
+    "FRAME_END": 5736,
+    "REF_TS": 5740,
+    "SUB_TS": 5744
+  },
+  "word_class_counts": {
+    "COLUMN": 919067,
+    "GROUP": 1173411,
+    "FRAME_END": 1558,
+    "REF_TS": 1558,
+    "SUB_TS": 1558
+  },
+  "group_words_by_column_mo": {
+    "0": 1173411
+  },
+  "different_dual_words_equal_unsynced_offsets": true,
+  "dual_prefix_extra_events": 1073,
+  "extra_on": 439,
+  "extra_off": 634,
+  "events_after_prefix_equal": true,
+  "unsynced_after_offset5732": 0,
+  "original_v4l2_boundaries": "UNKNOWN / not preserved in raw word sample",
+  "CSI_packet_boundaries": "UNKNOWN / not preserved",
+  "actual_sensor_loss": "UNKNOWN / not derivable from this counter",
+  "software_interpretation": "all observed increments are file-prefix groups with valid X but no ref/sub/epoch; no evidence of interior split-induced increments",
+  "physical_prefix_origin": "UNKNOWN: truncation/recording-start position not authenticated",
+  "hardware_actions": 0
+}

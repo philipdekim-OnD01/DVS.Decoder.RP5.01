@@ -186,3 +186,9 @@
 - reference718585 ONonly, dual1470290(ON706596/OFF763694), SDK1469217(ON706157/OFF763060), SDKframes1557/unsynced830/invalid0. 관찰hook 적용 후 output SHA e15a8a…1798 baseline일치.
 - 최초divergence byte4 GROUP: old has valid x79 and emits, SDK missing ref/sub/epoch so skips. dual vs SDK event-producing words1172581동치/830불일치. reference정책차이 별도. 시간/physical정답 비교불가.
 - decoder/운영 수정0, private raw/traces공개0, Phase C HARD BLOCKED. NEXT=P3 unsynced830의 offset/context/boundary 분류. 기존native17 등 반복 안 함.
+
+## 2026-10-25 — Issue11 P3 DONE / unsynced830 전부 파일prefix
+
+- `classify_unsynced.py` actualtrace+독립4B분류/FEcounter 확인. 830개 모두 offset4..5732, 유효X/없는ref·sub·epoch. COLUMN0/FE5736/REF5740/SUB5744/epochCOLUMN5748; 이후unsynced0. dual-vsSDK 다른offset집합과 정확히동일. prefix1073 extra events=ON439+OFF634.
+- Jetson dvs_gaps.py blob08bb043…2636 방법만 권한내검토; source공개/이식0. column-orphan words0와SDKunsynced830은 다른정의. mo0만sample에존재, mo1동치미입증. V4L2/CSI원본경계·prefix물리원인·sensorloss UNKNOWN.
+- 증거 `experiments/event-ab/evidence/p3-unsynced.json`, 실제분류/assertion PASS(macOS). 디코더수정0/RAW2변경0/Phase C HARD BLOCKED. NEXT=P4 관찰hook의 작은합성 split/EOF/미동기상태 표적회귀.

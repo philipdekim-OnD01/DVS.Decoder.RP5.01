@@ -52,3 +52,19 @@ NEXT=P2 실제 두 파서 호출 및 offset 기반 최초 divergence.
 Offset 단위 `(x,y,polarity,CID)` ordered event tuple 비교: dual-vs-SDK는1172581개 event-producing word 동치,830개 word 불일치. reference-vs-SDK는423400개 동치,749667개 불일치로 B3-only/극성 정책 차이를 포함한다. padding/무event word는 이 동치 수에 포함하지 않는다. 신규 frame output SHA `e15a8a75899f6352725e0a4fbcd73f537acd1496fda6ae8ac25cd17903be1798` 및 모든 baseline 카운터가 기존 기록과 일치해 trace가 이 입력의 결과를 바꾸지 않았음을 확인했다. 기존 native17 전체 suite를 재실행한 것은 아니다.
 
 전제: 구형은 host hold_cycles=0, per-word decode_batch로 suppression 없이 raw events 비교. legacy frame end와 신규 complete frame의 의미가 다르다. logical tuple 동치는 센서 물리좌표/시간 정답 인증이 아니다. NEXT=P3 830개 발생 위치·동기상태·경계 원인 분류.
+
+## P3 830건 계층 분류 — 소프트웨어 조건 규명
+
+`classify_unsynced.py`는 실제 SDK 관찰trace와 독립4B class/column/frame-end 분석을 교차검사했다. 결과 `p3-unsynced.json`. 모든830건은 offset4..5732의 파일prefix에 있으며 COLUMN은 이미 offset0에서 x79로 유효하다. 최초 FRAME_END5736, REF5740, SUB5744, 그 뒤 epoch COLUMN5748이다. prefix 동안 COLUMN은604회 변경되지만 ref_ok/sub_ok/epoch_ready는830건 전부 false다. 유효X 없음0건/CID1 0건, 이후unsynced0이다.
+
+**증가 조건:** delta0 invalid 검사에 걸리지 않은 GROUP에서 `x<0 || !ref_ok || !sub_ok || !epoch_ready`이면 word당1 증가하고 mask의 pixel 확장은 하지 않는다. 이번830건은 COLUMN 이전이 아니라 **timestamp/epoch 동기 이전**이다. delta=0 invalid가 있으면 unsynced보다 먼저invalid로 분류되므로 모든 미동기GROUP의 포괄적 카운터라고 일반화하지 않는다.
+
+actual dual-vs-SDK가 다른830 offsets 집합과 실제unsynced830 offsets 집합이 정확히 같다. dual이 prefix에서만 더 출력한1073pixel-events(ON439/OFF634)가 전체통계 차이를 설명한다. 이후 logical `(x,y,polarity,CID)` event 목록은 word offset별 순서까지 일치한다. 전체 분류 COLUMN919067/GROUP1173411/FE1558/REF1558/SUB1558, zero/unknown0. sample의 GROUP은 전부mo0 COLUMN context 아래이므로 mo1/signed-delta 동치를 이 샘플로 입증하지 못한다.
+
+### Jetson 방법 참고 / 다른 counter 의미
+
+비공개 `e850/dvs-tools/dvs_gaps.py` blob08bb04300fc876e11b4966832e4fc24ebb132636을 권한 내 읽었다. 적용한 방법은4B분류·연속file offset·COLUMN/FE 상태·고정경계 비교 가능성 검토뿐이며 원문/코드/하드웨어설정 이식은 없다. 그 도구의 column-orphan(run) 개념과 SDK의 timestamp/epoch 포함unsynced(word)는 다르다. 같은 샘플에서 column-orphan group words0, column/end 및 end+1 번호검사 실패0이지만 SDKunsynced830이다. 이를 동의어로 보고하면 원인 분류가 틀린다.
+
+### UNKNOWN
+
+원본 V4L2 buffer/CSI packet 경계 metadata는 이 rawword sample에 보존되지 않았다. 파일offset0 또는 시험1MiB read경계를 실제DMA/CSI경계로 간주할 수 없다. 모든830건이 파일prefix라는 관찰은 확정이나 **왜 원 녹화가 이 위치부터 시작했는지**, 이전bytes의 존재/센서물리누락은 UNKNOWN이다. 830을 event loss/frame loss 또는 CSI손상으로 부르지 않는다. 입력split 불변성은 이전baseline이 있으며 이번 관찰hook의 최소검증은 다음 P4에서 합성입력으로 수행한다.
