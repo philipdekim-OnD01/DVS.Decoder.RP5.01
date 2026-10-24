@@ -1,0 +1,101 @@
+{
+  "observed_at": "2026-10-24T21:39:04.746778+00:00",
+  "scope": "/home/philip/dvs-recordings",
+  "depth": 1,
+  "max_entries": 256,
+  "max_text_bytes": 262144,
+  "raw_content_read": false,
+  "entries": [
+    {
+      "name": "RAW-SHA256SUMS",
+      "bytes": 265,
+      "type": "file",
+      "content_read": false
+    },
+    {
+      "name": "dvs-20261013-10s.json",
+      "bytes": 397,
+      "type": "file",
+      "sha256": "dd5f0a54df32bf0a0497a2efaf55fa5240c611551c213456914bcd695e0ad095",
+      "matching_line_numbers": [],
+      "inspected_text": true
+    },
+    {
+      "name": "dvs-20261013-10s.mp4",
+      "bytes": 46218593,
+      "type": "file",
+      "content_read": false
+    },
+    {
+      "name": "dvs-20261013-10s.wsraw",
+      "bytes": 101281896,
+      "type": "file",
+      "content_read": false
+    },
+    {
+      "name": "mipi-full-dma-first.bin",
+      "bytes": 1048576,
+      "type": "file",
+      "content_read": false
+    },
+    {
+      "name": "mipi-raw2-10s.dvsraw",
+      "bytes": 2835991712,
+      "type": "file",
+      "content_read": false
+    },
+    {
+      "name": "mipi-raw2-10s.dvsraw.gz",
+      "bytes": 119426249,
+      "type": "file",
+      "content_read": false
+    },
+    {
+      "name": "mipi-raw2-10s.json",
+      "bytes": 1079,
+      "type": "file",
+      "sha256": "5d31595498496ba853409a1632621e88e7a564c9000cf1eda94e9ccec29a4022",
+      "matching_line_numbers": [
+        13
+      ],
+      "inspected_text": true
+    },
+    {
+      "name": "mipi-upload.tar",
+      "bytes": 120483840,
+      "type": "file",
+      "content_read": false
+    },
+    {
+      "name": "package_raw.log",
+      "bytes": 1042,
+      "type": "file",
+      "sha256": "39ed06a2590e059864bdb6e675c47992d7007e6533bf00bae0ebc014d9957fbf",
+      "matching_line_numbers": [
+        1
+      ],
+      "inspected_text": true
+    },
+    {
+      "name": "package_raw.py",
+      "bytes": 2461,
+      "type": "file",
+      "content_read": false
+    },
+    {
+      "name": "record.py",
+      "bytes": 863,
+      "type": "file",
+      "content_read": false
+    },
+    {
+      "name": "render.py",
+      "bytes": 2044,
+      "type": "file",
+      "content_read": false
+    }
+  ],
+  "same_session_wire_identity": "NOT_AUTHENTICATED",
+  "production_changes": 0,
+  "service": "MainPID=683775\nNRestarts=0\nActiveState=active\nUnitFileState=enabled\n"
+}

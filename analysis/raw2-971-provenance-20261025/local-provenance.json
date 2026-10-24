@@ -1,0 +1,85 @@
+{
+  "observed_at": "2026-10-24T21:38:57.937423+00:00",
+  "scope": "/Users/PhilipKim/Documents/ChatGPT/DVS/recordings/2026-10-13",
+  "depth": 1,
+  "max_entries": 256,
+  "max_text_bytes": 262144,
+  "raw_content_read": false,
+  "entries": [
+    {
+      "name": "FORMAT.md",
+      "bytes": 2699,
+      "type": "file",
+      "sha256": "ea22aa82c2fe6621018d929f868509fbefbf3160111aac917a3483d620bc8114",
+      "matching_line_numbers": [
+        5,
+        36
+      ],
+      "inspected_text": true
+    },
+    {
+      "name": "RAW-SHA256SUMS",
+      "bytes": 265,
+      "type": "file",
+      "content_read": false
+    },
+    {
+      "name": "RELEASE_NOTES.md",
+      "bytes": 1201,
+      "type": "file",
+      "sha256": "fc4aa0b412d79144711cec44d6f03327a751c354dac58bd0102ec94189998bf4",
+      "matching_line_numbers": [
+        13
+      ],
+      "inspected_text": true
+    },
+    {
+      "name": "mipi-full-dma-first.bin",
+      "bytes": 1048576,
+      "type": "file",
+      "content_read": false
+    },
+    {
+      "name": "mipi-raw2-10s.dvsraw",
+      "bytes": 2835991712,
+      "type": "file",
+      "content_read": false
+    },
+    {
+      "name": "mipi-raw2-10s.dvsraw.gz",
+      "bytes": 119426249,
+      "type": "file",
+      "content_read": false
+    },
+    {
+      "name": "mipi-raw2-10s.json",
+      "bytes": 1079,
+      "type": "file",
+      "sha256": "5d31595498496ba853409a1632621e88e7a564c9000cf1eda94e9ccec29a4022",
+      "matching_line_numbers": [
+        13
+      ],
+      "inspected_text": true
+    },
+    {
+      "name": "mipi-upload.tar",
+      "bytes": 120483840,
+      "type": "file",
+      "content_read": false
+    },
+    {
+      "name": "raw-player-preview.png",
+      "bytes": 94166,
+      "type": "file",
+      "content_read": false
+    },
+    {
+      "name": "read_raw.py",
+      "bytes": 649,
+      "type": "file",
+      "content_read": false
+    }
+  ],
+  "same_session_wire_identity": "NOT_AUTHENTICATED",
+  "production_changes": 0
+}

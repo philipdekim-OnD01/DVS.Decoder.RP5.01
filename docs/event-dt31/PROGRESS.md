@@ -167,3 +167,10 @@
 - **최우선 문제 = [Pi RAW2 Issue #1](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/1)**: `971/976` 호스트 마커 vs 실제 센서 embedded 헤더 인증, `955/960` 물리 컬럼 미확정. 마지막 독립 감사 기준 기존 동일 녹화의 wire/metadata를 한정 확인; 증거 없으면 **UNKNOWN/STOP**, 가짜 5컬럼 보간/패치 금지.
 - Jetson 2026-10-25 **비공개** dossier와 Issue #1(가정 기반 모델) 구분. RX early-QBUF, host/sensor counters 분리, register readback, 32bit Event fixed-boundary 분석은 오프라인 기법으로만 차후 참조; 민감 원문/코드/메일을 공개 저장소로 복제 금지.
 - 기존 Event SDK native17, V4L2 mock22, restore mock24, readiness33/watchdog synthetic 결과 **보존**. 문제 해결이라고 중복 인증하지 않음. **이번 업데이트는 문서/GitHub 인수인계만**, 실제 Pi 장비 접속/캡처·I2C·서비스 변경 없음. Event 실기 Phase C **HARD BLOCKED**.
+
+## 2026-10-25 — Pi Issue1 최우선, 한정 출처 감사 UNKNOWN/STOP
+
+- 최신 지침53b6cf9을 fast-forward 후 별도 `codex/raw2-971-provenance-20261025` 분석 브랜치로 분리. Issue1 마지막 전체/센서 감사와 CODEX_PI_FIRST/교차검토/Blue-Green 기준 확인.
+- 로컬 동일10월13일 폴더10항목/Pi dvs-recordings13항목의 한정 목록/작은 문서 검사1회 및 식별된 metadata/packager4파일 읽기. 해당 범위에서 동시 wire DT/WC/FS/FE나 인증된 sensor counter/header mapping 찾지 못함. 장비 전체 증거 부재를 주장하지 않음.
+- 신규 `analysis/raw2-971-provenance-20261025/check_selection.py` 첫16개만 읽기: sample SHA일치/971간격15개 및 source 선택 검증 PASS. audit-derived record173–175 산술3개는 flagged5중첩 확인; 실제200건 재실행 아님. 헤더12후보/전체 RAW/기존Wrap21 suite 반복 없음.
+- [분석 보고서](../../analysis/raw2-971-provenance-20261025/REPORT_KO.md): first_bad_layer=UNKNOWN, sensor_frame=UNKNOWN, **UNKNOWN/STOP**. decoder patch0, 운영변경0, 새캡처0. Pi active/enabled PID683775/NRestarts0 관측. Phase C HARD BLOCKED 유지. 다음 단일 조건은 동일 촬영에 인증된 wire/header 신원 자료 확보.
