@@ -4,11 +4,17 @@
 - 상태: **설계 결정 / 구현·실기 전환 미검증**. `Phase C HARD BLOCKED` 및 `--device PHASE_C_BLOCKED` 유지. 본 문서는 자동 실행 승인이나 복구 성공 근거가 아니다.
 - 현재 작업: [PR #5](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/5), [Issue #7](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/7). [RUNBOOK](./RP5_EVENT_RUNBOOK_KO.md), [RESTORE_PLAN — PR #5](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/blob/codex/rp5-event-phases-20261021/docs/event-dt31/RESTORE_PLAN_KO.md), [PROGRESS](./PROGRESS.md)를 함께 읽는다.
 
-## 2026-10-25 진단 우선순위 (Jetson 교차 검토 반영)
+## 완료된 이전 진단 우선순위 — 기록용 (2026-10-25)
 
 원본 RAW2(A) 보존 및 신규 Event(B) 독립 개발의 방향은 유지하면서 **먼저 [Pi Issue #1](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/1)의 RAW2 971/976 호스트 마커와 미검증 센서 프레임 경계를 읽기 전용으로 정리**한다. 검증된 Jetson 교훈은 버퍼 즉시 반환·센서 카운터와 호스트 sequence 구분·레지스터 readback 기록 방법이다. 공통 원인/통일 패치가 입증된 것은 아니다.
 
 Codex 작업 기준: [독립 작업 지시](./CODEX_PI_FIRST_DEBUG_20261025_KO.md) / [전체 기술 교차 검토](./CROSS_PLATFORM_REVIEW_20261025_KO.md). RAW2 실기 전환이나 기존 복구 차단 해제를 의미하지 않는다.
+
+## 2026-10-25 현재 실행 우선순위 정정
+
+- **다음 Codex 작업: [Issue #15](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/15)**. 현재 RAW2(A)를 계속 가동하고 기존 코드를 변경하지 않으면서 Event(B)를 별도 빌드·파일 재생·Mock·Viewer로 완성한다. 아래 §5의 '복구 기능 확장보다 새 프로그램 완성' 원칙이 우선이다.
+- Pi RAW2 [Issue #1](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/1)은 한정 증거 감사 뒤 UNKNOWN/STOP. Event [Issue #11](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/11)은 저장 8MiB 입력 오프라인 비교 P0–P5 완료 ([PR #13](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/13), 미병합 Draft). 기존 분석을 다시 우선 수행하지 않는다.
+- **현재 오프라인 B 개발에는 복귀 구현이 필요 없다.** 동일 센서/CSI 하드웨어를 A와 B가 공유하는 상황에서 **장차 라이브 전환**을 시도할 경우에는 복귀 능력의 입증이 별도 필수다. 그러한 하드웨어 전환은 계속 [Issue #7](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/7) 차단 조건에 묶이고 **Phase C HARD BLOCKED** 및 `--device PHASE_C_BLOCKED`을 유지한다. 새 승인 없는 실기 작업 금지.
 
 ## 1. 가장 중요한 원칙
 
