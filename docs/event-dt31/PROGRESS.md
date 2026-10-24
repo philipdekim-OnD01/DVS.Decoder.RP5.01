@@ -173,3 +173,9 @@
 - main AGENTS f7f9492, Issue11 최신 본문/댓글, PR5 실제 head53b6cf9/base18b78b6 및 개발 PROGRESS 확인. RAW2 PR10 UNKNOWN/STOP 보존; 완료971분석/기존native17 등 반복 안 함.
 - 별도 `codex/event-unsynced-offline-20261025` 생성. 승인8MiB sample SHA962925df…97b3 실물 확인. 구형 reference-b3/dual 소스와 SDK 접근 가능; 비공개 temp에만 보존. 구형 설치폴더 Git commit은 NOT AVAILABLE(비Git), 파일 SHA로 고정하고 과거binary 동일성 주장 안 함.
 - 증거 `experiments/event-ab/evidence/p0-inputs.json`, 보고 `EVENT_OFFLINE_AB_20261025_KO.md`. 테스트: 출처/hash 확인 완료; decoder 신규실행 NOT TESTED. RAW2/하드웨어 변경0, Phase C HARD BLOCKED. NEXT=P1 파서 기능 대응표.
+
+## 2026-10-25 — Issue11 P1 DONE / 파서 의미 대응표
+
+- 구형 deployed source(파일 SHA pin)와 신규 SDK decoder source를 직접 읽고 TIMESTAMP/COLUMN/mo/group1/2/B2/B3/polarity/Y/FE/CID/EOF/byte-order/split gate 대응표 작성. 공개 보고서 `EVENT_OFFLINE_AB_20261025_KO.md` P1에 private 파일/원본 행 번호 및 비교불가 범위 표시.
+- 신규unsynced 증가조건=x/ref/sub/epoch 부재(단 delta0 invalid 검사가 선행). 구형은 epoch/ref/sub gate가 없고 reference=B3 only ON, dual에서mo 부호 미사용, FE후column유지. 둘을 자동정답으로 삼지 않음.
+- 실제 실행=source inspection; P1은 decoder runtime PASS가 아님. P0 commit=b9b79aa(앞 Issue댓글의 모호한 commit 문구 정정). RAW2 UNTOUCHED/Phase C HARD BLOCKED. NEXT=P2 실제parser독립 A/B 및 최초offset.
