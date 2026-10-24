@@ -210,3 +210,9 @@
 
 - 최종보고/코드6단계 commit(push완료) HEAD aedfbaa, 별도 [Draft PR13](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/13), base=보존된PR5개발브랜치. 이링크기록추가후에도 코드/시험결과는같다.
 - [Issue11](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/11)에P5체크포인트와최종5줄요약, PR5에참조링크기록. 자동merge/close없음. P0–P5 오프라인완료로검토요청하며NEXT=검토결과/다음작업카드. Phase C HARD BLOCKED.
+
+## 2026-10-25 — Issue15 B0 DONE / 독립 Event B 착수
+
+- main87219ad AGENTS/Issue15 최신댓글/Blue-Green§5/PROGRESS 및PR5 head53b6cf9/PR13 head50f465f 실제source/evidence확인. 별도 `codex/event-b-standalone-20261025`를50f465f에서분기, 원본PR수정·merge없음.
+- `EVENT_B_STANDALONE_20261025_KO.md` B0에decoder/queue/regularinput/PPM/기존계측 재사용표와독립빌드·CLI/config·파일재생Viewer·새E2E미완료를구분.
+- 기존native17/분석/suite 반복0. 복귀프로그램개발비범위. 실제실행=fetch/status/sourceinspection뿐. RAW2 A UNTOUCHED/Phase C HARD BLOCKED. NEXT=B1 standalonefile-only package.
