@@ -34,3 +34,21 @@ NEXT: P1 기능 대응표와 독립 오프라인 호출 adapter 설계.
 A/B 실행은 구형 init(960,720,1), gen4 CID=true, hold_cycles=0(변화 억제 제거), reference_b3_only를 명시적으로 true/false, same_group=false, strict frame_end로 고정할 계획이다. 이것은 구형 알고리즘 비교용 조건이며 운영 설정의 재현이라고 주장하지 않는다. 필터/Viewer 없이 raw logical event를 비교한다. 신규는 기존 prepare_core.py를 private copy에만 적용하며 trace hook 추가는 비교용 관찰만 한다. compile/run은 다음 P2에서 기록한다.
 
 NEXT=P2 실제 두 파서 호출 및 offset 기반 최초 divergence.
+
+## P2 실제 동일 입력 A/B — macOS arm64
+
+`build.py --sdk <private-sdk> --legacy <private-source> --work <private-build>`로 Apple clang21.0 C++20 빌드 성공. `run_ab.py --work ... --sample <approved8MiB> --results ...`가 실제 구형 C++ reference/dual과 기존carry수정 SDK C++를 독립 호출했다. 구현 재작성 Python 모델을 정답으로 사용하지 않았다. command/compiler는 `p2-build.json`, 통계는 `p2-comparison.json`. trace hook은 private SDK copy에만 추가하며 생산/원본 소스는 변경하지 않는다. per-event traces/완성frame bytes는 private temp에만 쓴다.
+
+| parser / counter | reference-b3 | dual | 신규SDK |
+|---|---:|---:|---:|
+| logical events | 718585 | 1470290 | 1469217 |
+| ON / OFF | 718585 / 0 | 706596 / 763694 | 706157 / 763060 |
+| COLUMN / GROUP words | 919067 / 1173411 | 919067 / 1173411 | P3 독립word분류와 교차검증 예정 |
+| end_packets / complete frames | end1558 | end1558 | complete1557 |
+| invalid_x/y, unknown | 0/0,0 | 0/0,0 | invalid0/unknown0 |
+
+최초 divergence는 file byte offset4(word1), GROUP이다. offset0 COLUMN에서 x79가 설정되어 구형reference는 (79,272,ON), dual은 (79,272,ON)와 (79,496,ON)을 emit한다. 신규SDK는 그때 ref/sub/epoch가 없어 group을 건너뛴다. sensor timestamp는 아직 없으며 구형event의 timestamp_ns는 이번 호출자가 준0이므로 센서 시각과 비교 불가다.
+
+Offset 단위 `(x,y,polarity,CID)` ordered event tuple 비교: dual-vs-SDK는1172581개 event-producing word 동치,830개 word 불일치. reference-vs-SDK는423400개 동치,749667개 불일치로 B3-only/극성 정책 차이를 포함한다. padding/무event word는 이 동치 수에 포함하지 않는다. 신규 frame output SHA `e15a8a75899f6352725e0a4fbcd73f537acd1496fda6ae8ac25cd17903be1798` 및 모든 baseline 카운터가 기존 기록과 일치해 trace가 이 입력의 결과를 바꾸지 않았음을 확인했다. 기존 native17 전체 suite를 재실행한 것은 아니다.
+
+전제: 구형은 host hold_cycles=0, per-word decode_batch로 suppression 없이 raw events 비교. legacy frame end와 신규 complete frame의 의미가 다르다. logical tuple 동치는 센서 물리좌표/시간 정답 인증이 아니다. NEXT=P3 830개 발생 위치·동기상태·경계 원인 분류.

@@ -1,0 +1,106 @@
+{
+  "host": "macOS-26.5.2-arm64-arm-64bit",
+  "sample_sha256": "962925dfaf87fcd1a16d04cd6e122d32558527b543f39acc2803926f2fc897b3",
+  "actual_parsers": {
+    "reference": {
+      "mode": "reference",
+      "events": 718585,
+      "emitted": 718585,
+      "on": 718585,
+      "off": 0,
+      "columns": 919067,
+      "group_words": 1173411,
+      "timestamp_words": 3116,
+      "end_packets": 1558,
+      "invalid_x": 0,
+      "invalid_y": 0,
+      "unknown": 0,
+      "sensor_time_comparable": false,
+      "event_trace_sha256": "747a539cefd313085df100cd7c1261b59621ae6349902bb5dbd4f79c10a36551"
+    },
+    "dual": {
+      "mode": "dual",
+      "events": 1470290,
+      "emitted": 1470290,
+      "on": 706596,
+      "off": 763694,
+      "columns": 919067,
+      "group_words": 1173411,
+      "timestamp_words": 3116,
+      "end_packets": 1558,
+      "invalid_x": 0,
+      "invalid_y": 0,
+      "unknown": 0,
+      "sensor_time_comparable": false,
+      "event_trace_sha256": "18e064e08ca5484b762227d98b8eccbf29a5a98ac65953af8d5bb0e598f99d80"
+    },
+    "sdk": {
+      "chunk": 1048576,
+      "frames": 1557,
+      "events": 1469217,
+      "invalid": 0,
+      "unknown": 0,
+      "on": 706157,
+      "off": 763060,
+      "cid1_events": 0,
+      "unsynced_groups": 830,
+      "discontinuities": 0,
+      "eof_partial_bytes": 0,
+      "eof_incomplete_frames": 1,
+      "frame_gaps": 0,
+      "buffers": 8,
+      "event_trace_sha256": "ec7c0d23bda476956255819904dd9ba1c7e451baf47aaafe2ddefd4c4a9ad1b7"
+    }
+  },
+  "comparisons": {
+    "reference": {
+      "equal_event_words": 423400,
+      "different_event_words": 749667,
+      "first_divergence": {
+        "byte_offset": 4,
+        "word_index": 1,
+        "legacy_events": [
+          [
+            79,
+            272,
+            0,
+            0
+          ]
+        ],
+        "sdk_events": [],
+        "legacy_count": 1,
+        "sdk_count": 0
+      },
+      "tuple_order": "x,y,polarity(0ON/1OFF),CID; timestamp not comparable"
+    },
+    "dual": {
+      "equal_event_words": 1172581,
+      "different_event_words": 830,
+      "first_divergence": {
+        "byte_offset": 4,
+        "word_index": 1,
+        "legacy_events": [
+          [
+            79,
+            272,
+            0,
+            0
+          ],
+          [
+            79,
+            496,
+            0,
+            0
+          ]
+        ],
+        "sdk_events": [],
+        "legacy_count": 2,
+        "sdk_count": 0
+      },
+      "tuple_order": "x,y,polarity(0ON/1OFF),CID; timestamp not comparable"
+    }
+  },
+  "complete_output_sha256": "e15a8a75899f6352725e0a4fbcd73f537acd1496fda6ae8ac25cd17903be1798",
+  "hardware_actions": 0,
+  "physical_correctness": "UNKNOWN"
+}

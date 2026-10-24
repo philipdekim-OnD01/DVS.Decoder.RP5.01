@@ -179,3 +179,10 @@
 - 구형 deployed source(파일 SHA pin)와 신규 SDK decoder source를 직접 읽고 TIMESTAMP/COLUMN/mo/group1/2/B2/B3/polarity/Y/FE/CID/EOF/byte-order/split gate 대응표 작성. 공개 보고서 `EVENT_OFFLINE_AB_20261025_KO.md` P1에 private 파일/원본 행 번호 및 비교불가 범위 표시.
 - 신규unsynced 증가조건=x/ref/sub/epoch 부재(단 delta0 invalid 검사가 선행). 구형은 epoch/ref/sub gate가 없고 reference=B3 only ON, dual에서mo 부호 미사용, FE후column유지. 둘을 자동정답으로 삼지 않음.
 - 실제 실행=source inspection; P1은 decoder runtime PASS가 아님. P0 commit=b9b79aa(앞 Issue댓글의 모호한 commit 문구 정정). RAW2 UNTOUCHED/Phase C HARD BLOCKED. NEXT=P2 실제parser독립 A/B 및 최초offset.
+
+## 2026-10-25 — Issue11 P2 DONE / 실제 parser A/B
+
+- macOS arm64 Appleclang21 C++20 신규 harness 빌드·실행. private 구형 C++ reference/dual 및 기존carry수정 SDK를 독립 호출. 코드 `experiments/event-ab/{build.py,legacy_replay.cpp,trace.hpp,run_ab.py}`, 공개 집계 `p2-build.json`,`p2-comparison.json`.
+- reference718585 ONonly, dual1470290(ON706596/OFF763694), SDK1469217(ON706157/OFF763060), SDKframes1557/unsynced830/invalid0. 관찰hook 적용 후 output SHA e15a8a…1798 baseline일치.
+- 최초divergence byte4 GROUP: old has valid x79 and emits, SDK missing ref/sub/epoch so skips. dual vs SDK event-producing words1172581동치/830불일치. reference정책차이 별도. 시간/physical정답 비교불가.
+- decoder/운영 수정0, private raw/traces공개0, Phase C HARD BLOCKED. NEXT=P3 unsynced830의 offset/context/boundary 분류. 기존native17 등 반복 안 함.
