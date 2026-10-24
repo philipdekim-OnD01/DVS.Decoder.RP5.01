@@ -233,3 +233,9 @@
 
 - in-app browser에서private loopbackViewer canvas960×720/1557frames/play→진행/pause/Endseek/ON만/OFF만/시각·주기·frameevents·통계확인. 최초sandboxbind EPERM→허용loopback실행후정상; canvaspixel API미지원은B2Node검증과구분.
 - `b3-browser-review.json` 공개집계만기록, private스크린샷/frameGit유출0. 새표시결함입증없어코드수정없음, 물리손가락/좌표정확성UNKNOWN, 임의좌표보정0. RAW2 A unchanged/Phase C HARD BLOCKED. NEXT=B4 패키지config/status/격리/실패/재현회귀.
+
+## 2026-10-25 — Issue15 B4 DONE / 재현·config·status·fail-closed
+
+- README독립build/run/config/Viewer/exit/SDK의존성/ABI/기밀/실기비범위작성. 새configFIFO대기결함실제재현(0.5s), 소유child만종료; package/config O_PATH일반inodepin/16KiB/strictJSON+duplicate거부로수정. emptyinput거부.
+- Pi새launcherruntime17 PASS(기존native17아님): config음성/패키지경로격리/선택device거부/합성tiny정상/기존run불변/SIGTERM130completefalse/info. privatepackage런처만갱신, nativebinaryB1동일. 증거b4-runtime.json/b4-config-first-failure.json/b4-final-package-manifest.json.
+- 브라우저임시tab·loopbackserver종료. 기존분석/큰sample반복0/복귀개발0/production변경0/live0/Phase C HARD BLOCKED. NEXT=B5 최종sha·diff검토/DraftPR/Issue15결과링크.

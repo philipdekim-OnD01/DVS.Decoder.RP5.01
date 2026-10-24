@@ -1,0 +1,92 @@
+{
+  "pass": true,
+  "host": "Linux-6.12.47+rpt-rpi-2712-aarch64-with-glibc2.41",
+  "cases": [
+    {
+      "name": "bad-json",
+      "pass": true,
+      "exit": 2
+    },
+    {
+      "name": "bad-shape",
+      "pass": true,
+      "exit": 2
+    },
+    {
+      "name": "bad-bool",
+      "pass": true,
+      "exit": 2
+    },
+    {
+      "name": "bad-duplicate",
+      "pass": true,
+      "exit": 2
+    },
+    {
+      "name": "bad-range",
+      "pass": true,
+      "exit": 2
+    },
+    {
+      "name": "bad-extra",
+      "pass": true,
+      "exit": 2
+    },
+    {
+      "name": "fifo-config",
+      "pass": true,
+      "exit": 2
+    },
+    {
+      "name": "symlink-config",
+      "pass": true,
+      "exit": 2
+    },
+    {
+      "name": "outside-config",
+      "pass": true,
+      "exit": 2
+    },
+    {
+      "name": "device-refusal",
+      "pass": true,
+      "exit": 2
+    },
+    {
+      "name": "bad-name",
+      "pass": true,
+      "exit": 2
+    },
+    {
+      "name": "missing-file",
+      "pass": true,
+      "exit": 2
+    },
+    {
+      "name": "empty-file",
+      "pass": true,
+      "exit": 2
+    },
+    {
+      "name": "independent-cwd-and-complete-status",
+      "pass": true
+    },
+    {
+      "name": "synthetic-runtime",
+      "pass": true,
+      "exit": 2
+    },
+    {
+      "name": "signal-forwarding-non-success-status",
+      "pass": true
+    },
+    {
+      "name": "standalone-info-manifest",
+      "pass": true
+    }
+  ],
+  "passed": 17,
+  "scope": "new package runtime only; synthetic files/processes, no device/production calls",
+  "phase_c": "HARD BLOCKED",
+  "production_changed": false
+}

@@ -7,6 +7,28 @@ def checked_name(s):
  if re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_-]{0,63}',s) is None:raise ValueError('invalid run name')
  return s
 
+def read_config(path):
+ # Pin without opening a data/device file, then read the verified regular inode.
+ directory=ROOT/'config'
+ if directory.is_symlink() or path.parent.resolve()!=directory.resolve():raise ValueError('config must be inside package/config')
+ pin=os.open(path,os.O_PATH|os.O_NOFOLLOW|os.O_CLOEXEC)
+ try:
+  st=os.fstat(pin)
+  if not stat.S_ISREG(st.st_mode) or not 0<st.st_size<=16384:raise ValueError('config must be a small non-symlink regular file')
+  fd=os.open('/proc/self/fd/'+str(pin),os.O_RDONLY|os.O_CLOEXEC|os.O_NONBLOCK)
+  try:
+   raw=os.read(fd,16385);after=os.fstat(fd)
+   if len(raw)!=st.st_size or (st.st_dev,st.st_ino,st.st_size,st.st_mtime_ns)!=(after.st_dev,after.st_ino,after.st_size,after.st_mtime_ns):raise ValueError('config changed')
+  finally:os.close(fd)
+ finally:os.close(pin)
+ def pairs(items):
+  result={}
+  for k,v in items:
+   if k in result:raise ValueError('duplicate config key')
+   result[k]=v
+  return result
+ return json.loads(raw,object_pairs_hook=pairs)
+
 def main():
  # Reject every device spelling before file/config/output operations.
  if any(x=='--device' or x.startswith('--device=') for x in sys.argv[1:]):print('PHASE_C_BLOCKED: file-only package',file=sys.stderr);return 2
@@ -18,9 +40,9 @@ def main():
  name=checked_name(a.name);runs=ROOT/'runs';out=runs/name
  if runs.is_symlink() or out.is_symlink():raise ValueError('run path symlink refused')
  if a.command=='replay':
-  config=json.loads(a.config.read_text())
-  if set(config)!={'queue_capacity','decode_delay_us'} or type(config['queue_capacity']) is not int or not 1<=config['queue_capacity']<=32 or type(config['decode_delay_us']) is not int or not 0<=config['decode_delay_us']<=1000000:raise ValueError('invalid config')
-  if a.file.is_symlink() or not stat.S_ISREG(a.file.lstat().st_mode):raise ValueError('input must be non-symlink regular file')
+  config=read_config(a.config)
+  if not isinstance(config,dict) or set(config)!={'queue_capacity','decode_delay_us'} or type(config['queue_capacity']) is not int or not 1<=config['queue_capacity']<=32 or type(config['decode_delay_us']) is not int or not 0<=config['decode_delay_us']<=1000000:raise ValueError('invalid config')
+  if a.file.is_symlink() or not stat.S_ISREG(a.file.lstat().st_mode) or a.file.lstat().st_size<=0:raise ValueError('input must be non-symlink regular file')
   if out.exists():raise ValueError('run already exists')
   proc=subprocess.Popen([str(ROOT/'bin/event-b-engine'),'--file',str(a.file),str(out),str(config['queue_capacity']),str(config['decode_delay_us'])],stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
   def forward(signum,_frame):
