@@ -139,3 +139,7 @@ cat docs/event-dt31/PROGRESS.md
 실제 unit은 새 rp5-dvs-rdy-*에 한정하며 ProtectSystem/Home, PrivateDevices/Network, NoNewPrivileges, 비특권 사용자/자기tmp만 쓰기, resource/runtime 제한이 적용된다. 기존 firstboot/camera watchdog과 RAW2 서비스는 호출하지 않는다. deadline 동작은 NOOP alert marker이고 실제 복구 backend가 아니다. **marker-only 독립 실행 PASS는 실기 복구 또는 모든 SSH/logind 장애 검증 PASS가 아니다.**
 
 파일 입력도 ext-family/tmpfs의 pinned regular inode로 제한해 --file 특수/virtual file 우회를 거부한다. --device hard-block과 production_ready=false를 유지한다. 실제 production unit/start 통합·현재 sensor readback/영상/CSI·private snapshot·runtime DT re-probe·hardware backend·복구와 watchdog 연동·GO sign-off가 모두 남아 있으므로 Phase C HARD BLOCKED를 해제하지 않는다. 현재 단계에서 RAW2 운영 환경 변경은 금지다.
+
+## 10. 2026-10-25 재개 점검
+
+[10월25일 보고서](./READINESS_20261025_KO.md)에 최신 readonly 관측과 watchdog 요청/replay 음성22건(로컬/Pi), 기존 readiness33건 재검증을 기록했다. Phase C HARD BLOCKED는 그대로다. 신규 worker는 잘못된 요청과 이전 ready/result 재사용을 거부하며 일반 사용자 NOOP 프로세스에서만 이번 검증을 수행했다. 이전 systemd/SSH 증거를 변경된 source의 새 실행 결과로 간주하지 않는다. 현재 RAW2 실기 복구/backend·private baseline·safe startup 통합은 미검증이므로 운영 환경 변경은 금지한다.

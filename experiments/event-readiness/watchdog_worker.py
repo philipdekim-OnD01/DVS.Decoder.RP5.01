@@ -2,7 +2,7 @@
 """Harmless real watchdog process: cancellation or bounded NOOP alert file only.
 No shell runner, systemd API, I2C, modules, service restart or hardware action.
 """
-import argparse,fcntl,hashlib,json,os,pathlib,secrets,signal,tempfile,time
+import argparse,fcntl,hashlib,json,math,os,pathlib,re,secrets,signal,tempfile,time
 stopped=False
 def stop(_signum,_frame):
  global stopped
@@ -25,12 +25,20 @@ def init(root,timeout):
  token=secrets.token_hex(24);run=secrets.token_hex(12)
  atomic(p,'request.json',{'schema':1,'run':run,'token_sha256':hashlib.sha256(token.encode()).hexdigest(),'timeout':timeout,'action':'WRITE_NOOP_ALERT_ONLY'})
  return {'run':run,'token':token}
+def validate_request(req):
+ if not isinstance(req,dict) or set(req)!={'schema','run','token_sha256','timeout','action'}:raise ValueError('invalid watchdog request')
+ if type(req['schema']) is not int or req['schema']!=1 or req['action']!='WRITE_NOOP_ALERT_ONLY':raise ValueError('invalid watchdog request')
+ for key,length in (('run',24),('token_sha256',64)):
+  if not isinstance(req[key],str) or re.fullmatch('[0-9a-f]{'+str(length)+'}',req[key]) is None:raise ValueError('invalid watchdog identity')
+ duration=req['timeout']
+ if type(duration) not in (int,float) or not math.isfinite(duration) or not .2<=duration<=10:raise ValueError('invalid watchdog timeout')
 def worker(root):
  p=checked(root);req=json.loads((p/'request.json').read_text())
- if set(req)!={'schema','run','token_sha256','timeout','action'} or req['schema']!=1 or req['action']!='WRITE_NOOP_ALERT_ONLY' or not .2<=req['timeout']<=10:raise ValueError('invalid watchdog request')
+ validate_request(req)
  with (p/'lock').open('a') as lock:
   try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
   except BlockingIOError:return 3
+  if any((p/name).exists() for name in ('ready.json','result.json')):raise ValueError('watchdog sandbox already used')
   start=time.monotonic();deadline=start+req['timeout']
   atomic(p,'ready.json',{'pid':os.getpid(),'ppid':os.getppid(),'sid':os.getsid(0),'cgroup':pathlib.Path('/proc/self/cgroup').read_text() if pathlib.Path('/proc/self/cgroup').exists() else None,'run':req['run'],'source_sha256':hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest()})
   status='FIRED_NOOP_ALERT';invalid=0

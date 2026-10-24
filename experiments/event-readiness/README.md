@@ -39,3 +39,7 @@ This closes only a test-owned SSH client after arming a fresh harmless unit, the
 Use `*-final.json`, `rp5-watchdog-ssh-exit-20261022-v3.json`, `rp5-file-types-20261022-v2.json` and `rp5-engine-fileguard-20261022-v2.json` for final results. Earlier 31/32-case and worker revisions remain historical artifacts, not extra coverage counts. Final worker hash in systemd/SSH ready records matches the local/Pi final source. `read_inventory.py` only reads current configuration, module metadata, graph, timer/service state, stored register shape, executable identity and metrics; it never invokes I2C.
 
 See `docs/event-dt31/READINESS_20261022_KO.md` and `PRIVATE_BUNDLE_SPEC_KO.md` for the NO-GO matrix and remaining real-hardware gates. No GitHub Actions hardware job is enabled by these files.
+
+## 2026-10-25 request/replay hardening
+
+`python3 test_watchdog_request.py --results /tmp/watchdog-request.json` passes 22 local/Pi cases: strict request types/hex identity/finite bounded timeout, stale ready/result refusal without overwrite, and fresh NOOP expiry. Existing 33 readiness cases also pass with the changed worker. Early cancellation remains supported; an initial overstrict cancel-file rejection failed regression and was corrected. New evidence is `*20261025.json`. These are ordinary process/temp-file checks; the changed worker has not been rerun under systemd or the SSH-exit scenario. Older manager/SSH evidence remains tied to its original source pin. See the dated readiness report; Phase C remains NO-GO.

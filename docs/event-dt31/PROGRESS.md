@@ -144,3 +144,11 @@
 - 최종 운영 불변성07:07:33 KST PASS: 모든 조사 파일 hash/metadata, module parameters, media graph, service 및 pending 상태가 전후 동일. MainPID683775/NRestarts0/active/enabled; sequence 증가, buffers/s1021.589, raw bytes/s179472804.215, web58.976/HDMI59.976fps, reported V4L2 dequeue/buffer/sequence-gap0. CSI error-free로 해석하지 않음. 별도 transient test unit0개 남음. 증거 `rp5-inventory-final-20261022.json`, `rp5-invariants-final-20261022.json`, `rp5-watchdog-cleanup-final-20261022.txt`.
 - 작업 중 생성한 것은 공개 readiness 코드, 합성 fixture 및 별도 marker-only temporary units뿐. RAW2 stop/restart0, I2C invocation0, sensor/module/DT/media writes0, legacy scripts/watchdog 실행0, 실기capture0, production downtime0초.
 - 최종 판정 **NO-GO / Phase C HARD BLOCKED**. 현재production startup은 여전히 기존 경합 경로이며 변경하지 않음. 실제 backend/private live registers/정상 영상·CSI/안전 startup handover/실제복구와 watchdog 연동/GO sign-off가 미충족. Issue #7은 readiness report와 nonproduction harness 결과로 보고하고 실기 단계로 넘어가지 않는다.
+
+## 2026-10-25 — Issue7 재확인 / watchdog request 강화 / NO-GO 유지
+
+- origin fetch, AGENTS/RUNBOOK/기존 evidence 및 Issue7/PR5 최신 discussion 확인. 새 지침 없음. 기존 브랜치와 완료 결과 보존.
+- Pi readonly inventory 05:42:02 KST: RAW2 active/enabled/PID683775/NRestarts0, sequence425660338→425662660, capture1128.176buffers/s, reported dequeue/buffer/sequence-gap0. pending absent/firstboot inactive. 10월22일 검사 파일 metadata/hash·params·media 요약 동일. 현재 정상 영상/CSI/I2C readback은 NOT TESTED.
+- `watchdog_worker.py`: strict JSON type/identity/finite deadline 및 ready/result 재사용 거부. 시작 전 cancel까지 거부한 초기 구현이 기존33건 회귀에서 실패하여 수정했다.
+- 신규 `test_watchdog_request.py` 로컬/Pi22 PASS, 기존 readiness 로컬/Pi33 PASS. 명령/실측/실패와 한계는 [10월25일 보고서](./READINESS_20261025_KO.md). 증거 `experiments/event-readiness/evidence/*20261025.json`. Python/temp 프로세스 시험이며 이번 worker의 systemd/SSH 재시험은 NOT TESTED. 이전 독립 unit 증거는 이전 source pin 범위로만 보존.
+- production 변경0, I2C0, legacy rollback/start/validate 호출0. live backend와 private baseline/startup 통합/실기 복구 미검증이므로 Phase C HARD BLOCKED/NO-GO 유지. 다음 작업: 비운영 복구 backend와 health/cancel 연동 설계·실패 주입. 실제 장비 전환 금지.
