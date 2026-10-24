@@ -1,0 +1,18 @@
+{
+  "source": "stored startup register record only",
+  "live_i2c_read": false,
+  "row_count": 12,
+  "matches_startup_assertions": true,
+  "checks_without_values": {
+    "3260": true,
+    "3901": true,
+    "3902": true,
+    "3903": true,
+    "3906": true,
+    "3907": true,
+    "3908": true,
+    "391A": true,
+    "391B": true
+  },
+  "warning": "not evidence of current live register state"
+}

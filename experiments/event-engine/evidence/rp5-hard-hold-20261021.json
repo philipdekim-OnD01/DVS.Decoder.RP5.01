@@ -1,0 +1,7 @@
+{
+  "pass": true,
+  "exit_code": 1,
+  "stderr": "PHASE_C_BLOCKED: file/mock only; live execution disabled",
+  "output_created": false,
+  "real_device_opened": false
+}

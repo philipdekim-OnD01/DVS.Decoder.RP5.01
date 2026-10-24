@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "files_unchanged": true,
+    "module_parameters_unchanged": true,
+    "media_graph_unchanged": true,
+    "service_unchanged": true,
+    "pending_marker_unchanged": true,
+    "sequence_advanced": true,
+    "no_reported_v4l2_errors": true
+  },
+  "pass": true,
+  "observed_at": "2026-10-22T07:01:22.252833+09:00",
+  "production_ready": false
+}

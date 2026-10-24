@@ -1,0 +1,35 @@
+{
+  "mode": "READ_ONLY_PLAN",
+  "production_ready": false,
+  "checks": {
+    "pinned_files_match": true,
+    "receiver_parameters_match": true,
+    "service_observed_active": true,
+    "service_observed_enabled": true,
+    "live_registers_verified": false
+  },
+  "allowed_now": [
+    "read-only-inspection",
+    "dry-run",
+    "mock"
+  ],
+  "steps": [
+    "STOP_OWN_EXPERIMENT",
+    "RESTORE_RECEIVER_RUNTIME",
+    "RESTORE_SENSOR_PROFILE",
+    "RESTORE_MEDIA_PROFILE",
+    "START_CURRENT_RAW2",
+    "VERIFY_FRESH_RAW2",
+    "DISARM_OWN_WATCHDOG"
+  ],
+  "blockers": [
+    "LIVE_BACKEND_NOT_IMPLEMENTED",
+    "PHASE_C_HARD_HOLD",
+    "LIVE_REGISTERS_NOT_VERIFIED",
+    "RESTORE_NOT_PROVEN_ON_HARDWARE",
+    "INDEPENDENT_WATCHDOG_NOT_PROVEN_ON_HARDWARE"
+  ],
+  "real_actions": 0,
+  "existing_rollback_permitted": false,
+  "observed_at": "2026-10-21T23:03:17.547151+09:00"
+}

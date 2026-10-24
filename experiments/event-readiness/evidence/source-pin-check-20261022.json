@@ -1,0 +1,6 @@
+{
+  "local_pi_source_sha256_match": true,
+  "current_git_source_match": true,
+  "case_count": 33,
+  "hardware_restore_tested": false
+}

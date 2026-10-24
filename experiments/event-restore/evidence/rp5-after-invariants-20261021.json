@@ -1,0 +1,64 @@
+{
+  "observed_at": "2026-10-21T23:14:28.233801+09:00",
+  "file_metadata_and_hashes_unchanged": {
+    "/home/philip/dvs_raw2_production/raw2_production_start.sh": true,
+    "/home/philip/dvs_raw2_production/raw2_production_rollback.sh": true,
+    "/home/philip/dvs_raw2_production/raw2_production_validate.sh": true,
+    "/home/philip/dvs_raw2_production/raw2_producer": true,
+    "/home/philip/dvs_raw2_production/sensor_hand_profile.py": true,
+    "/home/philip/dvs_raw2_production/backup/sensor_registers_before_key.txt": true,
+    "/home/philip/dvs_raw2_production/sensor_registers_raw2_programmed.txt": true,
+    "/home/philip/dvs_raw2_production/media_graph_raw2.txt": true,
+    "/home/philip/dvs_raw2_production/devices.txt": true,
+    "/home/philip/dvs_raw2_production/pending_first_boot_validation": true,
+    "/home/philip/bin/s5krc1s_probe_init.py": true,
+    "/home/philip/bin/Delta_10_2000FPS.txt": true,
+    "/etc/modprobe.d/s5krc1s_min.conf": true,
+    "/etc/modprobe.d/dvs-raw2-production-rp1.conf": true,
+    "/etc/systemd/system/dvs-raw2-production.service": true,
+    "/boot/firmware/config.txt": true,
+    "/boot/firmware/overlays/s5krc1s-cam0.dtbo": true,
+    "/etc/systemd/system/dvs-raw2-production.service.d/50-visual-ab.conf": true,
+    "/etc/systemd/system/dvs-raw2-production.service.d/60-boundary-shadow.conf": true,
+    "/etc/systemd/system/dvs-raw2-production.service.d/80-boundary-trace.conf": true,
+    "/etc/systemd/system/dvs-raw2-production.service.d/70-boundary-hist.conf": true,
+    "/lib/modules/6.12.47+rpt-rpi-2712/updates/rp1-cfe.ko": true,
+    "/lib/modules/6.12.47+rpt-rpi-2712/extra/s5krc1s_min.ko": true
+  },
+  "all_files_unchanged": true,
+  "service": {
+    "returncode": 0,
+    "stdout": "Restart=on-failure\nRestartUSec=5s\nMainPID=683775\nNRestarts=0\nActiveState=active\nUnitFileState=enabled\nActiveEnterTimestamp=Tue 2026-10-20 20:30:46 KST",
+    "stderr": ""
+  },
+  "firstboot": {
+    "returncode": 0,
+    "stdout": "Id=raw2-production-firstboot-expiry.timer\nTriggers=\nLoadState=not-found\nActiveState=inactive\n\nId=raw2-production-firstboot-expiry.service\nTriggers=\nLoadState=not-found\nActiveState=inactive",
+    "stderr": ""
+  },
+  "metrics_before": {
+    "v4l2_sequence": 108187229,
+    "capture_buffers_sec": 1087.698,
+    "raw_bytes_sec": 191086791.785,
+    "web_fps": 58.929,
+    "hdmi_fps": 59.928,
+    "v4l2_dequeue_errors": 0,
+    "v4l2_buffer_errors": 0,
+    "v4l2_sequence_gaps": 0
+  },
+  "metrics_after": {
+    "v4l2_sequence": 108189432,
+    "capture_buffers_sec": 1074.664,
+    "raw_bytes_sec": 188796938.276,
+    "web_fps": 57.982,
+    "hdmi_fps": 59.981,
+    "v4l2_dequeue_errors": 0,
+    "v4l2_buffer_errors": 0,
+    "v4l2_sequence_gaps": 0
+  },
+  "sequence_advanced": true,
+  "module_parameters_unchanged": true,
+  "media_graph_hash_unchanged": true,
+  "production_commands_executed": 0,
+  "live_register_access": false
+}

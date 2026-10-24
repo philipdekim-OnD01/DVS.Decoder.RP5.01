@@ -22,6 +22,31 @@
 
 `GREY/Y8`은 바이트 저장 컨테이너 후보일 뿐, `0x31` 지원이나 손실 없는 DMA를 보증하지 않는다. 실제로는 FS/FE, 패킷 Word Count, DMA geometry, stride, `bytesused`, `sequence`, CSI CRC/ECC와 드롭을 측정해야 한다. **별도 프로세스는 물리적 센서/CSI 포트 격리가 아니다.** 기존 RAW2와 동시 실시간 테스트를 시도하지 않는다.
 
+## 2026-10-25 설계 결정 — RAW2 보존 + 신규 Event Engine + 최소 스위처
+
+사용자 결정: 별도의 범용 복구 프로그램 개발에 집중하지 않고 **기존 RAW2(A)는 변경 없이 보존**, **신규 DT=0x31 Event 프로그램(B)을 별도로 완성**, 실패 시 **검증된 원본 A로 전환**하는 Blue-Green 운영 모델을 채택한다. 상세 설계 및 Codex 우선순위: [BLUE_GREEN_SWITCH_PLAN_KO.md](./BLUE_GREEN_SWITCH_PLAN_KO.md).
+
+중요: A·B는 서로 다른 소프트웨어지만 **실제 센서와 RP1 CFE는 하나**다. 프로그램 교체만으로 `0x31` 센서 레지스터·receiver DT·probe 상태·media graph가 `0x2A`로 원복되지 않는다. 따라서 최소 스위처는 원본 하드웨어 설정의 안전 복원과 실제 영상·버퍼 검증까지 포함해야 한다. 기존 destructive rollback 및 first-boot timer 호출 위험은 그대로 유효하다.
+
+**우선 작업**: (1) 원본 보존·비공개 snapshot 명세, (2) 별도 B 서비스/설정 및 file/mock Viewer 완성, (3) mock-only 단일 소유권 스위처, (4) 복귀/경합/watchdog 검증, (5) 모든 preflight를 실제 증거로 통과했을 때에만 Phase C 검토. 현재 **Phase C HARD BLOCKED**, `--device` 차단 유지. 이 결정은 복구 검증 조건의 축소, 운영 중단·레지스터 쓰기·재부팅 승인 또는 실제 스위치 실행 지시가 아니다.
+
+## 긴급 안전 차단 — RAW2 rollback 경로 오용 위험 (2026-10-21)
+
+**상태: Phase C BLOCKED / RAW2 운영 중단 금지.** Codex의 Pi 조사에 따르면 기존 `raw2_production_rollback.sh`는 Event Packet에서 RAW2 운영 상태를 회복하는 스크립트가 아니라 RP1 override를 제거하고 서비스를 비활성화한 뒤 재부팅한다. 이 스크립트는 **복구 수단으로 실행·예약·재사용 금지**. 실제 Pi 상의 전체 스크립트 본문과 호출 관계는 읽기 전용으로 확인하고 증거를 남겨야 한다.
+
+운영 `raw2_production_start.sh`는 시작 시 setfile 적용, RAW2 레지스터 설정, media graph 재설정, 프로세스 시작을 수행하며 `pending_first_boot_validation` 존재 시 기존 rollback 스크립트를 타이머로 예약할 수 있다. 따라서 `systemctl restart dvs-raw2-production`과 watchdog 스케줄링은 운영 환경에서 안전한 dry-run이 아니다.
+
+**Phase B는 file/mock만으로 계속한다. Phase C preflight에서 다음 항목을 모두 검증하기 전에는 기존 운영 서비스를 정지하거나 센서/모듈/DT를 변경할 수 없다.**
+
+1. 기존 rollback/validate/start/systemd/timer 호출 그래프와 `pending_first_boot_validation` 조건을 읽기 전용 확인한다. 특히 예상치 못한 reboot, disable, RP1 override 삭제 경로를 식별한다.
+2. 운영 상태(서비스 활성화 여부, module·DT·override 파일/해시/옵션, I2C 설정, media graph, 정상 RAW2 시각 출력 및 수신·오류 지표)를 재현 가능한 방식으로 확보한다. 접근 제어나 영업상 비공개 설정은 공개 Git에 올리지 않는다.
+3. **별도** `restore-to-current-RAW2` 스크립트/검증기를 작업 폴더에 설계한다. 프로덕션 스크립트는 수정/실행하지 않고, mock/fake 환경에서 상태 복원, 멱등성, 오류 처리, 실패 주입, SSH 단절, 타이머 충돌과 제한 시간 초과를 테스트한다.
+4. 독립 watchdog이 금지된 기존 rollback을 호출하지 않으며, restore 검증에 실패할 경우 장비의 삭제/disable/reboot를 자동 실행하지 않음을 확인한다.
+5. 모듈 설정과 센서 설정이 **실제 실행 상태에서** 일치하도록 하는 복구 절차를 문서화한다. 정적 코드 분석이나 무해한 dry-run 성공만으로 실제 복구 보증을 주장하지 않는다.
+6. Gate B 통과, Gate C 모든 preflight, 자동 복구 준비의 충분한 검증, 운영 중단의 경계 조건이 충족되지 않으면 **STOP 후 PROGRESS에 위험·증거·미해결 항목을 기록**한다.
+
+해당 정지 조건은 이전의 제한적 실험 승인보다 우선하며, Codex가 Phase B 개발을 완료하더라도 자동으로 해제되지 않는다. 준비된 복구 절차는 사용자가 명시한 기존 실험의 10초 × 최대 3회/운영 중단 15분 이내 제한을 그대로 따른다.
+
 ## 2. 권한 및 절대 제한
 
 사용자가 현재 대화에서 제한적인 *첫 번째* RP5 실기 검증의 자동 진행을 요청했다. 아래 조건 내에서 불필요한 단계별 승인 질문 없이 진행하되, 이 문서는 별도 세션·다른 기기 또는 범위 확대에 대한 포괄적 권한으로 재해석하지 않는다. 접근통제/OS 권한을 우회하지 않는다.
@@ -102,3 +127,27 @@ cat docs/event-dt31/PROGRESS.md
 단, 이 문서가 현재 체크아웃 브랜치에 없으면 먼저 GitHub의 문서 PR에서 내용을 확인해야 한다. 다른 작업 브랜치의 문서를 자동으로 읽는다고 가정하지 않는다.
 
 **단계마다** `PROGRESS.md`를 갱신: 현재 phase, 확인된 장비와 브랜치/커밋, 수행한 명령·로그, 수치, 주의/블로커, 다음 명령과 롤백 여부. 임의의 테스트 통과 추측이나 PR 녹색 표시만으로 상태를 통과로 바꾸지 말 것.
+
+
+## 8. 2026-10-21 오프라인 restore 설계 검증 결과 / 현재 허용 범위
+
+**Phase C = BLOCKED. 이 절은 과거 §2의 제한적 실기 허용보다 우선한다. 현재는 운영 서비스/센서/I2C/모듈/DT/media graph 변경을 하지 않는다.** 기존 `raw2_production_rollback.sh`를 실행·예약·간접 호출하지 않으며 start/validate/installer도 dry-run 도구로 사용하지 않는다. engine --device 경로는 코드에서도 PHASE_C_BLOCKED로 차단했다.
+
+- [상세 복구 계획·호출 그래프·사전 점검](./RESTORE_PLAN_KO.md): 실제 Pi 파일·모듈·설정 hash 및 pending/watchdog 관측, destructive firstboot 경로, timer/restart race를 기록했다.
+- 별도 `experiments/event-restore/restore_current_raw2.py`는 **dry-run/mock 전용**이며 실제 backend가 없다. `--dry-run`은 계획 JSON과 hardware-blocked exit2를 반환한다. `--mock-worker`는 OS temp sentinel fixture만 처리한다. 기존 rollback/start를 수정하거나 호출하지 않는다.
+- Phase B adapter mock22건(Pi ASan/UBSan) 및 restore 실패 주입24건(로컬/Pi) 통과. 저장 샘플/native/Viewer의 기존 통과 결과는 보존. 성공으로 보고할 수 있는 범위는 이 파일/mock 시험뿐이다.
+- SSH 단절은 mock client exit + 독립 session worker로 모사했으며 실제 SSH/logind/systemd watchdog 생존 시험이 아니다. mock watchdog flag 유지가 실제 watchdog 가동 증명은 아니다.
+- 향후 live backend·현재 RAW2 private baseline·safe startup/firstboot race·실제 watchdog·실기 복구 검증이 모두 해결되고 운영 변경이 명시적으로 승인되기 전에는 실기 재시도/서비스 재시작을 하지 않는다. 현재 pending absent와 expiry inactive는 순간 관측이며 미래 start 안전 보장이 아니다.
+
+
+## 9. Issue #7 readiness 결과 — 2026-10-22 / NO-GO
+
+최신 지침의 허용 범위에서 [readiness 보고서](./READINESS_20261022_KO.md)와 [private bundle/receiver binding 설계](./PRIVATE_BUNDLE_SPEC_KO.md)를 작성했다. 신규 synthetic startup/bundle/proc-watchdog33건, 실제 **marker-only 격리 systemd unit5건**과 시험소유 SSH client 종료/cgroup 생존, C++ fileguard7건/engine guard6건을 검증했다. 기존17/22/24건 증거는 보존한다.
+
+실제 unit은 새 rp5-dvs-rdy-*에 한정하며 ProtectSystem/Home, PrivateDevices/Network, NoNewPrivileges, 비특권 사용자/자기tmp만 쓰기, resource/runtime 제한이 적용된다. 기존 firstboot/camera watchdog과 RAW2 서비스는 호출하지 않는다. deadline 동작은 NOOP alert marker이고 실제 복구 backend가 아니다. **marker-only 독립 실행 PASS는 실기 복구 또는 모든 SSH/logind 장애 검증 PASS가 아니다.**
+
+파일 입력도 ext-family/tmpfs의 pinned regular inode로 제한해 --file 특수/virtual file 우회를 거부한다. --device hard-block과 production_ready=false를 유지한다. 실제 production unit/start 통합·현재 sensor readback/영상/CSI·private snapshot·runtime DT re-probe·hardware backend·복구와 watchdog 연동·GO sign-off가 모두 남아 있으므로 Phase C HARD BLOCKED를 해제하지 않는다. 현재 단계에서 RAW2 운영 환경 변경은 금지다.
+
+## 10. 2026-10-25 재개 점검
+
+[10월25일 보고서](./READINESS_20261025_KO.md)에 최신 readonly 관측과 watchdog 요청/replay 음성22건(로컬/Pi), 기존 readiness33건 재검증을 기록했다. Phase C HARD BLOCKED는 그대로다. 신규 worker는 잘못된 요청과 이전 ready/result 재사용을 거부하며 일반 사용자 NOOP 프로세스에서만 이번 검증을 수행했다. 이전 systemd/SSH 증거를 변경된 source의 새 실행 결과로 간주하지 않는다. 현재 RAW2 실기 복구/backend·private baseline·safe startup 통합은 미검증이므로 운영 환경 변경은 금지한다.

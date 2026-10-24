@@ -1,0 +1,24 @@
+Started rp5-dvs-rdy-680b990582-expiry.service - [systemd-run] /usr/bin/python3 /tmp/dvs-readiness-20261022/readiness/watchdog_worker.py --worker /tmp/dvs-watchdog-gate-20261022/expiry.
+Traceback (most recent call last):
+  File "/tmp/dvs-readiness-20261022/readiness/watchdog_worker.py", line 52, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ~~~~^^
+  File "/tmp/dvs-readiness-20261022/readiness/watchdog_worker.py", line 51, in main
+    return worker(a.worker)
+  File "/tmp/dvs-readiness-20261022/readiness/watchdog_worker.py", line 28, in worker
+    p=checked(root);req=json.loads((p/'request.json').read_text())
+  File "/tmp/dvs-readiness-20261022/readiness/watchdog_worker.py", line 14, in checked
+    if p.is_symlink() or not p.resolve().is_relative_to(pathlib.Path(tempfile.gettempdir()).resolve()):raise ValueError('watchdog is sandbox temp-only')
+                                                                     ~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/tempfile.py", line 506, in gettempdir
+    return _os.fsdecode(_gettempdir())
+                        ~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/tempfile.py", line 499, in _gettempdir
+    tempdir = _get_default_tempdir()
+  File "/usr/lib/python3.13/tempfile.py", line 414, in _get_default_tempdir
+    raise FileNotFoundError(_errno.ENOENT,
+                            "No usable temporary directory found in %s" %
+                            dirlist)
+FileNotFoundError: [Errno 2] No usable temporary directory found in ['/tmp', '/var/tmp', '/usr/tmp', '/']
+rp5-dvs-rdy-680b990582-expiry.service: Main process exited, code=exited, status=1/FAILURE
+rp5-dvs-rdy-680b990582-expiry.service: Failed with result 'exit-code'.

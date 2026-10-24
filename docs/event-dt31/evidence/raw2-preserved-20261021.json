@@ -1,0 +1,38 @@
+{
+  "observed_at": "2026-10-21T22:59:22.354585+09:00",
+  "host": "Linux-6.12.47+rpt-rpi-2712-aarch64-with-glibc2.41",
+  "service": [
+    "MainPID=683775",
+    "NRestarts=0",
+    "ActiveState=active"
+  ],
+  "before": {
+    "capture_buffers_sec": 847.929,
+    "raw_bytes_sec": 148964165.448,
+    "web_fps": 57.927,
+    "hdmi_fps": 59.924,
+    "v4l2_sequence": 107291681,
+    "v4l2_dequeue_errors": 0,
+    "v4l2_buffer_errors": 0,
+    "v4l2_sequence_gaps": 0
+  },
+  "after": {
+    "capture_buffers_sec": 1146.751,
+    "raw_bytes_sec": 201461218.942,
+    "web_fps": 57.987,
+    "hdmi_fps": 59.987,
+    "v4l2_sequence": 107293804,
+    "v4l2_dequeue_errors": 0,
+    "v4l2_buffer_errors": 0,
+    "v4l2_sequence_gaps": 0
+  },
+  "sequence_advanced": true,
+  "recovery_scripts_sha256": {
+    "/home/philip/dvs_raw2_production/raw2_production_rollback.sh": "6f45ec60a21e573226fcf403285c23af28e7e30b80e0156cd37b8c71a7f52661",
+    "/home/philip/dvs_raw2_production/raw2_production_validate.sh": "795a8d880deb03ae793b27489263e25e995254ab6cd199cfdec660218be08e95"
+  },
+  "event_hardware_captures": 0,
+  "downtime_seconds": 0,
+  "production_changed": false,
+  "raw2_restore_tested": false
+}
