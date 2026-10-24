@@ -246,3 +246,9 @@
 - 최종 source-manifest 일치/native binary B1 이후 불변/output SHA·집계 정합성/변경 파일 범위/git diff --check PASS. b5-final-checks.json. SDK/RAW/image/frame 공개0, 기존 suite·분석 재실행0.
 - 07:44:02 KST readonly RAW2 연속 확인: PID683775/NRestarts0/active/enabled, 보고 dequeue/buffer/sequence-gap0, web57.999/HDMI59.999fps. b5-raw2-continuity.json. 복귀 시험이 아님.
 - B0~B5 offline 완성 검토 요청. 실기/물리좌표·손가락/복귀 NOT TESTED, 복귀 개발 범위 제외. RAW2 A UNTOUCHED/Phase C HARD BLOCKED/--device 거부. NEXT=별도 Draft PR 검토, 새 카드 전 재실험 없음.
+
+### Issue15 B5 제출 링크
+
+- [Draft PR17](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/17), 진단/구현 checkpoint f91bd97. base=보존된 PR13 개발 브랜치, 원본 PR5/13 수정·merge 없음.
+- 단계별 기록: B0 09902b6, B1 9261b59, B2 f439069, B3 22d8a4d, B4 a3bf028, B5 f91bd97. 각 단계 push 및 Issue15 DONE/EVIDENCE/TEST/BLOCKER/NEXT 기록.
+- NEXT=독립 오프라인 패키지 PR 검토. 새 작업 카드 전 완료된 분석/시험 반복 금지, 실기 전환·복귀 개발은 이번 범위 밖. RAW2 A UNTOUCHED / Phase C HARD BLOCKED.

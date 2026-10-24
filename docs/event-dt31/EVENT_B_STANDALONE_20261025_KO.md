@@ -72,3 +72,5 @@ Browser검증용자체tab와loopbackserver는종료했다(명령/PID확인후시
 2026-10-25 07:44:02 KST 읽기 전용 종료 점검: RAW2 PID683775, NRestarts0, active/enabled. 보고된 V4L2 dequeue/buffer/sequence-gap0, web57.999/HDMI59.999fps. 이는 계속 가동 상태의 한 시점 확인이며 복구 시험이나 물리 영상 검증은 아니다(`b5-raw2-continuity.json`).
 
 **유일한 NEXT:** 이 독립 file-only 패키지의 Draft PR 검토. 후속 기능은 새 작업 카드로 정하며, 완료된 B0~B5나 기존 분석을 반복하지 않는다. 실기 전환은 이 결과로 승인되지 않는다.
+
+제출: [Draft PR17](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/17), B0~B5 코드/증거 checkpoint f91bd97. 단계별 실행 기록은 [Issue15](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/15)와 PROGRESS에 남긴다. 자동 merge/Issue close 없음.
