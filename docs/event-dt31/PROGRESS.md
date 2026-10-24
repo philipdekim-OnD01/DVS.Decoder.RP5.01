@@ -205,3 +205,8 @@
 - 최종보고 `EVENT_OFFLINE_AB_20261025_KO.md`, 재현 `experiments/event-ab/README.md`. 공개내용=source식별hash/작은통계/관찰harness뿐, privateSDK/구형소스/sample/frame/traces유출없음.
 - 결과=830전부파일prefix 미동기상태(유효X/없는ref·sub·epoch), dual 차이1073events완전설명; 이후logicaleventtuple 및1557timestamp동치. 실제손실/물리좌표·시각/원V4L2·CSI경계/prefix물리원인 UNKNOWN. productionparserpatch0/RAW2 변경0/live0/Phase C HARD BLOCKED.
 - 최종검증=git diff --check, 증거JSON/P0 원본 source SHA/trace·frameSHA대조; 기존suite재실행없음. 별도DraftPR 및Issue11/PR5링크로완료검토요청. 자동merge/Issueclose없음. NEXT=검토후새작업카드; 이분석반복금지.
+
+### Issue11 P5 GitHub 인수인계 링크
+
+- 최종보고/코드6단계 commit(push완료) HEAD aedfbaa, 별도 [Draft PR13](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/13), base=보존된PR5개발브랜치. 이링크기록추가후에도 코드/시험결과는같다.
+- [Issue11](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/11)에P5체크포인트와최종5줄요약, PR5에참조링크기록. 자동merge/close없음. P0–P5 오프라인완료로검토요청하며NEXT=검토결과/다음작업카드. Phase C HARD BLOCKED.

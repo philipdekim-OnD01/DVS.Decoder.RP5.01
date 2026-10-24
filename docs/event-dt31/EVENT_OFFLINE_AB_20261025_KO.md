@@ -93,3 +93,5 @@ actual dual-vs-SDK가 다른830 offsets 집합과 실제unsynced830 offsets 집�
 - **UNKNOWN:** prefix가 이렇게 시작한 물리적사유, 원래V4L2/CSI경계, 센서물리손실/좌표/시각정확성, 구형historicalbinary동일성, mo1등sample미포함경로의일반동치. 외부wire사실없이이카운터를실손실로보고하지않는다.
 - **원인수정 없음:** 새C++결함이입증되지않아production/SDKparser본문수정없음(기존carrypatch+private관찰만). 새코드는진단harness이며운영기능이아니다. 기존native17/adapter22/restore24/readiness33 및 기존fullsplit성공을새PASS로계산하지않는다.
 - **NEXT:** Issue11은오프라인완료기준충족으로검토요청한다(자동close/merge없음). 이후작업카드가정해질때까지본분석은재실행하지않는다. 실기필요근거는별도승인·검증대상이며RAW2 A원본불변/Phase C HARD BLOCKED/--device fail-close유지.
+
+제출: [Draft PR13](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/13), 결과추적 [Issue11](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/11). 마지막진단코드/결과 checkpoint aedfbaa. PR5는원본보존상태이며자동병합없음.
