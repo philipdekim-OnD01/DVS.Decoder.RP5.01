@@ -216,3 +216,9 @@
 - main87219ad AGENTS/Issue15 최신댓글/Blue-Green§5/PROGRESS 및PR5 head53b6cf9/PR13 head50f465f 실제source/evidence확인. 별도 `codex/event-b-standalone-20261025`를50f465f에서분기, 원본PR수정·merge없음.
 - `EVENT_B_STANDALONE_20261025_KO.md` B0에decoder/queue/regularinput/PPM/기존계측 재사용표와독립빌드·CLI/config·파일재생Viewer·새E2E미완료를구분.
 - 기존native17/분석/suite 반복0. 복귀프로그램개발비범위. 실제실행=fetch/status/sourceinspection뿐. RAW2 A UNTOUCHED/Phase C HARD BLOCKED. NEXT=B1 standalonefile-only package.
+
+## 2026-10-25 — Issue15 B1 DONE / 독립Linux file-only패키지
+
+- `event-b/build.py`, file-onlyCLI/app/config/shareViewer, package bin/runs/manifest 추가. 기존engine/Queue/SDKcarrypatch/RegularInput 재사용, Packet공통헤더분리. EVENT_FILE_ONLY에서V4L2/service-check코드제외. --device hardblock유지, production파일작성없음.
+- Pi aarch64 GCC14.2 -Werror nativebuild PASS(`/tmp/dvs-event-b-package-20261025-v2`). 초기live변수unused compileFAIL→동일ifdef범위로이동후새경로재빌드. `event-b/evidence/b1-native-build.json`, first-build-failure.txt.
+- 신규Viewer=frames binary indexedplay/pause/seek/fps/ON/OFF/timestamp, 기존greenON/redOFF렌더규칙. B1은빌드검증이며실제패키지fileE2E/브라우저는B2/B3에서확인. RAW2 A unchanged/복귀개발0/live0/Phase C HARD BLOCKED. NEXT=B2 standalonepackageE2E1회.

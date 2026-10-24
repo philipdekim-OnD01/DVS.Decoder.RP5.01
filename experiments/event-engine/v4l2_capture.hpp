@@ -12,7 +12,7 @@
 #include <vector>
 #include <cstddef>
 #include <chrono>
-struct Packet { std::vector<std::byte> data; bool gap=false; unsigned sequence=0; double requeue_us=0; bool driver_error=false; };
+#include "packet.hpp"
 class V4L2Capture {
  int fd=-1; bool streaming=false; std::vector<std::pair<void*,size_t>> maps;
  void call(unsigned long op,void* p){int r;do{r=ioctl(fd,op,p);}while(r<0&&errno==EINTR);if(r<0)throw std::runtime_error(std::string("ioctl: ")+strerror(errno));}

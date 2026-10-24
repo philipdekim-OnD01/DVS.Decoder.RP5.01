@@ -1,0 +1,47 @@
+{
+  "package": "Event B file-only",
+  "platform": "Linux-6.12.47+rpt-rpi-2712-aarch64-with-glibc2.41",
+  "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+  "build_command": [
+    "g++",
+    "-std=c++20",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-pthread",
+    "-DEVENT_FILE_ONLY",
+    "-I/tmp/dvs-event-b-package-20261025-v2/build/sdk/include",
+    "/tmp/dvs-event-b-src-20261025/experiments/event-engine/engine.cpp",
+    "/tmp/dvs-event-b-package-20261025-v2/build/sdk/src/decoder.cpp",
+    "/tmp/dvs-event-b-package-20261025-v2/build/sdk/src/source.cpp",
+    "/tmp/dvs-event-b-package-20261025-v2/build/sdk/src/pipe.cpp",
+    "/tmp/dvs-event-b-package-20261025-v2/build/sdk/src/nrv_dvs/decoder.cpp",
+    "/tmp/dvs-event-b-package-20261025-v2/build/sdk/src/nrv_dvs/source.cpp",
+    "/tmp/dvs-event-b-package-20261025-v2/build/sdk/src/nrv_dvs/pipe.cpp",
+    "-o",
+    "/tmp/dvs-event-b-package-20261025-v2/bin/event-b-engine"
+  ],
+  "source_sha256": {
+    "experiments/event-engine/engine.cpp": "8ff07cc14ffe1875af7b27aff7e708cb3b15d23f61cbde0a1fa098dc522b95ed",
+    "experiments/event-engine/packet.hpp": "17f2226ae2f13fa5651e6414608b2a89241a0f1b17f88d5051c1c138f4b9f187",
+    "experiments/event-engine/regular_input.hpp": "ef24899b47caab320e7b8d28e9c5910a89b2526859b8165816db4987be1fa794",
+    "experiments/event-offline/prepare_core.py": "3ecaf7b5725d27ed64dfd86a67f8a810111759ca34b84a93a1180c014305b4e9",
+    "event-b/build.py": "8119b6da34fd84754d77450518affdb8c7db0723629dc1616083b134d71fcc14",
+    "event-b/app.py": "ab9f8540c56d5511d75129dcd9a41a4cf6d39f2e66bd4215955ba40c43c903c2",
+    "event-b/index.html": "240e893434d9f01ba341d3855ae6a35fc3731dec1008d3da61612ce7ab2f3d23",
+    "event-b/viewer.js": "809bc0134466bbecfdac07083101d3b051456d9dcfc69c537531d7b877371380",
+    "event-b/default.json": "6819bcf0d6742518c6010c7ec76996e8357a72bedaaef98d0a872447d1b2edbf"
+  },
+  "private_sdk_sha256": {
+    "decoder.cpp": "ae39864636615f47a082c0f2b478d7de1fd2459da5c08363822726dea9ea6f9b",
+    "source.cpp": "365c6020167add2c21be07dc23c690e85a46b824b5b955953485e18c6b33318b",
+    "pipe.cpp": "e81e538951bcb0092e376ec1fadd7978565d0cc04a4ff10a2edcfd56909e0c3b",
+    "nrv_dvs/decoder.cpp": "ff6294eda3d4b0237425373d877437e32c4c1e3081b7654dee4a5cfba100b50d",
+    "nrv_dvs/source.cpp": "456070cf2569313353d0361ac5716261608b7d52c36187806434e15be84e61e2",
+    "nrv_dvs/pipe.cpp": "e6fc5c25f920ee8a33cd66ace525a0bc81319b36c956c519b301e895efe91bc4"
+  },
+  "binary_sha256": "4c17c3398276aeaf536a304640a63769ee855cc48435431d58a0c0c4c83d0af9",
+  "phase_c": "HARD BLOCKED",
+  "live_backend_compiled": false
+}

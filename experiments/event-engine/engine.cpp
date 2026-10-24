@@ -1,6 +1,10 @@
 #include "source.h"
 #include <nrv_dvs/decoder.h>
+#ifdef EVENT_FILE_ONLY
+#include "packet.hpp"
+#else
 #include "v4l2_capture.hpp"
+#endif
 #include "regular_input.hpp"
 #include <atomic>
 #include <condition_variable>
@@ -60,7 +64,9 @@ int main(int argc,char**argv){
   bool live=argc>1&&std::string(argv[1])=="--device";
   if((!live&&(argc<4||argc>6||std::string(argv[1])!="--file"))||(live&&(argc!=9||std::string(argv[8])!="--armed")))throw std::runtime_error("usage: --file SAMPLE OUT [capacity] [delay_us] | --device PATH BUS W H OUT 10 --armed");
   if(live){throw std::runtime_error("PHASE_C_BLOCKED: file/mock only; live execution disabled");}
+#ifndef EVENT_FILE_ONLY
   if(live && (std::string(argv[7])!="10" || std::system("systemctl is-active --quiet dvs-raw2-production.service")!=768))throw std::runtime_error("live requires exactly 10s and production inactive (exit3)");
+#endif
   std::filesystem::path dir=argv[live?6:3];if(!std::filesystem::create_directory(dir))throw std::runtime_error("output directory must not exist");
   size_t capacity=!live&&argc>=5?std::stoul(argv[4]):8;int delay=!live&&argc>=6?std::stoi(argv[5]):0;
   if(!capacity||capacity>32||delay<0||delay>1000000){throw std::runtime_error("queue/delay invalid");}
@@ -71,6 +77,7 @@ int main(int argc,char**argv){
   auto start=Clock::now();auto cpu_start=std::clock();
   std::thread capture([&]{try{
    std::ofstream log(dir/"buffers.csv");log<<"sequence,bytesused,requeue_us,error\n";
+#ifndef EVENT_FILE_ONLY
    unsigned previous=0;bool seen=false;
    if(live){
     V4L2Capture device(argv[2],argv[3],std::stoul(argv[4]),std::stoul(argv[5]));stride=device.stride;sizeimage=device.sizeimage;
@@ -84,7 +91,9 @@ int main(int argc,char**argv){
      word_counts.feed(p);
      if(!queue.push(std::move(p),true))break;
     }
-   }else{
+   }else
+#endif
+   {
     RegularInput file(argv[2]);
     while(!interrupted){Packet p;if(!file.next(p.data,4093))break;
      p.sequence=buffers++;bytes+=p.data.size();word_counts.feed(p);log<<p.sequence<<','<<p.data.size()<<",0,0\n";if(!queue.push(std::move(p),false))break;}

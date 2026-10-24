@@ -1,0 +1,5 @@
+First native build: FAIL under -Wall -Wextra -Werror.
+engine.cpp capture lambda: previous and seen became unused with EVENT_FILE_ONLY.
+Correction: move those two V4L2-only locals inside the same preprocessor guard.
+Retry in a fresh private v2 package: PASS. Original failed /tmp tree retained.
+No production or private SDK original files changed.

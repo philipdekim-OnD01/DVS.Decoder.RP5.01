@@ -14,3 +14,13 @@
 | 현재비범위 | RAW2 Issue1 UNKNOWN/STOP, 복귀/Watchdog/switcher | 재분석·복귀프로그램·실센서시험안함 |
 
 기존suite는실행하지않았다. 시작시actualgit tree clean과source/evidence검토만수행. 이작업은Linux RP5 file-only배포패키지로구현하며비공개SDK/sample은기존승인/tmp경로에만둔다. RAW2 A UNTOUCHED, Phase C HARD BLOCKED. NEXT=B1 독립빌드/실행패키지.
+
+## B1 구현 체크포인트
+
+`event-b/build.py`는 기존prepare_core로private SDK copy를만들고 기존engine.cpp에`EVENT_FILE_ONLY`를지정해별도`bin/event-b-engine`을빌드한다. V4L2/service-check코드는이산출물에컴파일하지않는다. 공통Packet정의만헤더로분리해queue/decoder/RegularInput/renderer는재사용한다. 원본PR5/13브랜치는수정하지않는다.
+
+독립private package는bin/config/share/runs/build와source/SDK/binary hash manifest를가진다. `bin/event-b replay --file ... --name ...`, `info`, loopback전용`serve`를제공하며output은package/runs에만생성한다. 기존run덮어쓰기거부, --device즉시PHASE_C_BLOCKED, 별도config범위검사, exit/status/log보존. 서비스/자동설치/부팅파일은만들지않는다.
+
+Viewer는기존PPM렌더의greenON/redOFF규칙을재사용해완성frame binary를index하고play/pause/seek/fps/polarity/timestamp/stats를표시한다. 물리좌표검증이아닌file-only UI임을표기한다. B2에서실제패키지재생과검증을수행한다.
+
+B1 실제결과: Pi GCC14.2 -Werror nativebuild PASS, manifest `b1-native-build.json` source/binary SHA 기록. 첫build는live-only locals미사용경고로FAIL했으며같은ifdef로이동한후새v2경로에서PASS했다. runtimeE2E/Viewer검증은다음단계이며아직성공으로보고하지않는다.
