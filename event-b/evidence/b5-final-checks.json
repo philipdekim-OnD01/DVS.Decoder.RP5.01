@@ -1,0 +1,16 @@
+{
+  "pass": true,
+  "source_pins_match_final_package": true,
+  "native_binary_unchanged_since_b1": true,
+  "B2_new_package_E2E": true,
+  "B4_new_runtime_cases": 17,
+  "sample_sha256": "962925dfaf87fcd1a16d04cd6e122d32558527b543f39acc2803926f2fc897b3",
+  "frame_output_sha256": "e15a8a75899f6352725e0a4fbcd73f537acd1496fda6ae8ac25cd17903be1798",
+  "changed_production_payload_or_driver_files": false,
+  "private_raw_frames_or_SDK_in_changed_files": false,
+  "owned_local_viewer_tab_and_server_closed": true,
+  "no_old_suite_or_AB_reanalysis": true,
+  "phase_c": "HARD BLOCKED",
+  "production_changed": false,
+  "scope": "manifest/hash/changed-file review; no pipeline rerun"
+}

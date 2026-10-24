@@ -1,0 +1,1 @@
+{"scope":"owned private FIFO config fixture only","before_fix":{"blocked":true,"timeout_seconds":0.5,"owned_process_terminated":true},"cause":"config.read_text attempted nonregular file open before validation","fix":"package/config-only O_PATH non-symlink regular inode pin, size<=16384, strict JSON dict/keys/types/ranges and duplicate rejection","production_changed":false}

@@ -1,0 +1,18 @@
+{
+  "scope": "actual in-app browser, private local file results served on loopback",
+  "pass": true,
+  "canvas": [960, 720],
+  "initial": {"frame":1,"total":1557,"timestamp_us":305033,"on":548,"off":668},
+  "play": {"button_changed_to_pause":true,"frame_advanced_to_at_least":5},
+  "pause_and_seek_end": {"frame":1557,"timestamp_us":1093826,"period_us":507,"on":447,"off":384},
+  "polarity_selection": ["OFF only", "ON only"],
+  "actual_color_pixel_validation": "Node render/native PPM and synthetic polarity evidence in b2-render-equivalence.json; browser canvas pixel evaluation unsupported, not claimed",
+  "screenshot_visually_inspected": true,
+  "screenshots_or_raw_frames_committed": false,
+  "product_defect_proven": false,
+  "review_setup": "first local bind denied by sandbox; authorized loopback-only server started successfully; first browser attempt before server was refused",
+  "physical_finger_identity": "NOT VERIFIED",
+  "physical_coordinates_or_transmission_loss": "UNKNOWN",
+  "production_changed": false,
+  "phase_c": "HARD BLOCKED"
+}

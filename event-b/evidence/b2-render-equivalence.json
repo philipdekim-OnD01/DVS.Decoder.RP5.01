@@ -1,0 +1,10 @@
+{
+  "pass": true,
+  "host": "darwin arm64",
+  "actual_frames": 1557,
+  "last_frame_RGB_matches_native_PPM": true,
+  "rgb_sha256": "1eae76599217724adddec993bcb121ac350f29de486a6aecef499a91e1e1eec6",
+  "synthetic_polarity_and_bounds": true,
+  "physical_coordinates": "NOT VERIFIED",
+  "private_images_committed": false
+}

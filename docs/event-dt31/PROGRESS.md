@@ -210,3 +210,45 @@
 
 - 최종보고/코드6단계 commit(push완료) HEAD aedfbaa, 별도 [Draft PR13](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/13), base=보존된PR5개발브랜치. 이링크기록추가후에도 코드/시험결과는같다.
 - [Issue11](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/11)에P5체크포인트와최종5줄요약, PR5에참조링크기록. 자동merge/close없음. P0–P5 오프라인완료로검토요청하며NEXT=검토결과/다음작업카드. Phase C HARD BLOCKED.
+
+## 2026-10-25 — Issue15 B0 DONE / 독립 Event B 착수
+
+- main87219ad AGENTS/Issue15 최신댓글/Blue-Green§5/PROGRESS 및PR5 head53b6cf9/PR13 head50f465f 실제source/evidence확인. 별도 `codex/event-b-standalone-20261025`를50f465f에서분기, 원본PR수정·merge없음.
+- `EVENT_B_STANDALONE_20261025_KO.md` B0에decoder/queue/regularinput/PPM/기존계측 재사용표와독립빌드·CLI/config·파일재생Viewer·새E2E미완료를구분.
+- 기존native17/분석/suite 반복0. 복귀프로그램개발비범위. 실제실행=fetch/status/sourceinspection뿐. RAW2 A UNTOUCHED/Phase C HARD BLOCKED. NEXT=B1 standalonefile-only package.
+
+## 2026-10-25 — Issue15 B1 DONE / 독립Linux file-only패키지
+
+- `event-b/build.py`, file-onlyCLI/app/config/shareViewer, package bin/runs/manifest 추가. 기존engine/Queue/SDKcarrypatch/RegularInput 재사용, Packet공통헤더분리. EVENT_FILE_ONLY에서V4L2/service-check코드제외. --device hardblock유지, production파일작성없음.
+- Pi aarch64 GCC14.2 -Werror nativebuild PASS(`/tmp/dvs-event-b-package-20261025-v2`). 초기live변수unused compileFAIL→동일ifdef범위로이동후새경로재빌드. `event-b/evidence/b1-native-build.json`, first-build-failure.txt.
+- 신규Viewer=frames binary indexedplay/pause/seek/fps/ON/OFF/timestamp, 기존greenON/redOFF렌더규칙. B1은빌드검증이며실제패키지fileE2E/브라우저는B2/B3에서확인. RAW2 A unchanged/복귀개발0/live0/Phase C HARD BLOCKED. NEXT=B2 standalonepackageE2E1회.
+
+## 2026-10-25 — Issue15 B2 DONE / 신규packageE2E
+
+- Pi check_package.py 단회승인8MiB file→기존queue/decoder→1557frames/960×720PPM 및새Viewer파일출력 PASS. source/sample/binary/output SHA핀고정. SDKevents1469217/ON706157/OFF763060/unsynced830, EOF0partial/1incomplete. cap8/high8/drop0/final0, exit0.
+- file0.971242s/8.63699MBps/CPU105.156%/childmaxRSS27504KiB 실측(센서성능아님). 완성outputevents1468615 vsSDK누적1469217은다른범위,602차이를손실로주장안함. CSInull/실기미실행.
+- Node새Viewer1557index/lastRGB=PPM동치/합성polaritybounds PASS. 공개 `event-b/evidence/b2-*`,privateframe/image비공개유지. 기존suite/분석반복0/RAW2 A unchanged. NEXT=B3 브라우저file재생/seek/polarity시각검증및물리좌표한계정리.
+
+## 2026-10-25 — Issue15 B3 DONE / 실제파일Viewer 확인
+
+- in-app browser에서private loopbackViewer canvas960×720/1557frames/play→진행/pause/Endseek/ON만/OFF만/시각·주기·frameevents·통계확인. 최초sandboxbind EPERM→허용loopback실행후정상; canvaspixel API미지원은B2Node검증과구분.
+- `b3-browser-review.json` 공개집계만기록, private스크린샷/frameGit유출0. 새표시결함입증없어코드수정없음, 물리손가락/좌표정확성UNKNOWN, 임의좌표보정0. RAW2 A unchanged/Phase C HARD BLOCKED. NEXT=B4 패키지config/status/격리/실패/재현회귀.
+
+## 2026-10-25 — Issue15 B4 DONE / 재현·config·status·fail-closed
+
+- README독립build/run/config/Viewer/exit/SDK의존성/ABI/기밀/실기비범위작성. 새configFIFO대기결함실제재현(0.5s), 소유child만종료; package/config O_PATH일반inodepin/16KiB/strictJSON+duplicate거부로수정. emptyinput거부.
+- Pi새launcherruntime17 PASS(기존native17아님): config음성/패키지경로격리/선택device거부/합성tiny정상/기존run불변/SIGTERM130completefalse/info. privatepackage런처만갱신, nativebinaryB1동일. 증거b4-runtime.json/b4-config-first-failure.json/b4-final-package-manifest.json.
+- 브라우저임시tab·loopbackserver종료. 기존분석/큰sample반복0/복귀개발0/production변경0/live0/Phase C HARD BLOCKED. NEXT=B5 최종sha·diff검토/DraftPR/Issue15결과링크.
+
+## 2026-10-25 — Issue15 B5 최종 보고 / 독립 offline package
+
+- 공개 결과물: event-b 독립 build/runtime/config/playable960×720 Viewer, 한정 신규 시험·집계, EVENT_B_STANDALONE_20261025_KO.md와 README. AGENTS에 Issue15 재개 checkpoint와 유일한 NEXT=Draft PR review를 기록. 원본 PR5/13 변경·merge 없음.
+- 최종 source-manifest 일치/native binary B1 이후 불변/output SHA·집계 정합성/변경 파일 범위/git diff --check PASS. b5-final-checks.json. SDK/RAW/image/frame 공개0, 기존 suite·분석 재실행0.
+- 07:44:02 KST readonly RAW2 연속 확인: PID683775/NRestarts0/active/enabled, 보고 dequeue/buffer/sequence-gap0, web57.999/HDMI59.999fps. b5-raw2-continuity.json. 복귀 시험이 아님.
+- B0~B5 offline 완성 검토 요청. 실기/물리좌표·손가락/복귀 NOT TESTED, 복귀 개발 범위 제외. RAW2 A UNTOUCHED/Phase C HARD BLOCKED/--device 거부. NEXT=별도 Draft PR 검토, 새 카드 전 재실험 없음.
+
+### Issue15 B5 제출 링크
+
+- [Draft PR17](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/17), 진단/구현 checkpoint f91bd97. base=보존된 PR13 개발 브랜치, 원본 PR5/13 수정·merge 없음.
+- 단계별 기록: B0 09902b6, B1 9261b59, B2 f439069, B3 22d8a4d, B4 a3bf028, B5 f91bd97. 각 단계 push 및 Issue15 DONE/EVIDENCE/TEST/BLOCKER/NEXT 기록.
+- NEXT=독립 오프라인 패키지 PR 검토. 새 작업 카드 전 완료된 분석/시험 반복 금지, 실기 전환·복귀 개발은 이번 범위 밖. RAW2 A UNTOUCHED / Phase C HARD BLOCKED.
