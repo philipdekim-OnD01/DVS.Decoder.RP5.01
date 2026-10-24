@@ -192,3 +192,9 @@
 - `classify_unsynced.py` actualtrace+독립4B분류/FEcounter 확인. 830개 모두 offset4..5732, 유효X/없는ref·sub·epoch. COLUMN0/FE5736/REF5740/SUB5744/epochCOLUMN5748; 이후unsynced0. dual-vsSDK 다른offset집합과 정확히동일. prefix1073 extra events=ON439+OFF634.
 - Jetson dvs_gaps.py blob08bb043…2636 방법만 권한내검토; source공개/이식0. column-orphan words0와SDKunsynced830은 다른정의. mo0만sample에존재, mo1동치미입증. V4L2/CSI원본경계·prefix물리원인·sensorloss UNKNOWN.
 - 증거 `experiments/event-ab/evidence/p3-unsynced.json`, 실제분류/assertion PASS(macOS). 디코더수정0/RAW2변경0/Phase C HARD BLOCKED. NEXT=P4 관찰hook의 작은합성 split/EOF/미동기상태 표적회귀.
+
+## 2026-10-25 — Issue11 P4 DONE / 합성7건 + timestamp1557쌍
+
+- `test_observer.py` macOS7 PASS: 새hook offset/carry/미동기/EOF, mo1, invalid우선순위. 합성8250B 1/4/4093/1MiB/random 분할 frame/event/unsynced trace동일. 최초예상offset8232오류→8224수정후PASS. 기존8MiB full split/native17 반복안함.
+- 구형adapter ref/sub관찰 추가, dual실제호출1회 및 `compare_timestamps.py`: 완성SDK1557개 timestamp와구형ref*1000+sub동치. 마지막1쌍 EOF incomplete제외, oldeventtrace P2와동일. 최초EventGroup stride8가정FAIL→실제ABI6수정후PASS. productionparser본문변경0.
+- 증거 `p4-observer-tests.json`,`p4-timestamps.json`; nativePi/ASan/live NOT TESTED. RAW2 untouched/Phase C HARD BLOCKED. NEXT=P5 최종보고·재현README·DraftPR·Issue11/PR5 링크인수인계.

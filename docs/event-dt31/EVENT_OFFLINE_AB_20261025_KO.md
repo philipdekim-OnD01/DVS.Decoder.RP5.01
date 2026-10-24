@@ -68,3 +68,20 @@ actual dual-vs-SDK가 다른830 offsets 집합과 실제unsynced830 offsets 집�
 ### UNKNOWN
 
 원본 V4L2 buffer/CSI packet 경계 metadata는 이 rawword sample에 보존되지 않았다. 파일offset0 또는 시험1MiB read경계를 실제DMA/CSI경계로 간주할 수 없다. 모든830건이 파일prefix라는 관찰은 확정이나 **왜 원 녹화가 이 위치부터 시작했는지**, 이전bytes의 존재/센서물리누락은 UNKNOWN이다. 830을 event loss/frame loss 또는 CSI손상으로 부르지 않는다. 입력split 불변성은 이전baseline이 있으며 이번 관찰hook의 최소검증은 다음 P4에서 합성입력으로 수행한다.
+
+## P4 최소 오프라인 regression — 신규 관찰 계측 검증
+
+`test_observer.py --work <private-build> --results p4-observer-tests.json`: macOS7 PASS. 새 trace hook이 보는 offset/state와 carry를 검증하기 위해 **합성8250B** fixture를 사용했다(정확한 길이는 코드 및 input SHA 기준). 기존8MiB full split/native17 suite는 반복하지 않았다.
+
+- 합성 prefix GROUP1개와 FE후COLUMN없는 GROUP1개: unsynced2, 정상2frames/events4(ON2/OFF2), EOF partial2B. 1B/4B/4093B/1MiB/random(seed20261021) 입력에서 frame/event/unsynced trace SHA 동일. 4093/random은 실제로 단어를 가르는 분할이며 1MiB는 작은fixture 전체가 한read에 들어간다는 한계가 있다.
+- 실제sample에는없는 mo1 signed group2를 별도합성으로 확인(y/polarity17ON,8OFF). 이것이 구형dual의 mo1 정답이나 물리좌표 인증을 뜻하지 않는다.
+- timestamp/column 없는 delta0 invalid mask는 invalid1/unsynced0으로 선행오류 분류됨을 확인.
+- 첫 실행은 fixture의 FE후GROUP 예상offset을8232로 잘못 계산해 assertion FAIL. 실제 생성순서의8224로 수정 후7 PASS. production parser 변경은 없다.
+
+### 비교 가능한 센서 시각 필드 보강
+
+구형 replay adapter에 ref/sub stats 관찰만 추가해 dual을 한 번 더 호출했다(기존Decoder 본문 변경 없음). 실제 decoded ref*1000+sub1558쌍 중 완성SDK frame과 대응되는 최초1557쌍이 `SensorFrame.timestamp_us`와 모두 같다. 마지막1쌍은 EOF incomplete로 대응출력없음. 구형DVSEvent의 host ns는 비교대상에서 제외한다. Event trace SHA도 앞 P2와 동일. `compare_timestamps.py`, `p4-timestamps.json` 참조.
+
+이 비교의 최초시도는 출력EventGroup stride를8B로 잘못 가정해 FAIL했다. SDKheader의 실제필드/이ABI상6B로 수정한 뒤 container전체소비/1557 timestamp동치 assertion PASS. SDK의 SensorFrame16B/EventGroup6B ABI에 한정하며 다른 ABI에 이 rawbinarylayout을 일반화하지 않는다.
+
+이번 신규시험은 macOS clang21 file/synthetic뿐이며 Pi native 재검증·ASan·실기수신은 NOT TESTED. baseline17건을 이번시험으로 중복 집계하지 않는다. 신규SDK 파서 결함은 이 관측에서 증명되지 않아 parser 수정없음. RAW2 production UNTOUCHED/Phase C HARD BLOCKED.
