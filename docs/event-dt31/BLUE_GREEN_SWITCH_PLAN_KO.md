@@ -4,7 +4,7 @@
 - 상태: **설계 결정 / 구현·실기 전환 미검증**. `Phase C HARD BLOCKED` 및 `--device PHASE_C_BLOCKED` 유지. 본 문서는 자동 실행 승인이나 복구 성공 근거가 아니다.
 - 현재 작업: [PR #5](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/5), [Issue #7](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/7). [RUNBOOK](./RP5_EVENT_RUNBOOK_KO.md), [RESTORE_PLAN — PR #5](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/blob/codex/rp5-event-phases-20261021/docs/event-dt31/RESTORE_PLAN_KO.md), [PROGRESS](./PROGRESS.md)를 함께 읽는다.
 
-## 2026-10-25 진단 우선순위 (Jetson 교차 검토 반영)
+## 완료된 이전 진단 우선순위 — 기록용 (2026-10-25)
 
 원본 RAW2(A) 보존 및 신규 Event(B) 독립 개발의 방향은 유지하면서 **먼저 [Pi Issue #1](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/1)의 RAW2 971/976 호스트 마커와 미검증 센서 프레임 경계를 읽기 전용으로 정리**한다. 검증된 Jetson 교훈은 버퍼 즉시 반환·센서 카운터와 호스트 sequence 구분·레지스터 readback 기록 방법이다. 공통 원인/통일 패치가 입증된 것은 아니다.
 
