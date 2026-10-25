@@ -10,11 +10,18 @@
 
 Codex 작업 기준: [독립 작업 지시](./CODEX_PI_FIRST_DEBUG_20261025_KO.md) / [전체 기술 교차 검토](./CROSS_PLATFORM_REVIEW_20261025_KO.md). RAW2 실기 전환이나 기존 복구 차단 해제를 의미하지 않는다.
 
-## 2026-10-25 현재 실행 우선순위 정정
+## 완료된 오프라인 Event B 우선순위 — 기록용 (2026-10-25)
 
-- **다음 Codex 작업: [Issue #15](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/15)**. 현재 RAW2(A)를 계속 가동하고 기존 코드를 변경하지 않으면서 Event(B)를 별도 빌드·파일 재생·Mock·Viewer로 완성한다. 아래 §5의 '복구 기능 확장보다 새 프로그램 완성' 원칙이 우선이다.
+- **완료된 이전 Codex 작업: [Issue #15](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/15)**. 현재 RAW2(A)를 계속 가동하고 기존 코드를 변경하지 않으면서 Event(B)를 별도 빌드·파일 재생·Mock·Viewer로 완성했다. 아래 §5의 '복구 기능 확장보다 새 프로그램 완성' 원칙이 우선이다.
 - Pi RAW2 [Issue #1](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/1)은 한정 증거 감사 뒤 UNKNOWN/STOP. Event [Issue #11](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/11)은 저장 8MiB 입력 오프라인 비교 P0–P5 완료 ([PR #13](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/13), 미병합 Draft). 기존 분석을 다시 우선 수행하지 않는다.
 - **현재 오프라인 B 개발에는 복귀 구현이 필요 없다.** 동일 센서/CSI 하드웨어를 A와 B가 공유하는 상황에서 **장차 라이브 전환**을 시도할 경우에는 복귀 능력의 입증이 별도 필수다. 그러한 하드웨어 전환은 계속 [Issue #7](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/7) 차단 조건에 묶이고 **Phase C HARD BLOCKED** 및 `--device PHASE_C_BLOCKED`을 유지한다. 새 승인 없는 실기 작업 금지.
+
+## 2026-10-25 최신 활성 작업 — 선풍기 반복성 관측 준비
+
+- **다음 작업:** [Issue #19](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/19) 및 [Codex 선풍기 작업지시서](./CODEX_FAN_REPEATABILITY_20261025_KO.md). 준비된 선풍기를 기존 손가락 대신 안정적으로 반복 가능한 회전 타깃으로 사용한다.
+- 소프트웨어 [Issue #15](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/15) B0–B5는 저장 파일·Mock 범위에서 완료, [PR #17](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/17)은 Draft 상태. 이전 결과는 선풍기 라이브 수신 근거가 아니며, 기존 테스트를 반복하지 않는다.
+- 먼저 사용 가능한 실제 **Event B 전용 센서·CSI 하드웨어의 운영 A와 물리적 분리 여부**를 확인하고, 선풍기 OFF/LOW/HIGH 측정 프로토콜과 파일 기반 계측기만 준비한다. 팬 자체만 준비되어 있고 독립된 하드웨어는 확인되지 않았다. 센서 실기 Event DT0x31 테스트는 별도 장비/권한/승인 필요, 공용 기존 RP5에서는 Issue #7 복귀 검증 전까지 금지한다.
+- 기존 RAW2 A 변경 없음. **Phase C HARD BLOCKED / --device PHASE_C_BLOCKED** 유지.
 
 ## 1. 가장 중요한 원칙
 
