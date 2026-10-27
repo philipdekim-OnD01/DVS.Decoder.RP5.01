@@ -252,3 +252,12 @@
 - [Draft PR17](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/pull/17), 진단/구현 checkpoint f91bd97. base=보존된 PR13 개발 브랜치, 원본 PR5/13 수정·merge 없음.
 - 단계별 기록: B0 09902b6, B1 9261b59, B2 f439069, B3 22d8a4d, B4 a3bf028, B5 f91bd97. 각 단계 push 및 Issue15 DONE/EVIDENCE/TEST/BLOCKER/NEXT 기록.
 - NEXT=독립 오프라인 패키지 PR 검토. 새 작업 카드 전 완료된 분석/시험 반복 금지, 실기 전환·복귀 개발은 이번 범위 밖. RAW2 A UNTOUCHED / Phase C HARD BLOCKED.
+
+## 2026-10-27 — 사용자 요청에 따른 별도 Event 통합 구성
+
+- 사용자는 기존 소스를 Git에 보존하고 센서 Event 출력·드라이버·민수 디코더를 재사용하는 새 구성을 요청했다. clean source `4d832730f8c34a21ad38f14eb0d6840e8af9c7e5`에 `codex/before-event-integration-20261027` 태그, 별도 `codex/event-sensor-integration-20261027` worktree를 생성했다. 센서의 현재 상태를 Git으로 백업했다고 주장하지 않는다.
+- `event-integration/`에 stage/build wrapper, DT49 profile과 좁은 packaging 시험을 추가했다. 기존 driver/decoder/adapter/Viewer/production 파일 수정0. 새 parser나 capture backend를 재구현하지 않았다.
+- Mac Python3.12로 새 테스트10건 PASS, source staging 완료. SDK 준비 실패 기록과 kernel mismatch 거부를 별도 reviewer 지적 후 보완, 정적 재검토 ACCEPT. 기존17/22/33 suites 및 RAW 샘플 재생 없음.
+- Pi kernel `6.12.47+rpt-rpi-2712`에서 공개 driver C/Makefile만 별도 `/tmp/dvs-event-integration-20261027.Av67zU`로 전달하고 `nice -n 10 make -j1 -C /lib/modules/6.12.47+rpt-rpi-2712/build M=/tmp/dvs-event-integration-20261027.Av67zU modules` 실행 성공. 모듈 hash/vermagic/원본 source/빌드로그는 `event-integration/evidence/rp5-driver-build-20261027.json`. 이는 wrapper 전체 SDK/engine 빌드가 아니다.
+- `modinfo`가 비대화형 PATH에 없어 메타데이터 수집이 처음 실패했다. 발견한 절대경로로 기록만 재수집했고 컴파일은 반복하지 않았다. RAW2 전후 active/running/PID1715/NRestarts0 유지. 모듈 설치·로드, 센서/서비스 전환0. 영상/CSI 검증은 하지 않았다.
+- SDK blocker: 과거 Pi SDK는 없고 Mac의 과거 SDK 폴더에는 필요한 source 파일이 없다. 전체 SDK/engine integration build NOT RUN. NEXT=현재 승인된 민수 SDK 원본 위치 확인과 이전6개 source hash 대조. RAW2 A UNTOUCHED / Phase C HARD BLOCKED.

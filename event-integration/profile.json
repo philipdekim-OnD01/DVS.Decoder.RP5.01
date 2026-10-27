@@ -1,0 +1,8 @@
+{
+  "name": "S5KRC1S Event integration candidate",
+  "receiver_dt": 49,
+  "sensor_tx_setfile_sha256": null,
+  "transport": null,
+  "kernel_release": null,
+  "notes": "Unfilled fields are UNKNOWN. Receiver DT does not configure sensor TX."
+}

@@ -4,6 +4,14 @@
 
 ## ACTIVE NEXT TASK — Issue #15: build independent Event B first (2026-10-25)
 
+### 2026-10-27 separate integration branch checkpoint
+
+The user requested preserving the existing code in Git and building a new Event sensor/driver configuration that reuses Minsu's decoder. On `codex/event-sensor-integration-20261027`, existing clean source `4d832730f8c34a21ad38f14eb0d6840e8af9c7e5` is retained under tag `codex/before-event-integration-20261027`; work is isolated from the original checkout. This is a source snapshot, not a snapshot of current sensor/production state.
+
+New work lives in `event-integration/`: standalone staging/build wrapper and profile, reusing existing sensor driver, V4L2 adapter, private SDK preparation and engine without modifying those sources. Driver-only native compilation against current Pi kernel succeeded; module was not installed or loaded. SDK/engine integration build is NOT RUN because previous SDK source files are unavailable. See `event-integration/README_KO.md` and evidence for exact scope.
+
+NEXT: locate the authorized original Minsu SDK and match its hashes to prior build evidence before the isolated integration build. Do not repeat completed decoder/sample suites. This code-development request does not clear RAW2 A/Phase C hardware holds, authorize production changes, or merge the existing PR stack.
+
 - **User priority / one work card:** [Issue #15 — preserve production RAW2(A), finish independent Event(B)](https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/issues/15). Execute B0–B5 in order with file/mock only, based on existing Event PR #5 and bounded diagnostic PR #13. Reuse working components; don't create another general-purpose restore application. Read Issue #15 body and latest checkpoint after every session reset.
 - **Completed work:** Pi RAW2 Issue #1 / PR #10 remains UNKNOWN/STOP; Event Issue #11 P0–P5 / PR #13 established 830 prefix unsynced GROUP words before ref/sub/epoch and 1,073 legacy dual-only event difference for the bounded 8MiB replay. Preserve the original evidence without redoing those analyses or automatically merging PRs.
 - **Resume protocol:** read AGENTS, Issue #15 latest body/comments, Blue-Green plan §5, PR #5/#13 relevant files/tests, `PROGRESS.md`, then active branch/HEAD/`git status`; pick only the next unfinished B task. After each meaningful B step, append host/real commands/hash/test results/NOT TESTED/blockers/one NEXT to `PROGRESS.md` on the feature branch, commit/push, and comment `DONE/EVIDENCE/TEST/BLOCKER/NEXT` on Issue #15.
