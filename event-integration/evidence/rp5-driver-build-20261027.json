@@ -1,0 +1,39 @@
+{
+  "observed_at_utc": "2026-10-27T00:05:50.888129+00:00",
+  "host_machine": "aarch64",
+  "kernel_release": "6.12.47+rpt-rpi-2712",
+  "command": [
+    "nice",
+    "-n",
+    "10",
+    "make",
+    "-j1",
+    "-C",
+    "/lib/modules/6.12.47+rpt-rpi-2712/build",
+    "M=/tmp/dvs-event-integration-20261027.Av67zU",
+    "modules"
+  ],
+  "source_sha256": {
+    "s5krc1s_min.c": "2d4bac19806d4e84d1bbdd81f69068296c01c83c09a39323e1588c735a2bcae9",
+    "Makefile": "d399f216925f4696162c16b01251fc9e34dd5b4c3400f2412945469c9ed9ce08"
+  },
+  "compile_returncode": 0,
+  "compile_returncode_evidence": "prior command reached post-success modinfo branch; build was not repeated",
+  "initial_metadata_failure": "modinfo absent from non-interactive PATH; retried using discovered absolute path",
+  "module_sha256": "474d02b06165804310e91ee16dca70de691664f1b806783e3f4eda2dd6584153",
+  "vermagic": "6.12.47+rpt-rpi-2712 SMP preempt mod_unload modversions aarch64",
+  "build_log_sha256": "544f3ce9cd7e4029738362570c7147e9877aa8124dcfd46172583e77cba7d130",
+  "build_log": "make: Entering directory '/usr/src/linux-headers-6.12.47+rpt-rpi-2712'\n  CC [M]  /tmp/dvs-event-integration-20261027.Av67zU/s5krc1s_min.o\n  MODPOST /tmp/dvs-event-integration-20261027.Av67zU/Module.symvers\n  CC [M]  /tmp/dvs-event-integration-20261027.Av67zU/s5krc1s_min.mod.o\n  CC [M]  /tmp/dvs-event-integration-20261027.Av67zU/.module-common.o\n  LD [M]  /tmp/dvs-event-integration-20261027.Av67zU/s5krc1s_min.ko\nmake: Leaving directory '/usr/src/linux-headers-6.12.47+rpt-rpi-2712'\n",
+  "raw2_before": {
+    "MainPID": "1715",
+    "NRestarts": "0",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "raw2_after": "MainPID=1715\nNRestarts=0\nActiveState=active\nSubState=running\n",
+  "installed": false,
+  "loaded": false,
+  "sensor_tx_changed": false,
+  "phase_c": "HARD BLOCKED",
+  "sdk_engine_build": "NOT RUN: SDK missing"
+}
